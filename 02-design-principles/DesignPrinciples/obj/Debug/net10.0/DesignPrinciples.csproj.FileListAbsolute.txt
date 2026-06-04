@@ -1,0 +1,14 @@
+E:\.NET\Design Principles\code\DesignPrinciples\bin\Debug\net10.0\DesignPrinciples.exe
+E:\.NET\Design Principles\code\DesignPrinciples\bin\Debug\net10.0\DesignPrinciples.deps.json
+E:\.NET\Design Principles\code\DesignPrinciples\bin\Debug\net10.0\DesignPrinciples.runtimeconfig.json
+E:\.NET\Design Principles\code\DesignPrinciples\bin\Debug\net10.0\DesignPrinciples.dll
+E:\.NET\Design Principles\code\DesignPrinciples\bin\Debug\net10.0\DesignPrinciples.pdb
+E:\.NET\Design Principles\code\DesignPrinciples\obj\Debug\net10.0\DesignPrinciples.GeneratedMSBuildEditorConfig.editorconfig
+E:\.NET\Design Principles\code\DesignPrinciples\obj\Debug\net10.0\DesignPrinciples.AssemblyInfoInputs.cache
+E:\.NET\Design Principles\code\DesignPrinciples\obj\Debug\net10.0\DesignPrinciples.AssemblyInfo.cs
+E:\.NET\Design Principles\code\DesignPrinciples\obj\Debug\net10.0\DesignPrinciples.csproj.CoreCompileInputs.cache
+E:\.NET\Design Principles\code\DesignPrinciples\obj\Debug\net10.0\DesignPrinciples.dll
+E:\.NET\Design Principles\code\DesignPrinciples\obj\Debug\net10.0\refint\DesignPrinciples.dll
+E:\.NET\Design Principles\code\DesignPrinciples\obj\Debug\net10.0\DesignPrinciples.pdb
+E:\.NET\Design Principles\code\DesignPrinciples\obj\Debug\net10.0\DesignPrinciples.genruntimeconfig.cache
+E:\.NET\Design Principles\code\DesignPrinciples\obj\Debug\net10.0\ref\DesignPrinciples.dll
