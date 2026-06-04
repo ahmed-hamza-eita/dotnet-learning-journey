@@ -9,9 +9,7 @@ cat > README.md << 'README'
 ## ✅ What I've Learned So Far
 
 ### C#
-
 ### OOP
-
 ### Design Principles
 
 ---
