@@ -8,9 +8,9 @@ cat > README.md << 'README'
 
 ## ✅ What I've Learned So Far
 
-### C#
-### OOP
-### Design Principles
+### [C#](./C-sharp)
+### [OOP](./C-sharp/OOP)
+### [Design Principles](./design-principles)
 
 ---
 
@@ -19,3 +19,7 @@ cat > README.md << 'README'
 ![C#](https://img.shields.io/badge/C%23-239120?style=flat&logo=csharp&logoColor=white)
 ![.NET](https://img.shields.io/badge/.NET-512BD4?style=flat&logo=dotnet&logoColor=white)
 README
+
+git add .
+git commit -m "docs: add folder links to README"
+git push
