@@ -11,6 +11,7 @@ cat > README.md << 'README'
 ### [C#](./C-sharp)
 ### [OOP](./C-sharp/OOP)
 ### [Design Principles](./design-principles)
+### [SQL](./SQL)
 
 ---
 
