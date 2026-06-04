@@ -1,4 +1,3 @@
-```bash
 cat > README.md << 'README'
 # .NET Learning Journey 🚀
 
