@@ -34,6 +34,9 @@ Email varchar(100)  not null,
 Primary Key(Id)
 )
 
+--Edit datatype of exists col
+Alter Table pm.Managers
+Alter column Name varchar(100) null
  
 
 --Add Unique Constraint
@@ -48,6 +51,9 @@ Title varchar(50) not null,
 ManagerId INT NOT NULL REFERENCES pm.Managers(Id) --FOREIGN KEY (ManagerId) REFERENCES pm.Manager(Id)
 );
 
+--Add new column
+Alter TABLE pm.Projects
+Add Parked int null
 
 
 --Edit Column Name
@@ -68,7 +74,7 @@ PRJNO INT NOT NULL REFERENCES pm.Projects(PRJNO),
 Id INT NOT NULL REFERENCES pm.Technology(Id),
 PRIMARY KEY(PRJNO,Id)
 )
-
+EXEC sp_rename 'pm.ProjectTechnology.Id','TechnologyId','Column' 
  
 
 --Add Column in Exist Table
@@ -84,8 +90,8 @@ ALTER TABLE PM.Projects
 Alter Column Title varchar(100) not null
 
 --Remove column
-ALTER TABLE PM.Projects
-DROP Column Title
+ALTER TABLE TableNAme
+DROP Column columnNAme
 
 --Remove Table
 DROP TABLE tableName;
@@ -109,6 +115,13 @@ DROP TABLE pm.Compaines;
 
 -- 4. Rename new table
 EXEC sp_rename 'pm.Companies_New', 'Compaines';
+
+
+
+
+Alter Table pm.Projects
+Add StartDate DATETIME2 not null   
+
 
 
 
