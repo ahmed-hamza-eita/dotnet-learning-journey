@@ -1,0 +1,54 @@
+-- Backup DB
+BACKUP DATABASE DBFG
+TO DISK ='C:\Program Files\Microsoft SQL Server\MSSQL17.MSSQLSERVER\MSSQL\DATA\New folder\DBFG_01.bak'
+WITH NOINIT,
+NAME = 'DBFG_01', --Backup Name
+DESCRIPTION = 'Version 1.0.0'
+
+
+--Backup log file
+BACKUP LOG DBFG
+TO DISK ='C:\Program Files\Microsoft SQL Server\MSSQL17.MSSQLSERVER\MSSQL\DATA\New folder\DBFG_log_01.bak'
+WITH NOINIT,
+NAME = 'DBFG_log_01',
+DESCRIPTION = 'Version 1.0.0'
+
+--show available bak
+RESTORE HEADERONLY FROM DISK ='C:\Program Files\Microsoft SQL Server\MSSQL17.MSSQLSERVER\MSSQL\DATA\New folder\DBFG_01.bak'
+RESTORE FILELISTONLY FROM DISK ='C:\Program Files\Microsoft SQL Server\MSSQL17.MSSQLSERVER\MSSQL\DATA\New folder\DBFG_01.bak'
+
+
+
+--Restore --
+USE master
+CREATE DATABASE [DBFG TEST]
+ON PRIMARY
+(
+	NAME ='DBFG_Restore',
+	FILENAME='C:\Program Files\Microsoft SQL Server\MSSQL17.MSSQLSERVER\MSSQL\DATA\New folder\DBFG_TEST.mdf'
+)
+LOG ON(
+	NAME ='DBFG_Restore_LOG',
+	FILENAME='C:\Program Files\Microsoft SQL Server\MSSQL17.MSSQLSERVER\MSSQL\DATA\New folder\DBFG_TEST_LOG.log'
+)
+
+RESTORE DATABASE [DBFG TEST]
+FROM DISK = 'C:\Program Files\Microsoft SQL Server\MSSQL17.MSSQLSERVER\MSSQL\DATA\New folder\DBFG_01.bak'
+WITH
+REPLACE,
+MOVE 'DBFG' TO 'C:\Program Files\Microsoft SQL Server\MSSQL17.MSSQLSERVER\MSSQL\DATA\New folder\DBFG_TEST.mdf',
+MOVE 'DBFG_1' TO 'C:\Program Files\Microsoft SQL Server\MSSQL17.MSSQLSERVER\MSSQL\DATA\New folder\DBFG_1_TEST.ndf',
+MOVE 'DBFG_TEST' TO 'C:\Program Files\Microsoft SQL Server\MSSQL17.MSSQLSERVER\MSSQL\DATA\New folder\DBFG_TEST2.ndf',
+MOVE 'DBFG_log' TO 'C:\Program Files\Microsoft SQL Server\MSSQL17.MSSQLSERVER\MSSQL\DATA\New folder\DBFG_TEST_LOG.ldf',
+NORECOVERY
+
+--then excute ...
+RESTORE DATABASE [DBFG TEST] WITH RECOVERY
+
+
+
+/*
+USE master
+ALTER DATABASE [DBFG TEST] SET SINGLE_USER WITH ROLLBACK IMMEDIATE
+DROP DATABASE [DBFG TEST]
+*/
