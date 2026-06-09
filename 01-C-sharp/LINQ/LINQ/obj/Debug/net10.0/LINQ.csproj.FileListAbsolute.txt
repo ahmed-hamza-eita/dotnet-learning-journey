@@ -1,0 +1,15 @@
+E:\.NET\dotnet-learning-journey\dotnet-learning-journey\01-C-sharp\LINQ\linq\bin\Debug\net10.0\LINQ.exe
+E:\.NET\dotnet-learning-journey\dotnet-learning-journey\01-C-sharp\LINQ\linq\bin\Debug\net10.0\LINQ.deps.json
+E:\.NET\dotnet-learning-journey\dotnet-learning-journey\01-C-sharp\LINQ\linq\bin\Debug\net10.0\LINQ.runtimeconfig.json
+E:\.NET\dotnet-learning-journey\dotnet-learning-journey\01-C-sharp\LINQ\linq\bin\Debug\net10.0\LINQ.dll
+E:\.NET\dotnet-learning-journey\dotnet-learning-journey\01-C-sharp\LINQ\linq\bin\Debug\net10.0\LINQ.pdb
+E:\.NET\dotnet-learning-journey\dotnet-learning-journey\01-C-sharp\LINQ\linq\obj\Debug\net10.0\LINQ.GeneratedMSBuildEditorConfig.editorconfig
+E:\.NET\dotnet-learning-journey\dotnet-learning-journey\01-C-sharp\LINQ\linq\obj\Debug\net10.0\LINQ.AssemblyInfoInputs.cache
+E:\.NET\dotnet-learning-journey\dotnet-learning-journey\01-C-sharp\LINQ\linq\obj\Debug\net10.0\LINQ.AssemblyInfo.cs
+E:\.NET\dotnet-learning-journey\dotnet-learning-journey\01-C-sharp\LINQ\linq\obj\Debug\net10.0\LINQ.csproj.CoreCompileInputs.cache
+E:\.NET\dotnet-learning-journey\dotnet-learning-journey\01-C-sharp\LINQ\linq\obj\Debug\net10.0\LINQ.sourcelink.json
+E:\.NET\dotnet-learning-journey\dotnet-learning-journey\01-C-sharp\LINQ\linq\obj\Debug\net10.0\LINQ.dll
+E:\.NET\dotnet-learning-journey\dotnet-learning-journey\01-C-sharp\LINQ\linq\obj\Debug\net10.0\refint\LINQ.dll
+E:\.NET\dotnet-learning-journey\dotnet-learning-journey\01-C-sharp\LINQ\linq\obj\Debug\net10.0\LINQ.pdb
+E:\.NET\dotnet-learning-journey\dotnet-learning-journey\01-C-sharp\LINQ\linq\obj\Debug\net10.0\LINQ.genruntimeconfig.cache
+E:\.NET\dotnet-learning-journey\dotnet-learning-journey\01-C-sharp\LINQ\linq\obj\Debug\net10.0\ref\LINQ.dll
