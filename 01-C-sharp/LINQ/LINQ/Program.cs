@@ -1,4 +1,5 @@
 ﻿#region Pure and Impure 
+/*
 PureAndImpureFunctions p = new PureAndImpureFunctions();
 //pure 
 Console.WriteLine(p.Add(2, 3)); // always 5
@@ -15,5 +16,22 @@ Console.WriteLine(num);                  // 11 - original value changed
 // Impure 3
 Console.WriteLine(p.GetRandom()); // different every time
 Console.WriteLine(p.GetRandom()); // different every time
+*/
+#endregion
+
+#region Delegates
+
+//DelegatesReview.M2(DelegatesReview.M1);
 
 #endregion
+
+#region  Procedural approach and Functional approach
+//With Procedural approach
+ExtnensionProcedural.RunExtensionProcedural();
+
+//with Functional approach
+ExtensionFunctional.RunExtensionFunctional();
+#endregion
+
+
+
