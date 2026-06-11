@@ -33,6 +33,21 @@ ExtnensionProcedural.RunExtensionProcedural();
 ExtensionFunctional.RunExtensionFunctional();
 
 
+//Book Exapmle
+//================================
+// Procedural - method for each filter
+// ================================
+BookProcedural.Print(BookProcedural.GetAvailableProgrammingBooks(), "Available Programming Books");
+BookProcedural.Print(BookProcedural.GetAffordableBooksSorted(), "Affordable Books (Price < 300)");
+
+
+// ================================
+// Functional - one method for all filters
+// ================================
+var books=BookRepository.LoadBooks();
+BookFunctional.Filter(books,(b=>b.Genre == "Programming" && b.IsAvailable)).Print("Available Programming Books");
+BookFunctional.Filter(books,(b=>b.Price <300)).Print("Affordable Books (Price < 300)");
+
 #endregion
 
 
