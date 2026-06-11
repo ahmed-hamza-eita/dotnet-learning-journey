@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\.NET\\dotnet-learning-journey\\dotnet-learning-journey\\01-C-sharp\\LINQ\\linq\\LINQ.csproj": {}
+    "E:\\.NET\\dotnet-learning-journey\\dotnet-learning-journey\\01-C-sharp\\LINQ\\LINQ\\LINQ.csproj": {}
   },
   "projects": {
-    "E:\\.NET\\dotnet-learning-journey\\dotnet-learning-journey\\01-C-sharp\\LINQ\\linq\\LINQ.csproj": {
+    "E:\\.NET\\dotnet-learning-journey\\dotnet-learning-journey\\01-C-sharp\\LINQ\\LINQ\\LINQ.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\.NET\\dotnet-learning-journey\\dotnet-learning-journey\\01-C-sharp\\LINQ\\linq\\LINQ.csproj",
+        "projectUniqueName": "E:\\.NET\\dotnet-learning-journey\\dotnet-learning-journey\\01-C-sharp\\LINQ\\LINQ\\LINQ.csproj",
         "projectName": "LINQ",
-        "projectPath": "E:\\.NET\\dotnet-learning-journey\\dotnet-learning-journey\\01-C-sharp\\LINQ\\linq\\LINQ.csproj",
+        "projectPath": "E:\\.NET\\dotnet-learning-journey\\dotnet-learning-journey\\01-C-sharp\\LINQ\\LINQ\\LINQ.csproj",
         "packagesPath": "C:\\Users\\aheit\\.nuget\\packages\\",
-        "outputPath": "E:\\.NET\\dotnet-learning-journey\\dotnet-learning-journey\\01-C-sharp\\LINQ\\linq\\obj\\",
+        "outputPath": "E:\\.NET\\dotnet-learning-journey\\dotnet-learning-journey\\01-C-sharp\\LINQ\\LINQ\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

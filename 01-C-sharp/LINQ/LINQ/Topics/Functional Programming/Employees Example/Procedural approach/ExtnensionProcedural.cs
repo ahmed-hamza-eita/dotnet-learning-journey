@@ -2,7 +2,7 @@ public static class ExtnensionProcedural
 {
     public static IEnumerable<Employee> GetEmployeesWithFirstNameStartsWith(string value)
     {
-        var employees = Repository.LoadEmployees();
+        var employees = EmployeeRepository.LoadEmployees();
         foreach (var employee in employees)
         {
             if (employee.FirstName.ToLowerInvariant().StartsWith(value.ToLowerInvariant()))
@@ -15,7 +15,7 @@ public static class ExtnensionProcedural
 
     public static IEnumerable<Employee> GetEmployeesWithFirstNameEndsWith(string value)
     {
-        var employees = Repository.LoadEmployees();
+        var employees = EmployeeRepository.LoadEmployees();
         foreach (var employee in employees)
         {
             if (employee.FirstName.ToLowerInvariant().EndsWith(value.ToLowerInvariant()))
@@ -27,7 +27,7 @@ public static class ExtnensionProcedural
 
     public static IEnumerable<Employee> GetEmployeesWithLastNameStartsWith(string value)
     {
-        var employees = Repository.LoadEmployees();
+        var employees = EmployeeRepository.LoadEmployees();
         foreach (var employee in employees)
         {
             if (employee.LastName.ToLowerInvariant().StartsWith(value.ToLowerInvariant()))
