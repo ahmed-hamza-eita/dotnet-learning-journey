@@ -1,4 +1,5 @@
-﻿#region Pure and Impure 
+﻿using System.Linq;
+#region Pure and Impure 
 /*
 PureAndImpureFunctions p = new PureAndImpureFunctions();
 //pure 
@@ -48,6 +49,11 @@ var books=BookRepository.LoadBooks();
 BookFunctional.Filter(books,(b=>b.Genre == "Programming" && b.IsAvailable)).Print("Available Programming Books");
 BookFunctional.Filter(books,(b=>b.Price <300)).Print("Affordable Books (Price < 300)");
 
+//using Linq
+var GetAvailableProgrammingBooks = books.Where(
+    b=>b.Genre=="Programming" && b.IsAvailable
+);
+BookFunctional.Print(GetAvailableProgrammingBooks,"Available Programming Books");
 #endregion
 
 
