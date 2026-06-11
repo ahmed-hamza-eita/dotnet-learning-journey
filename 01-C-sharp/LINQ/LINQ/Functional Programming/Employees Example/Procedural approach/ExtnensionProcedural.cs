@@ -38,7 +38,7 @@ public static class ExtnensionProcedural
     }
     public static IEnumerable<Employee> GetEmployeesWithSalaryLessThan(decimal value)
     {
-        var employees = Repository.LoadEmployees();
+        var employees = EmployeeRepository.LoadEmployees();
         foreach (var employee in employees)
         {
             if (employee.Salary < value)

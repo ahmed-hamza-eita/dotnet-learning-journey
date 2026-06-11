@@ -1,6 +1,6 @@
 
 //fake data
-public static class Repository
+public static class EmployeeRepository
 {
         public static IEnumerable<Employee> LoadEmployees()
         {

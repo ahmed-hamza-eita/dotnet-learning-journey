@@ -30,7 +30,7 @@ public static class ExtensionFunctional
 
     public static void RunExtensionFunctional()
     {
-        var list = Repository.LoadEmployees();
+        var list = EmployeeRepository.LoadEmployees();
 
         var q1 = ExtensionFunctional.Filter(list, emp => emp.FirstName.ToLowerInvariant() == "ma");
         q1.Print("");
