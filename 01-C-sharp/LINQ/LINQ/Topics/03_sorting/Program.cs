@@ -12,7 +12,8 @@ fruits.OrderByDescending(f => f.Length).Print("DESC Order");
 var employees = Repository.LoadEmployees();
 employees.OrderBy(emp => emp, new EmployeeComparer()).Print("Employee Comparer");
 
-
+//then 
+employees.OrderBy(e=>e.Id).ThenBy(e=>e.Email).Print("Employees Sorted by Dept then Salary");
 
 //Reverse order 
 fruits.ToArray().Reverse().Print("Reverse Order");
