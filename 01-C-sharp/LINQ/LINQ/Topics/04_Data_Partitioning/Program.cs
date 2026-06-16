@@ -25,5 +25,25 @@ employees.Chunk(2) //Splits the collection into smaller groups .
 .Select((chunk, index) => new { Group = chunk, Index = index }) // chunk → the current group, index → the group's position (starting from 0).
 .ToList() // Converts the result from an IEnumerable<T> into a List<T>.
 .ForEach(c => c.Group.Print($"Group {c.Index + 1}")); // is available on List<T> but not on IEnumerable<T>.
- 
+
 #endregion
+
+#region pagination
+int page = 1, size = 10;
+Console.WriteLine("Result per page... ");
+if (int.TryParse(Console.ReadLine(), out int resultPerPage))
+{
+    size = resultPerPage;
+}
+Console.WriteLine("Page NO... ");
+if (int.TryParse(Console.ReadLine(), out int pageNo))
+{
+    page = pageNo;
+}
+var result = employees.Paginate(page, size);
+Console.WriteLine($"Data {result.Data}");
+Console.WriteLine($"Total Pages {result.TotalPages}");
+#endregion
+
+
+
