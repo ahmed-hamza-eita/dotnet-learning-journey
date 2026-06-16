@@ -1,17 +1,37 @@
 public class Employee
 {
-    public int Index { get; set; }
-    public string EmployeeNo { get; set; }
+    public Employee() { }
+    public int Id { get; set; }
 
-    public string Name { get; set; }
+    public string FirstName { get; set; }
 
-    public string Email { get; set; }
+    public string LastName { get; set; }
+
+    public DateTime HireDate { get; set; }
+
+    public string Gender { get; set; }
+
+    public string Department { get; set; }
+
+    public bool HasHealthInsurance { get; set; }
+
+    public bool HasPensionPlan { get; set; }
+
     public decimal Salary { get; set; }
-
-    public List<string> Skills { get; set; } = new List<string>();
 
     public override string ToString()
     {
-        return $"{Index} - {Name} (Salary: {Salary:C}) - {Email}";
+        return
+                string.Format($"" +
+                $"{Id}\t" +
+                $" {String.Concat(LastName, ", ", FirstName).PadRight(15, ' ')}\t" +
+                $"{HireDate.Date.ToShortDateString()}\t" +
+                $"{Gender.PadRight(10, ' ')}\t" +
+                $"{Department.PadRight(10, ' ')}\t" +
+                $"{HasHealthInsurance}\t" +
+                $"{HasPensionPlan}\t" +
+                $"${Salary.ToString("0.00")}");
     }
 }
+
+    

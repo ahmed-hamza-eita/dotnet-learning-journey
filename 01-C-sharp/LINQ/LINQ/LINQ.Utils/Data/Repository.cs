@@ -1,55 +1,104 @@
-
 public static class Repository
 {
-
-        public static IEnumerable<Employee> LoadEmployees()
-        {
-                return new List<Employee>
+     public static IEnumerable<Employee> LoadEmployees()
+     {
+          return new List<Employee>
             {
                 new Employee
                 {
-                     Index = 1,
-                     EmployeeNo = "2017-FI-8516",
-                     Name = "Cochran Cole",
-                     Email = "Cole.Cochran@example.com",
-                     Salary = 103200,
-                     Skills = new() {"Javascript" , "NodeJS"  }
+                        Id = 1001,
+                        FirstName = "Cochran",
+                        LastName = "Cole",
+                        HireDate = new DateTime(2017, 11, 2),
+                        Gender = "male",
+                        Department = "FINANCE",
+                        HasHealthInsurance = false,
+                        HasPensionPlan = true,
+                        Salary = 103200m
                 },
                 new Employee
                 {
-                     Index = 2,
-                     EmployeeNo = "2018-FI-4815",
-                     Name = "Jaclyn Wolfe",
-                     Email = "Wolfe.Jaclyn@example.com",
-                     Salary = 192400,
-                     Skills = new() {"C++" , "Javascript" , "Oracle"  }
+                        Id = 1002,
+                        FirstName = "Jaclyn",
+                        LastName = "Wolfe",
+                        HireDate = new DateTime(2018, 4, 14),
+                        Gender = "female",
+                        Department = "FINANCE",
+                        HasHealthInsurance = true,
+                        HasPensionPlan = false,
+                        Salary = 192400m
                 },
                 new Employee
                 {
-                     Index = 3,
-                     EmployeeNo = "2016-IT-1329",
-                     Name = "Warner Jones",
-                     Email = "Jones.Warner@example.com",
-                     Salary = 172800,
-                     Skills = new() {"NodeJS" , "C++"  }
+                        Id = 1003,
+                        FirstName = "Warner",
+                        LastName = "Jones",
+                        HireDate = new DateTime(2016, 12, 13),
+                        Gender = "male",
+                        Department = "IT",
+                        HasHealthInsurance = false,
+                        HasPensionPlan = false,
+                        Salary = 172800m
                 },
                 new Employee
                 {
-                     Index = 4,
-                     EmployeeNo = "2016-FI-8336",
-                     Name = "Hester Evans",
-                     Email = "Evans.Hester@example.com",
-                     Salary = 155500,
-                     Skills = new() {"C++" , "SQL Server"  }
+                        Id = 1004,
+                        FirstName = "Hester",
+                        LastName = "Evans",
+                        HireDate = new DateTime(2016, 8, 17),
+                        Gender = "male",
+                        Department = "FINANCE",
+                        HasHealthInsurance = true,
+                        HasPensionPlan = true,
+                        Salary = 155500m
                 },
                 new Employee
                 {
-                     Index = 5,
-                     EmployeeNo = "2014-IT-3129",
-                     Name = "Wallace Buck",
-                     Email = "Buck.Wallace@example.com",
-                     Salary = 315800,
-                     Skills = new() {"HTML" , "ASP.NET" , "NodeJS"  }
+                        Id = 1005,
+                        FirstName = "Wallace",
+                        LastName = "Buck",
+                        HireDate = new DateTime(2014, 5, 12),
+                        Gender = "male",
+                        Department = "IT",
+                        HasHealthInsurance = true,
+                        HasPensionPlan = false,
+                        Salary = 315800m
+                },
+                new Employee
+                {
+                        Id = 1006,
+                        FirstName = "Acevedo",
+                        LastName = "Wall",
+                        HireDate = new DateTime(2020, 10, 30),
+                        Gender = "male",
+                        Department = "IT",
+                        HasHealthInsurance = true,
+                        HasPensionPlan = false,
+                        Salary = 343700m
+                },
+                new Employee
+                {
+                        Id = 1007,
+                        FirstName = "Jacqueline",
+                        LastName = "Pickett",
+                        HireDate = new DateTime(2021, 2, 17),
+                        Gender = "female",
+                        Department = "IT",
+                        HasHealthInsurance = false,
+                        HasPensionPlan = false,
+                        Salary = 370000m
+                },
+                new Employee
+                {
+                        Id = 1008,
+                        FirstName = "Oconnor",
+                        LastName = "Espinoza",
+                        HireDate = new DateTime(2017, 3, 12),
+                        Gender = "male",
+                        Department = "HR",
+                        HasHealthInsurance = true,
+                        HasPensionPlan = false,
+                        Salary = 155600m
                 }};
-        }
+     }
 }
