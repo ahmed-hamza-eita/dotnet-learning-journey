@@ -9,6 +9,9 @@ public class Employee
     public decimal Salary { get; set; }
 
     public List<string> Skills { get; set; } = new List<string>();
+
+    public override string ToString()
+    {
+        return $"{Index} - {Name} (Salary: {Salary:C}) - {Email}";
+    }
 }
-
-
