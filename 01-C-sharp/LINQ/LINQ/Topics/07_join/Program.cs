@@ -21,8 +21,8 @@ foreach (var item in joinResult)
     Console.WriteLine($"{item.FullName} [{item.Department}]");
 }
 
-//Group join
 
+//Group join
 var groupJoin = dept.GroupJoin(
                                 employees,
                                 dept => dept.Id,
@@ -32,5 +32,19 @@ var groupJoin = dept.GroupJoin(
                                     Department = dept.Name,
                                     Employees = emps.Select(e => e.FullName).ToList()
                                 }
-                              );
+                            );
+
+#region University Example
+
+var students = UniversityRepository.LoadStudents();
+var courses = UniversityRepository.LoadCourses();
+
+JoinOperator.InnerJoinExample(students,courses);
+JoinOperator.GroupJoinExample(students,courses);
+
+
+
+#endregion
+
+
 
