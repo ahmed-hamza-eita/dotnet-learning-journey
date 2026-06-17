@@ -16,4 +16,21 @@ Console.WriteLine($"List 1 and List 2  {(sequenceEqual ? "are" : "are not")} Equ
 
 
 
+#region Generic Equality class
+var employees = Repository.LoadEmployees();
+// --Remove Dublicate
+var uniqueByDept = employees.Distinct(new GenericComparer<Employee, int>(emp => emp.DepartmentId));
+
+//Except
+var listEmp1 = employees.Take(2);
+var listEmp2 = employees.Take(2);
+var diff = listEmp1.Except(listEmp2, new GenericComparer<Employee, int>(emp => emp.Id));
+
+// Intersect-> find common Emp based on their first names
+var common = listEmp1.Intersect(listEmp2, new GenericComparer<Employee, string>(emp => emp.FirstName));
+#endregion
+
+
+
+
 
