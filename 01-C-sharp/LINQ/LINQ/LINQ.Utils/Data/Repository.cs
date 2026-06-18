@@ -1,8 +1,8 @@
 public static class Repository
 {
-       public static IEnumerable<Employee> LoadEmployees()
+        public static IEnumerable<Employee> LoadEmployees()
         {
-            return new List<Employee> 
+                return new List<Employee>
             {
                 new Employee
                 {
@@ -126,9 +126,9 @@ public static class Repository
                 }};
         }
 
-       public static IEnumerable<Department> LoadDepartment()
+        public static IEnumerable<Department> LoadDepartment()
         {
-            return new List<Department> { 
+                return new List<Department> {
                 new Department { Id = 1, Name = "FINANCE" },
                 new Department { Id = 2, Name = "IT" },
                 new Department { Id = 3, Name = "HR" },
@@ -136,4 +136,71 @@ public static class Repository
                 new Department { Id = 5, Name = "SALES" }
             };
         }
+
+
+
+        //Meetings
+
+        public static IEnumerable<Meeting> LoadMeetings()
+        {
+                return new List<Meeting> {
+        Meeting1,
+        Meeting2,
+        Meeting3,
+        Meeting4
+    };
+        }
+        public static Meeting Meeting1 => new Meeting
+        {
+                Title = "Meeting - 1",
+                Date = new DateOnly(2022, 03, 02),
+                StartAt = new TimeOnly(08, 0, 0),
+                EndAt = new TimeOnly(09, 0, 0),
+                Participants = {
+                new Employee { Id = 1001, FirstName = "Ruba Ali" },
+                new Employee { Id = 11, FirstName = "Sana Sayed" },
+                new Employee { Id = 12, FirstName = "Abeer Omar" },
+
+             }
+        };
+
+        public static Meeting Meeting2 => new Meeting
+        {
+                Title = "Meeting - 2",
+                Date = new DateOnly(2022, 03, 02),
+                StartAt = new TimeOnly(09, 0, 0),
+                EndAt = new TimeOnly(10, 0, 0),
+                Participants = {
+                new Employee { Id = 1010, FirstName = "Sana Sayed" },
+                new Employee { Id = 13, FirstName = "Rashed Sameh" },
+                new Employee { Id = 15 , FirstName = "Omniya Sayed" },
+             }
+        };
+
+        public static Meeting Meeting3 => new Meeting
+        {
+                Title = "Meeting - 3",
+                Date = new DateOnly(2022, 03, 02),
+                StartAt = new TimeOnly(10, 0, 0),
+                EndAt = new TimeOnly(11, 0, 0),
+                Participants = {
+                new Employee { Id = 17, FirstName = "Peter Siri" },
+                new Employee { Id = 1009, FirstName = "Joe Harb" }
+            }
+        };
+
+
+
+        public static Meeting Meeting4 => new Meeting
+        {
+                Title = "Meeting - 7",
+                Date = new DateOnly(2022, 03, 03),
+                StartAt = new TimeOnly(10, 0, 0),
+                EndAt = new TimeOnly(11, 0, 0),
+                Participants = {
+                 new Employee { Id = 14, FirstName = "Salah Sayed" },
+                 new Employee { Id = 15, FirstName = "Omniya Sayed" },
+                 new Employee { Id = 17, FirstName = "Peter Siri" }
+            }
+        };
 }
