@@ -4,7 +4,7 @@ using LINQ.Utils;
 Console.WriteLine("Data Partitioning.................");
 
 var employees = Repository.LoadEmployees();
-
+/*
 #region Skip
 
 employees.Skip(2).Print("Skip First 2 elements");
@@ -27,7 +27,7 @@ employees.Chunk(2) //Splits the collection into smaller groups .
 .ForEach(c => c.Group.Print($"Group {c.Index + 1}")); // is available on List<T> but not on IEnumerable<T>.
 
 #endregion
-
+*/
 #region pagination
 int page = 1, size = 10;
 Console.WriteLine("Result per page... ");
@@ -43,6 +43,12 @@ if (int.TryParse(Console.ReadLine(), out int pageNo))
 var result = employees.Paginate(page, size);
 Console.WriteLine($"Data {result.Data}");
 Console.WriteLine($"Total Pages {result.TotalPages}");
+
+var r = employees.PaginateWithCondition(e => e.Id >= 5, page: 1, size: 10);
+//Without new method
+var r = employees
+    .Where(e => e.Id >= 5)
+    .Paginate(page: 1, size: 10);
 #endregion
 
 
