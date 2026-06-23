@@ -5,125 +5,135 @@ public static class Repository
                 return new List<Employee>
             {
                 new Employee
-                {
-                        Id = 1001,
-                        FirstName = "Coc3an",
-                        LastName = "Cole",
-                        HireDate = new DateTime(2017, 11, 2),
-                        Gender = "male",
-                        DepartmentId = 1,
-                        HasHealthInsurance = false,
-                        HasPensionPlan = true,
-                        Salary = 103200m
-                },
-                new Employee
-                {
-                        Id = 1002,
-                        FirstName = "Jaclyn",
-                        LastName = "Wolfe",
-                        HireDate = new DateTime(2018, 4, 14),
-                        Gender = "female",
-                        DepartmentId = 1,
-                        HasHealthInsurance = true,
-                        HasPensionPlan = false,
-                        Salary = 192400m
-                },
-                new Employee
-                {
-                        Id = 1003,
-                        FirstName = "Warner",
-                        LastName = "Jones",
-                        HireDate = new DateTime(2016, 12, 13),
-                        Gender = "male",
-                        DepartmentId = 2,
-                        HasHealthInsurance = false,
-                        HasPensionPlan = false,
-                        Salary = 172800m
-                },
-                new Employee
-                {
-                        Id = 1004,
-                        FirstName = "Hester",
-                        LastName = "Evans",
-                        HireDate = new DateTime(2016, 8, 17),
-                        Gender = "male",
-                        DepartmentId = 1,
-                        HasHealthInsurance = true,
-                        HasPensionPlan = true,
-                        Salary = 155500m
-                },
-                new Employee
-                {
-                        Id = 1005,
-                        FirstName = "Wallace",
-                        LastName = "Buck",
-                        HireDate = new DateTime(2014, 5, 12),
-                        Gender = "male",
-                        DepartmentId = 2,
-                        HasHealthInsurance = true,
-                        HasPensionPlan = false,
-                        Salary = 315800m
-                },
-                new Employee
-                {
-                        Id = 1006,
-                        FirstName = "Acevedo",
-                        LastName = "Wall",
-                        HireDate = new DateTime(2020, 10, 30),
-                        Gender = "male",
-                        DepartmentId = 2,
-                        HasHealthInsurance = true,
-                        HasPensionPlan = false,
-                        Salary = 343700m
-                },
-                new Employee
-                {
-                        Id = 1007,
-                        FirstName = "Jacqueline",
-                        LastName = "Pickett",
-                        HireDate = new DateTime(2021, 2, 17),
-                        Gender = "female",
-                        DepartmentId = 2,
-                        HasHealthInsurance = false,
-                        HasPensionPlan = false,
-                        Salary = 370000m
-                },
-                new Employee
-                {
-                        Id = 1008,
-                        FirstName = "Oconnor",
-                        LastName = "Espinoza",
-                        HireDate = new DateTime(2017, 3, 12),
-                        Gender = "male",
-                        DepartmentId = 3,
-                        HasHealthInsurance = true,
-                        HasPensionPlan = false,
-                        Salary = 155600m
-                },
-                new Employee
-                {
-                        Id = 1009,
-                        FirstName = "Allie",
-                        LastName = "Elliott",
-                        HireDate = new DateTime(2020, 4, 20),
-                        Gender = "female",
-                        DepartmentId = 4,
-                        HasHealthInsurance = false,
-                        HasPensionPlan = true,
-                        Salary = 315400m
-                },
-                new Employee
-                {
-                        Id = 1010,
-                        FirstName = "Elva",
-                        LastName = "Decker",
-                        HireDate = new DateTime(2016, 9, 6),
-                        Gender = "female",
-                        DepartmentId = 3,
-                        HasHealthInsurance = true,
-                        HasPensionPlan = true,
-                        Salary = 345900m
-                }};
+{
+    Id = 1001,
+    FirstName = "Coc3an",
+    LastName = "Cole",
+    HireDate = new DateTime(2017, 11, 2),
+    Gender = "male",
+    DepartmentId = 1,
+    HasHealthInsurance = false,
+    HasPensionPlan = true,
+    Salary = 103200m,
+    Skills = new() { "C#", "SQL", "ASP.NET" }
+},
+new Employee
+{
+    Id = 1002,
+    FirstName = "Jaclyn",
+    LastName = "Wolfe",
+    HireDate = new DateTime(2018, 4, 14),
+    Gender = "female",
+    DepartmentId = 1,
+    HasHealthInsurance = true,
+    HasPensionPlan = false,
+    Salary = 192400m,
+    Skills = new() { "C#", "React", "CSS", "HTML" }
+},
+new Employee
+{
+    Id = 1003,
+    FirstName = "Warner",
+    LastName = "Jones",
+    HireDate = new DateTime(2016, 12, 13),
+    Gender = "male",
+    DepartmentId = 2,
+    HasHealthInsurance = false,
+    HasPensionPlan = false,
+    Salary = 172800m,
+    Skills = new() { "Java", "SQL", "Oracle" }
+},
+new Employee
+{
+    Id = 1004,
+    FirstName = "Hester",
+    LastName = "Evans",
+    HireDate = new DateTime(2016, 8, 17),
+    Gender = "male",
+    DepartmentId = 1,
+    HasHealthInsurance = true,
+    HasPensionPlan = true,
+    Salary = 155500m,
+    Skills = new() { "C#", "Azure", "Docker" }
+},
+new Employee
+{
+    Id = 1005,
+    FirstName = "Wallace",
+    LastName = "Buck",
+    HireDate = new DateTime(2014, 5, 12),
+    Gender = "male",
+    DepartmentId = 2,
+    HasHealthInsurance = true,
+    HasPensionPlan = false,
+    Salary = 315800m,
+    Skills = new() { "Python", "Machine Learning", "SQL" }
+},
+new Employee
+{
+    Id = 1006,
+    FirstName = "Acevedo",
+    LastName = "Wall",
+    HireDate = new DateTime(2020, 10, 30),
+    Gender = "male",
+    DepartmentId = 2,
+    HasHealthInsurance = true,
+    HasPensionPlan = false,
+    Salary = 343700m,
+    Skills = new() { "C#", "ASP.NET", "SQL", "React" }
+},
+new Employee
+{
+    Id = 1007,
+    FirstName = "Jacqueline",
+    LastName = "Pickett",
+    HireDate = new DateTime(2021, 2, 17),
+    Gender = "female",
+    DepartmentId = 2,
+    HasHealthInsurance = false,
+    HasPensionPlan = false,
+    Salary = 370000m,
+    Skills = new() { "Java", "Spring Boot", "Docker", "Kubernetes" }
+},
+new Employee
+{
+    Id = 1008,
+    FirstName = "Oconnor",
+    LastName = "Espinoza",
+    HireDate = new DateTime(2017, 3, 12),
+    Gender = "male",
+    DepartmentId = 3,
+    HasHealthInsurance = true,
+    HasPensionPlan = false,
+    Salary = 155600m,
+    Skills = new() { "HR Systems", "Excel", "PowerBI" }
+},
+new Employee
+{
+    Id = 1009,
+    FirstName = "Allie",
+    LastName = "Elliott",
+    HireDate = new DateTime(2020, 4, 20),
+    Gender = "female",
+    DepartmentId = 4,
+    HasHealthInsurance = false,
+    HasPensionPlan = true,
+    Salary = 315400m,
+    Skills = new() { "Accounting", "Excel", "SAP" }
+},
+new Employee
+{
+    Id = 1010,
+    FirstName = "Elva",
+    LastName = "Decker",
+    HireDate = new DateTime(2016, 9, 6),
+    Gender = "female",
+    DepartmentId = 3,
+    HasHealthInsurance = true,
+    HasPensionPlan = true,
+    Salary = 345900m,
+    Skills = new() { "C#", "SQL", "HR Systems", "Excel" }
+}};
         }
 
         public static IEnumerable<Department> LoadDepartment()
