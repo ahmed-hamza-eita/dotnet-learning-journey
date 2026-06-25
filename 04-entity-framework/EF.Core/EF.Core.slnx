@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="01-ConfigureConnection/01-ConfigureConnection/01-ConfigureConnection.csproj" Id="4010be14-f4bf-4010-8206-ea485be18fa3" />
+  <Project Path="Shared/Shared.csproj" />
+</Solution>
