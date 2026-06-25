@@ -8,10 +8,11 @@ cat > README.md << 'README'
 
 ## ✅ What I've Learned So Far
 
-### [C#](./C-sharp)
-### [OOP](./C-sharp/OOP)
-### [Design Principles](./design-principles)
-### [SQL](./SQL)
+### [C#](./01-C-sharp)
+### [OOP](./01-C-sharp/OOP)
+### [Design Principles](./02-design-principles)
+### [SQL](./03-SQL)
+### [Entity Framework Core](./04-entity-framework)
 
 ---
 
@@ -19,8 +20,6 @@ cat > README.md << 'README'
 
 ![C#](https://img.shields.io/badge/C%23-239120?style=flat&logo=csharp&logoColor=white)
 ![.NET](https://img.shields.io/badge/.NET-512BD4?style=flat&logo=dotnet&logoColor=white)
+![SQL Server](https://img.shields.io/badge/SQL_Server-CC2927?style=flat&logo=microsoftsqlserver&logoColor=white)
+![EF Core](https://img.shields.io/badge/EF_Core-512BD4?style=flat&logo=dotnet&logoColor=white)
 README
-
-git add .
-git commit -m "docs: add folder links to README"
-git push
