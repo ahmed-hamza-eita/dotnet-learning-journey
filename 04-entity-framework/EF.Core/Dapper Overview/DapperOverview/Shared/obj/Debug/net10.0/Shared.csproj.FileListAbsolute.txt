@@ -1,0 +1,14 @@
+E:\.NET\dotnet-learning-journey\dotnet-learning-journey\04-entity-framework\EF.Core\Dapper Overview\DapperOverview\Shared\bin\Debug\net10.0\appsettings.json
+E:\.NET\dotnet-learning-journey\dotnet-learning-journey\04-entity-framework\EF.Core\Dapper Overview\DapperOverview\Shared\bin\Debug\net10.0\Shared.deps.json
+E:\.NET\dotnet-learning-journey\dotnet-learning-journey\04-entity-framework\EF.Core\Dapper Overview\DapperOverview\Shared\bin\Debug\net10.0\Shared.dll
+E:\.NET\dotnet-learning-journey\dotnet-learning-journey\04-entity-framework\EF.Core\Dapper Overview\DapperOverview\Shared\bin\Debug\net10.0\Shared.pdb
+E:\.NET\dotnet-learning-journey\dotnet-learning-journey\04-entity-framework\EF.Core\Dapper Overview\DapperOverview\Shared\obj\Debug\net10.0\Shared.csproj.AssemblyReference.cache
+E:\.NET\dotnet-learning-journey\dotnet-learning-journey\04-entity-framework\EF.Core\Dapper Overview\DapperOverview\Shared\obj\Debug\net10.0\Shared.GeneratedMSBuildEditorConfig.editorconfig
+E:\.NET\dotnet-learning-journey\dotnet-learning-journey\04-entity-framework\EF.Core\Dapper Overview\DapperOverview\Shared\obj\Debug\net10.0\Shared.AssemblyInfoInputs.cache
+E:\.NET\dotnet-learning-journey\dotnet-learning-journey\04-entity-framework\EF.Core\Dapper Overview\DapperOverview\Shared\obj\Debug\net10.0\Shared.AssemblyInfo.cs
+E:\.NET\dotnet-learning-journey\dotnet-learning-journey\04-entity-framework\EF.Core\Dapper Overview\DapperOverview\Shared\obj\Debug\net10.0\Shared.csproj.CoreCompileInputs.cache
+E:\.NET\dotnet-learning-journey\dotnet-learning-journey\04-entity-framework\EF.Core\Dapper Overview\DapperOverview\Shared\obj\Debug\net10.0\Shared.sourcelink.json
+E:\.NET\dotnet-learning-journey\dotnet-learning-journey\04-entity-framework\EF.Core\Dapper Overview\DapperOverview\Shared\obj\Debug\net10.0\Shared.dll
+E:\.NET\dotnet-learning-journey\dotnet-learning-journey\04-entity-framework\EF.Core\Dapper Overview\DapperOverview\Shared\obj\Debug\net10.0\refint\Shared.dll
+E:\.NET\dotnet-learning-journey\dotnet-learning-journey\04-entity-framework\EF.Core\Dapper Overview\DapperOverview\Shared\obj\Debug\net10.0\Shared.pdb
+E:\.NET\dotnet-learning-journey\dotnet-learning-journey\04-entity-framework\EF.Core\Dapper Overview\DapperOverview\Shared\obj\Debug\net10.0\ref\Shared.dll
