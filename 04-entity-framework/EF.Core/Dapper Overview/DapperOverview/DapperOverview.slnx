@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="01-ExcuteRawSql/01-ExcuteRawSql.csproj" Id="42931aca-d44c-4e35-b4fa-e728ae306aa7" />
+  <Project Path="Shared/Shared.csproj" />
+</Solution>

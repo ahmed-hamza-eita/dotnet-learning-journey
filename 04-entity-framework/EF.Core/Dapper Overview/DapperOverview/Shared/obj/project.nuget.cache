@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "EJxk2XuYuFI=",
+  "dgSpecHash": "PsvXBkbbsIo=",
   "success": true,
   "projectFilePath": "E:\\.NET\\dotnet-learning-journey\\dotnet-learning-journey\\04-entity-framework\\EF.Core\\Dapper Overview\\DapperOverview\\Shared\\Shared.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\aheit\\.nuget\\packages\\dapper\\2.1.79\\dapper.2.1.79.nupkg.sha512",
     "C:\\Users\\aheit\\.nuget\\packages\\microsoft.bcl.cryptography\\9.0.13\\microsoft.bcl.cryptography.9.0.13.nupkg.sha512",
     "C:\\Users\\aheit\\.nuget\\packages\\microsoft.data.sqlclient\\7.0.2\\microsoft.data.sqlclient.7.0.2.nupkg.sha512",
     "C:\\Users\\aheit\\.nuget\\packages\\microsoft.data.sqlclient.extensions.abstractions\\7.0.2\\microsoft.data.sqlclient.extensions.abstractions.7.0.2.nupkg.sha512",
