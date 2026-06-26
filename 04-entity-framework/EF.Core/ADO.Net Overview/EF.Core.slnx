@@ -1,0 +1,11 @@
+<Solution>
+  <Project Path="01-ConfigureConnection/01-ConfigureConnection/01-ConfigureConnection.csproj" Id="4010be14-f4bf-4010-8206-ea485be18fa3" />
+  <Project Path="02-ExcuteRawSQL/02-ExcuteRawSQL.csproj" Id="c6a563fa-5dfa-4f98-8f11-9cfcf5288cf1" />
+  <Project Path="03-ExcuteInsertRawSQL/03-ExcuteInsertRawSQL.csproj" Id="5dfff8a1-fac3-4794-bb21-165af28e5d6d" />
+  <Project Path="04-ExecuteInsertStoredProcedure/04-ExecuteInsertStoredProcedure.csproj" Id="8dfe4b7f-4c37-4fa7-bad1-ca4b80ac3050" />
+  <Project Path="05-ExecuteUpdateRawSql/05-ExecuteUpdateRawSql.csproj" Id="ec2d23d9-8fa6-4dcb-b0ac-f105d52a68b6" />
+  <Project Path="06-ExecuteDeleteRawSql/06-ExecuteDeleteRawSql.csproj" Id="bf9b63ee-e7a5-4b49-b16d-5e749bb9426a" />
+  <Project Path="07-ExecuteRawSqlDataAdapter/07-ExecuteRawSqlDataAdapter.csproj" Id="0695fd75-0550-4ae6-8f07-7d92c7279cc3" />
+  <Project Path="08-ExecuteTransaction/08-ExecuteTransaction.csproj" Id="37b925e2-e4ed-414b-b134-6c608534d0d7" />
+  <Project Path="Shared/Shared.csproj" />
+</Solution>

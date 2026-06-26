@@ -13,7 +13,6 @@ namespace ExcuteInsertRawSQL
             var configuration = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json")
             .Build();
-
             SqlConnection sqlConnection = new SqlConnection(configuration.GetSection("DefaultConnection").Value);
             //read from user 
             var InsertToWallet = new Wallet
@@ -21,12 +20,9 @@ namespace ExcuteInsertRawSQL
                 Holder = "Hamza",
                 Balance = 6000
             };
-
-
             var sqlQuery = "INSERT INTO WALLETS (Holder, Balance) VALUES " +
                 $"(@Holder, @Balance)" +
                 $"SELECT CAST(scope_identity() AS int)";
-
             SqlParameter holderParameter = new SqlParameter
             {
                 ParameterName = "@Holder",
@@ -34,7 +30,6 @@ namespace ExcuteInsertRawSQL
                 Direction = ParameterDirection.Input,
                 Value = InsertToWallet.Holder
             };
-
             SqlParameter balanceParameter = new SqlParameter
             {
                 ParameterName = "@Balance",
@@ -42,15 +37,11 @@ namespace ExcuteInsertRawSQL
                 Direction = ParameterDirection.Input,
                 Value = InsertToWallet.Balance
             };
-
             SqlCommand sqlCommand = new SqlCommand(sqlQuery, sqlConnection);
             sqlCommand.Parameters.Add(holderParameter);
             sqlCommand.Parameters.Add(balanceParameter);
-
             sqlCommand.CommandType = CommandType.Text;
-
             sqlConnection.Open();
-
             InsertToWallet.Id = (int)sqlCommand.ExecuteScalar();
             if (sqlCommand.ExecuteNonQuery() > 0)
             {

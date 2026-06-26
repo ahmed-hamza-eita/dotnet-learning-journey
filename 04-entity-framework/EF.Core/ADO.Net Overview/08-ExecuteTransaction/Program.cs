@@ -14,15 +14,14 @@ namespace _08_ExecuteTransaction
             .AddJsonFile("appsettings.json")
             .Build();
 
-            SqlConnection sqlConnection = new SqlConnection(configuration.GetSection("DefaultConnection").Value);
+            using var  sqlConnection = new SqlConnection(configuration.GetSection("DefaultConnection").Value);
 
-            SqlCommand sqlCommand = sqlConnection.CreateCommand();
-
+            using var sqlCommand = sqlConnection.CreateCommand();
             sqlCommand.CommandType = CommandType.Text;
 
             sqlConnection.Open();
-
-            SqlTransaction sqlTransaction = sqlConnection.BeginTransaction();
+            
+            using var sqlTransaction = sqlConnection.BeginTransaction();
             sqlCommand.Transaction = sqlTransaction;
 
             try
