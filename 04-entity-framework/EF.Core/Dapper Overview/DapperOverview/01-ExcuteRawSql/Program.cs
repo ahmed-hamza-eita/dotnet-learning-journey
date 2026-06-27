@@ -25,14 +25,11 @@ namespace _01_ExcuteRawSql
                 // insertStatementReturnedId(sqlConnection, new Wallet {Holder = "hamo" , Balance = 450000m });
 
                 //Update Statement
-                updateStatement(sqlConnection,new Wallet { 
-                Id = 1020,
-                Holder="ZZZZZZZz",
-                Balance=102031m
-                });
+                //updateStatement(sqlConnection, new Wallet { Id = 1020, Holder = "ZZZZZZZz", Balance = 102031m });
+
+                //Delete Statement
+                deleteStatement(sqlConnection,new Wallet {Id=1020 });
                 rawSql(sqlConnection);
-
-
             }
 
         }
@@ -78,9 +75,9 @@ namespace _01_ExcuteRawSql
             Console.WriteLine(wallet);
         }
 
-        public static void updateStatement(SqlConnection sqlConnection,Wallet wallet)
+        public static void updateStatement(SqlConnection sqlConnection, Wallet wallet)
         {
-            
+
             var sqlQuery = "UPDATE WALLETS SET Holder=@Holder , Balance=@Balance " +
                 "WHERE Id=@Id";
 
@@ -91,8 +88,21 @@ namespace _01_ExcuteRawSql
                 Balance = wallet.Balance
             };
 
-            sqlConnection.Execute(sqlQuery,parameters);
+            sqlConnection.Execute(sqlQuery, parameters);
 
+        }
+
+        public static void deleteStatement(SqlConnection sqlConnection, Wallet wallet)
+        {
+
+            var sqlQuery = "DELETE FROM WALLETS WHERE Id=@Id ";
+
+            var parameters = new
+            {   
+                Id = wallet.Id
+            };
+
+            sqlConnection.Execute(sqlQuery,parameters);
         }
 
     }
