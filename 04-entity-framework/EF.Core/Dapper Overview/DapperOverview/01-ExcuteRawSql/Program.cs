@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens.Experimental;
 using Shared;
 using System.Data;
 namespace _01_ExcuteRawSql
@@ -23,6 +24,13 @@ namespace _01_ExcuteRawSql
                 //Insert Statement with id
                 // insertStatementReturnedId(sqlConnection, new Wallet {Holder = "hamo" , Balance = 450000m });
 
+                //Update Statement
+                updateStatement(sqlConnection,new Wallet { 
+                Id = 1020,
+                Holder="ZZZZZZZz",
+                Balance=102031m
+                });
+                rawSql(sqlConnection);
 
 
             }
@@ -68,6 +76,23 @@ namespace _01_ExcuteRawSql
 
             wallet.Id = sqlConnection.Query<int>(sqlQuery, parmeters).Single();
             Console.WriteLine(wallet);
+        }
+
+        public static void updateStatement(SqlConnection sqlConnection,Wallet wallet)
+        {
+            
+            var sqlQuery = "UPDATE WALLETS SET Holder=@Holder , Balance=@Balance " +
+                "WHERE Id=@Id";
+
+            var parameters = new
+            {
+                Id = wallet.Id,
+                Holder = wallet.Holder,
+                Balance = wallet.Balance
+            };
+
+            sqlConnection.Execute(sqlQuery,parameters);
+
         }
 
     }
