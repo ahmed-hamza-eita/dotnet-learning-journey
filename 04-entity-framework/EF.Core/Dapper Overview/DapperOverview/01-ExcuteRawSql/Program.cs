@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens.Experimental;
 using Shared;
 using System.Data;
+using System.Transactions;
 namespace _01_ExcuteRawSql
 {
     internal class Program
@@ -31,8 +32,12 @@ namespace _01_ExcuteRawSql
                 //deleteStatement(sqlConnection,new Wallet {Id=1020 });
 
                 //Excute Multi statements (Single Batch)
-                multiStatements(sqlConnection);
+                // multiStatements(sqlConnection);
 
+
+                //Transaction
+                transaction(sqlConnection);
+ 
             }
 
         }
@@ -120,5 +125,32 @@ namespace _01_ExcuteRawSql
 
         }
 
+        public static void transaction(SqlConnection sqlConnection)
+        {
+            //transfer  from 1002 to 1005 amount 2000m
+
+            decimal amount = 2000m;
+            using (var transactionScope = new TransactionScope())
+            {
+                //from 
+                var transferFrom = sqlConnection.QuerySingle("Select * From Wallets Where Id=@ID", new { Id = 1002 });
+                //to
+                var transferTo = sqlConnection.QuerySingle("Select * From Wallets Where Id=@Id", new { Id = 1005 });
+
+
+                sqlConnection.Execute("Update Wallets Set Balance = @Balance Where Id =@Id", new
+                {
+                    Id = transferFrom.Id,
+                    Balance = transferFrom.Balance - amount
+                });
+
+                sqlConnection.Execute("Update Wallets Set Balance = @Balance Where Id =@Id", new
+                {
+                    Id = transferTo.Id,
+                    Balance = transferTo.Balance + amount
+                });
+                transactionScope.Complete();
+            }
+        }
     }
 }
