@@ -34,8 +34,8 @@ namespace Shared.Session
                 c.Driver<MicrosoftDataSqlClientDriver>();
                 c.Dialect<MsSql2012Dialect>();
                 c.ConnectionString = connectionString;
-                c.LogSqlInConsole = true;
-                c.LogFormattedSql = true;
+                // c.LogSqlInConsole = true;
+                //c.LogFormattedSql = true;
             });
 
             hbConfig.AddMapping(domainMapping);
