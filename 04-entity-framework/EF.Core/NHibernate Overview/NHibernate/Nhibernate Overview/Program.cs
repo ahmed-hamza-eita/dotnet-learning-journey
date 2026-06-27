@@ -19,10 +19,11 @@ namespace Nhibernate_Overview
                     //insert statement
                     //insertStatement(session, new Wallet { Holder = "Abu zeid", Balance = 10000000m });
 
-                    //updateStatement
-                    updateStatement(session,1005 );
- 
+                    //update Statement
+                    //updateStatement(session, 1005);
 
+                    //Delete Statement
+                    deleteStatement(session,1020);
 
                     transaction.Commit();
                 }
@@ -61,6 +62,13 @@ namespace Nhibernate_Overview
             var updateWallet = session.Get<Wallet>(id);
             updateWallet.Balance = 0m;
             session.Update(updateWallet);
+        }
+
+
+        public static void deleteStatement(ISession session,int id)
+        {
+            var deleteWallet = session.Get<Wallet>(id);
+            session.Delete(deleteWallet);
         }
     }
 }
