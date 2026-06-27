@@ -28,8 +28,11 @@ namespace _01_ExcuteRawSql
                 //updateStatement(sqlConnection, new Wallet { Id = 1020, Holder = "ZZZZZZZz", Balance = 102031m });
 
                 //Delete Statement
-                deleteStatement(sqlConnection,new Wallet {Id=1020 });
-                rawSql(sqlConnection);
+                //deleteStatement(sqlConnection,new Wallet {Id=1020 });
+
+                //Excute Multi statements (Single Batch)
+                multiStatements(sqlConnection);
+
             }
 
         }
@@ -98,11 +101,23 @@ namespace _01_ExcuteRawSql
             var sqlQuery = "DELETE FROM WALLETS WHERE Id=@Id ";
 
             var parameters = new
-            {   
+            {
                 Id = wallet.Id
             };
 
-            sqlConnection.Execute(sqlQuery,parameters);
+            sqlConnection.Execute(sqlQuery, parameters);
+        }
+
+        public static void multiStatements(SqlConnection sqlConnection)
+        {
+            var sqlQuery = "SELECT MIN(Balance) FROM WALLETS " +
+                "SELECT MAX(Balance) FROM WALLETS ";
+
+            var result = sqlConnection.QueryMultiple(sqlQuery);
+
+            Console.WriteLine($"Min= {result.Read<Decimal>().Single()}" + $"\nMax= {result.Read<Decimal>().Single()}");
+
+
         }
 
     }
