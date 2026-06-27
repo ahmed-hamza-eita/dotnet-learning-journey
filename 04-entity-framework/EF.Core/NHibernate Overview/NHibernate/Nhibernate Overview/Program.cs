@@ -23,8 +23,11 @@ namespace Nhibernate_Overview
                     //updateStatement(session, 1005);
 
                     //Delete Statement
-                    deleteStatement(session,1020);
+                    //deleteStatement(session,1020);
 
+                    //Transaction
+                     transactionStatement(session, 1021, 1022);
+                   
                     transaction.Commit();
                 }
             }
@@ -65,10 +68,24 @@ namespace Nhibernate_Overview
         }
 
 
-        public static void deleteStatement(ISession session,int id)
+        public static void deleteStatement(ISession session, int id)
         {
             var deleteWallet = session.Get<Wallet>(id);
             session.Delete(deleteWallet);
+        }
+
+        public static void transactionStatement(ISession session, int fromId, int toId)
+        {
+
+            var _fromId = session.Get<Wallet>(fromId);
+            var _toId = session.Get<Wallet>(toId);
+            var amount = 2000m;
+
+            _fromId.Balance -= amount;
+            _toId.Balance += amount;
+
+            session.Update(_fromId);
+            session.Update(_toId);
         }
     }
 }
