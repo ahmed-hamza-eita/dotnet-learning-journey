@@ -14,7 +14,14 @@ namespace Nhibernate_Overview
                 {
 
                     // retrieveData(session);
-                    retrieveDataById(session, 1005);
+                    //retrieveDataById(session, 1005);
+
+                    //insert statement
+                    insertStatement(session,new Wallet { Holder="Abu zeid" , Balance = 10000000m});
+
+
+
+                    transaction.Commit();
                 }
             }
         }
@@ -35,6 +42,11 @@ namespace Nhibernate_Overview
             var getWalletsData = session.Query<Wallet>().FirstOrDefault(x=>x.Id == id);
 
             Console.WriteLine(getWalletsData);
+        }
+
+        public static void insertStatement(ISession session,Wallet wallet) {
+
+            session.Save(wallet);
         }
     }
 }
