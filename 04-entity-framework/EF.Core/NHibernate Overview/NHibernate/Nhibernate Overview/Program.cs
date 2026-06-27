@@ -17,8 +17,11 @@ namespace Nhibernate_Overview
                     //retrieveDataById(session, 1005);
 
                     //insert statement
-                    insertStatement(session,new Wallet { Holder="Abu zeid" , Balance = 10000000m});
+                    //insertStatement(session, new Wallet { Holder = "Abu zeid", Balance = 10000000m });
 
+                    //updateStatement
+                    updateStatement(session,1005 );
+ 
 
 
                     transaction.Commit();
@@ -27,26 +30,37 @@ namespace Nhibernate_Overview
         }
 
 
-        public static void retrieveData(ISession session) {
+        public static void retrieveData(ISession session)
+        {
 
             var getWalletsData = session.Query<Wallet>();
 
-            foreach (var w in getWalletsData) {
+            foreach (var w in getWalletsData)
+            {
                 Console.WriteLine(w);
             }
         }
 
-        public static void retrieveDataById(ISession session,int id)
+        public static void retrieveDataById(ISession session, int id)
         {
 
-            var getWalletsData = session.Query<Wallet>().FirstOrDefault(x=>x.Id == id);
+            var getWalletsData = session.Query<Wallet>().FirstOrDefault(x => x.Id == id);
 
             Console.WriteLine(getWalletsData);
         }
 
-        public static void insertStatement(ISession session,Wallet wallet) {
+        public static void insertStatement(ISession session, Wallet wallet)
+        {
 
             session.Save(wallet);
+        }
+
+        public static void updateStatement(ISession session, int id)
+        {
+
+            var updateWallet = session.Get<Wallet>(id);
+            updateWallet.Balance = 0m;
+            session.Update(updateWallet);
         }
     }
 }
