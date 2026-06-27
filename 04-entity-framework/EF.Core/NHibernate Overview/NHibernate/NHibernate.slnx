@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Nhibernate Overview/Nhibernate Overview.csproj" />
+  <Project Path="Shared/Shared.csproj" />
+</Solution>
