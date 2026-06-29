@@ -1,1 +1,4 @@
-<Solution />
+<Solution>
+  <Project Path="ManageData/ManageData.csproj" />
+  <Project Path="Shared/Shared.csproj" />
+</Solution>
