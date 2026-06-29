@@ -18,8 +18,11 @@ namespace ManageData
                 //insertData(context, new Wallet { Holder = "Fettouh", Balance = 10m });
 
                 //update
-                updateData(context, 1005);
-                getDataById(context, 1005);
+                //updateData(context, 1005);
+
+                //Delete
+                deleteData(context, 1005);
+
             }
 
         }
@@ -52,6 +55,13 @@ namespace ManageData
             var updateWallet = context.Wallets.SingleOrDefault(x => x.Id == id);
             updateWallet.Balance += 10000;
             updateWallet.Holder = "Ali";
+            context.SaveChanges();
+        }
+
+        public static void deleteData(AppDbContext context, int id)
+        {
+            var getWalletToRemove = context.Wallets.Single(X => X.Id == id);
+            context.Remove(getWalletToRemove);
             context.SaveChanges();
         }
     }
