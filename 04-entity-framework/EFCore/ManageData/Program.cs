@@ -12,12 +12,14 @@ namespace ManageData
                 //Retrieve data (select statement)
                 //getData(context);
                 //Retrieve specific data (select statement)
-                getDataById(context, 1022);
+                //getDataById(context, 1022);
 
                 //insert
-                insertData(context, new Wallet { Holder = "Fettouh", Balance = 10m });
-                getData(context);
+                //insertData(context, new Wallet { Holder = "Fettouh", Balance = 10m });
 
+                //update
+                updateData(context, 1005);
+                getDataById(context, 1005);
             }
 
         }
@@ -41,6 +43,15 @@ namespace ManageData
         public static void insertData(AppDbContext context, Wallet wallet)
         {
             context.Wallets.Add(wallet);
+            context.SaveChanges();
+        }
+
+        public static void updateData(AppDbContext context, int id)
+        {
+
+            var updateWallet = context.Wallets.SingleOrDefault(x => x.Id == id);
+            updateWallet.Balance += 10000;
+            updateWallet.Holder = "Ali";
             context.SaveChanges();
         }
     }
