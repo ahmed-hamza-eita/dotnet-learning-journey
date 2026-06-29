@@ -21,8 +21,9 @@ namespace ManageData
                 //updateData(context, 1005);
 
                 //Delete
-                deleteData(context, 1005);
+                //deleteData(context, 1005);
 
+                queryData(context);
             }
 
         }
@@ -63,6 +64,14 @@ namespace ManageData
             var getWalletToRemove = context.Wallets.Single(X => X.Id == id);
             context.Remove(getWalletToRemove);
             context.SaveChanges();
+        }
+
+        public static void queryData(AppDbContext context) {
+            var result = context.Wallets.Where(x=>x.Balance >=500000);
+
+            foreach (var i in result) {
+                Console.WriteLine(i);
+            }
         }
     }
 }
