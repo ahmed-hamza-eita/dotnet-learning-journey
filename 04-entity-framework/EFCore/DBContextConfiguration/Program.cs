@@ -1,5 +1,6 @@
 ﻿using DBContextConfiguration.Configuration;
 using DBContextConfiguration.Configuration.ExternalConfiguration;
+using DBContextConfiguration.Configuration.UsingContextFactory;
 using DBContextConfiguration.Configuration.UsingDependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Shared;
@@ -17,7 +18,10 @@ namespace DBContextConfiguration
             //  ExternalConfiguration();
 
             //use DI
-            DIConfiguration();
+            // DIConfiguration();
+
+            //Use ContextFactory 
+            ContextFactoryConfiguration();
         }
 
         public static void InternalConfiguration()
@@ -47,9 +51,21 @@ namespace DBContextConfiguration
 
         public static void DIConfiguration()
         {
-            var container = Services.BuildServiceProvider<AppDbContext>();
+            var container = DIService.BuildDIServive<Configuration.UsingDependencyInjection.AppDbContext>();
 
-            using (var context = container.GetService<AppDbContext>())
+            using (var context = container.GetService<Configuration.UsingDependencyInjection.AppDbContext>())
+            {
+                foreach (var w in context!.wallets)
+                {
+                    Console.WriteLine(w);
+                }
+            }
+        }
+
+        public static void ContextFactoryConfiguration()
+        {
+            var factory = DbContextFactoryProvider.CreateFactory<Configuration.UsingContextFactory.AppDbContext>();
+            using (var context = factory.CreateDbContext())
             {
                 foreach (var w in context.wallets)
                 {
