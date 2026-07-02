@@ -1,5 +1,7 @@
 ﻿using DBContextConfiguration.Configuration;
 using DBContextConfiguration.Configuration.ExternalConfiguration;
+using DBContextConfiguration.Configuration.UsingDependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Shared;
 using Shared.Models;
 namespace DBContextConfiguration
@@ -12,7 +14,10 @@ namespace DBContextConfiguration
             //   InternalConfiguration();
 
             //ExternalConfiguration
-            ExternalConfiguration();
+            //  ExternalConfiguration();
+
+            //use DI
+            DIConfiguration();
         }
 
         public static void InternalConfiguration()
@@ -40,6 +45,17 @@ namespace DBContextConfiguration
             }
         }
 
+        public static void DIConfiguration()
+        {
+            var container = Services.BuildServiceProvider<AppDbContext>();
 
+            using (var context = container.GetService<AppDbContext>())
+            {
+                foreach (var w in context.wallets)
+                {
+                    Console.WriteLine(w);
+                }
+            }
+        }
     }
 }
