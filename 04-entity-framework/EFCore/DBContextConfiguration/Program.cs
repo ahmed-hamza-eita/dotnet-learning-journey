@@ -1,4 +1,5 @@
 ﻿using DBContextConfiguration.Configuration;
+using DBContextConfiguration.Configuration.ExternalConfiguration;
 using Shared;
 using Shared.Models;
 namespace DBContextConfiguration
@@ -8,7 +9,10 @@ namespace DBContextConfiguration
         static void Main(string[] args)
         {
             //InternalConfiguration
-            InternalConfiguration();
+            //   InternalConfiguration();
+
+            //ExternalConfiguration
+            ExternalConfiguration();
         }
 
         public static void InternalConfiguration()
@@ -22,5 +26,20 @@ namespace DBContextConfiguration
                 }
             }
         }
+
+        public static void ExternalConfiguration()
+        {
+            var dbOptions = Builder.Build();
+            using (var context = new ExternalConfiguration(dbOptions))
+            {
+                foreach (var w in context.wallets)
+                {
+
+                    Console.WriteLine(w);
+                }
+            }
+        }
+
+
     }
 }
