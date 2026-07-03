@@ -8,9 +8,9 @@ using System.Text;
 
 namespace DBContextConfiguration.Configuration.UsingDependencyInjection
 {
-    public static class Services
+    public static class DIService
     {
-        public static IServiceProvider BuildServiceProvider<T>() where T :DbContext
+        public static IServiceProvider BuildDIServive<T>() where T :DbContext
         {
             var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
             var connectionString = configuration.GetSection("DefaultConnection").Value;

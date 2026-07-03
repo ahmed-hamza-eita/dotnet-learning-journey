@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="DBContextConfiguration/DBContextConfiguration.csproj" Id="f22c2609-3551-4dce-bc0e-60da18486220" />
   <Project Path="ManageData/ManageData.csproj" />
   <Project Path="Shared/Shared.csproj" />
 </Solution>

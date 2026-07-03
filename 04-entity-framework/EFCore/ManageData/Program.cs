@@ -26,8 +26,7 @@ namespace ManageData
                 //queryData(context);
 
                 //transaction
-                transaction(context,1002,1003);
-                getData(context);
+                transaction(context, 1002, 1003);
             }
 
         }

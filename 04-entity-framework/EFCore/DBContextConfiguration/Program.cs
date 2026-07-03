@@ -2,14 +2,16 @@
 using DBContextConfiguration.Configuration.ExternalConfiguration;
 using DBContextConfiguration.Configuration.UsingContextFactory;
 using DBContextConfiguration.Configuration.UsingDependencyInjection;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Shared;
 using Shared.Models;
 namespace DBContextConfiguration
 {
-    internal class Program
+    class Program
     {
-        static void Main(string[] args)
+        private static IDbContextFactory<Configuration.UsingContextFactory.AppDbContext> _factory;
+        static async Task Main(string[] args)
         {
             //InternalConfiguration
             //   InternalConfiguration();
@@ -21,7 +23,12 @@ namespace DBContextConfiguration
             // DIConfiguration();
 
             //Use ContextFactory 
-            ContextFactoryConfiguration();
+            // ContextFactoryConfiguration();
+
+            //DBContext and concurrency
+            _factory = DbContextFactoryProvider.CreateFactory<Configuration.UsingContextFactory.AppDbContext>();
+            await DBContextAndConcurrency();
+
         }
 
         public static void InternalConfiguration()
@@ -73,5 +80,49 @@ namespace DBContextConfiguration
                 }
             }
         }
+
+        public static async Task DBContextAndConcurrency()
+        {
+            var tasks = new[] {
+            Task.Run(()=>job1()),
+            Task.Run(()=>job2()),
+            Task.Run(()=>job3())
+            };
+
+            await Task.WhenAll(tasks);
+
+            Console.WriteLine("job1, job2 and job3 are excuted");
+
+        }
+        public static async Task job1()
+        {
+            using (var context = _factory.CreateDbContext())
+            {
+                var w1 = new Wallet { Holder = "AAAA", Balance = 50m };
+                context.wallets.Add(w1);
+                await context.SaveChangesAsync();
+            }
+        }
+        public static async Task job2()
+        {
+            using (var context = _factory.CreateDbContext())
+            {
+                var w2 = new Wallet { Holder = "sssss", Balance = 590m };
+                context.wallets.Add(w2);
+                await context.SaveChangesAsync();
+            }
+        }
+        public static async Task job3()
+        {
+            using (var context = _factory.CreateDbContext())
+            {
+                foreach (var i in context.wallets)
+                {
+                    Console.WriteLine(i);
+                }
+
+            }
+        }
+
     }
 }
