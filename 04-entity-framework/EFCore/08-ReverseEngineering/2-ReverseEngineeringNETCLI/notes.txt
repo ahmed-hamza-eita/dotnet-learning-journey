@@ -1,0 +1,5 @@
+dotnet ef dbcontext scaffold
+"Data Source=.; initial catalog = TechTalk ; Integrated Security = SSPI; TrustServerCertificate=TRUE"
+Microsoft.EntityFrameworkCore.SqlServer
+--context AppDbContext --context-dir Data
+--output-dir Entities
