@@ -14,4 +14,11 @@ public partial class Product
     public string Description { get; set; } = null!;
 
     public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
+
+    
+    private Product()
+    {
+        this.Snapshot = new();
+    }
+    public Snapshot Snapshot { set; get; }
 }

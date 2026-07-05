@@ -98,6 +98,8 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UnitPrice).HasColumnType("decimal(18, 2)");
         });
 
+        //Exclude way 2
+        modelBuilder.Ignore<Snapshot>();
         OnModelCreatingPartial(modelBuilder);
     }
 
