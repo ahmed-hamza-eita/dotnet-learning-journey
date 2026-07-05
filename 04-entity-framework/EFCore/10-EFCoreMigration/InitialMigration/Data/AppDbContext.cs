@@ -23,12 +23,16 @@ namespace InitialMigration.Data
         {
             base.OnConfiguring(optionsBuilder);
 
-            var configuration = new ConfigurationBuilder().
-                AddJsonFile("appsettings.json").Build();
+            var basePath = AppDomain.CurrentDomain.BaseDirectory;
 
-            var connectionString = configuration.GetSection("DefaultConnection").Value;
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(basePath)
+                .AddJsonFile("Data/appsettings.json", optional: true, reloadOnChange: true).Build();
 
-            optionsBuilder.UseSqlServer(connectionString);
+          
+            var connectionStr = configuration.GetConnectionString("DefaultConnection");
+
+            optionsBuilder.UseSqlServer(connectionStr);
         }
     }
 }
