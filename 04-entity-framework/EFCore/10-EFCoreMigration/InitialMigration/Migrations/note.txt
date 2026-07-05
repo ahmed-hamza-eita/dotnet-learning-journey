@@ -1,0 +1,8 @@
+From Tools menu choose Nuget package manager then package manager console 
+and type
+Add-Migration "InitialMigration"
+then type 
+Update-Database
+
+to remove migration type
+Remove-Migration -Force
