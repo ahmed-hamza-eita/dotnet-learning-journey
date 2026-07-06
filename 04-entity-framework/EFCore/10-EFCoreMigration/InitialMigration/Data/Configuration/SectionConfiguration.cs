@@ -33,6 +33,15 @@ namespace InitialMigration.Data.Configuration
                   .IsRequired(false);
 
 
+            //relation m:m
+            builder.HasMany(x => x.Schedules)
+                .WithMany(x => x.Sections)
+                .UsingEntity<SectionSchedule>();
+
+            builder.HasMany(x => x.Students)
+                .WithMany(x => x.Sections)
+                .UsingEntity<Enrollment>();
+
             builder.ToTable("Sections");
 
             builder.HasData(LoadSections());
@@ -53,7 +62,7 @@ namespace InitialMigration.Data.Configuration
                 new Section { Id = 8, SectionName = "S_BI2", CourseId = 2, InstructorId = 2},
                 new Section { Id = 9, SectionName = "S_CS1", CourseId = 1, InstructorId = 1},
                 new Section { Id = 10, SectionName = "S_CS2", CourseId = 1, InstructorId = 3},
-
+                new Section { Id = 11, SectionName = "S_Xc1", CourseId = 1, InstructorId = 1 },
             };
         }
     }

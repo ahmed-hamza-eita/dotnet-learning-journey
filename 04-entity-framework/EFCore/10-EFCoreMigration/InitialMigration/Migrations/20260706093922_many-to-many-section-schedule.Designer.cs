@@ -4,6 +4,7 @@ using InitialMigration.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InitialMigration.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260706093922_many-to-many-section-schedule")]
+    partial class manytomanysectionschedule
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,73 +61,6 @@ namespace InitialMigration.Migrations
                             Id = 3,
                             CourseName = "Chemistry",
                             Price = 150m
-                        });
-                });
-
-            modelBuilder.Entity("InitialMigration.Entities.Enrollment", b =>
-                {
-                    b.Property<int>("SectionId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("SectionId", "StudentId");
-
-                    b.HasIndex("StudentId");
-
-                    b.ToTable("Enrollments", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            SectionId = 6,
-                            StudentId = 1
-                        },
-                        new
-                        {
-                            SectionId = 6,
-                            StudentId = 2
-                        },
-                        new
-                        {
-                            SectionId = 7,
-                            StudentId = 3
-                        },
-                        new
-                        {
-                            SectionId = 7,
-                            StudentId = 4
-                        },
-                        new
-                        {
-                            SectionId = 8,
-                            StudentId = 5
-                        },
-                        new
-                        {
-                            SectionId = 8,
-                            StudentId = 6
-                        },
-                        new
-                        {
-                            SectionId = 9,
-                            StudentId = 7
-                        },
-                        new
-                        {
-                            SectionId = 9,
-                            StudentId = 8
-                        },
-                        new
-                        {
-                            SectionId = 10,
-                            StudentId = 9
-                        },
-                        new
-                        {
-                            SectionId = 10,
-                            StudentId = 10
                         });
                 });
 
@@ -414,13 +350,6 @@ namespace InitialMigration.Migrations
                             CourseId = 1,
                             InstructorId = 3,
                             SectionName = "S_CS2"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            CourseId = 1,
-                            InstructorId = 1,
-                            SectionName = "S_Xc1"
                         });
                 });
 
@@ -450,97 +379,7 @@ namespace InitialMigration.Migrations
 
                     b.HasIndex("SectionId");
 
-                    b.ToTable("SectionSchedules", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            EndTime = new TimeSpan(0, 10, 0, 0, 0),
-                            ScheduleId = 1,
-                            SectionId = 1,
-                            StartTime = new TimeSpan(0, 8, 0, 0, 0)
-                        },
-                        new
-                        {
-                            Id = 2,
-                            EndTime = new TimeSpan(0, 18, 0, 0, 0),
-                            ScheduleId = 3,
-                            SectionId = 2,
-                            StartTime = new TimeSpan(0, 14, 0, 0, 0)
-                        },
-                        new
-                        {
-                            Id = 3,
-                            EndTime = new TimeSpan(0, 15, 0, 0, 0),
-                            ScheduleId = 4,
-                            SectionId = 3,
-                            StartTime = new TimeSpan(0, 10, 0, 0, 0)
-                        },
-                        new
-                        {
-                            Id = 4,
-                            EndTime = new TimeSpan(0, 12, 0, 0, 0),
-                            ScheduleId = 1,
-                            SectionId = 4,
-                            StartTime = new TimeSpan(0, 10, 0, 0, 0)
-                        },
-                        new
-                        {
-                            Id = 5,
-                            EndTime = new TimeSpan(0, 18, 0, 0, 0),
-                            ScheduleId = 1,
-                            SectionId = 5,
-                            StartTime = new TimeSpan(0, 16, 0, 0, 0)
-                        },
-                        new
-                        {
-                            Id = 6,
-                            EndTime = new TimeSpan(0, 10, 0, 0, 0),
-                            ScheduleId = 2,
-                            SectionId = 6,
-                            StartTime = new TimeSpan(0, 8, 0, 0, 0)
-                        },
-                        new
-                        {
-                            Id = 7,
-                            EndTime = new TimeSpan(0, 14, 0, 0, 0),
-                            ScheduleId = 3,
-                            SectionId = 7,
-                            StartTime = new TimeSpan(0, 11, 0, 0, 0)
-                        },
-                        new
-                        {
-                            Id = 8,
-                            EndTime = new TimeSpan(0, 14, 0, 0, 0),
-                            ScheduleId = 4,
-                            SectionId = 8,
-                            StartTime = new TimeSpan(0, 10, 0, 0, 0)
-                        },
-                        new
-                        {
-                            Id = 9,
-                            EndTime = new TimeSpan(0, 18, 0, 0, 0),
-                            ScheduleId = 4,
-                            SectionId = 9,
-                            StartTime = new TimeSpan(0, 16, 0, 0, 0)
-                        },
-                        new
-                        {
-                            Id = 10,
-                            EndTime = new TimeSpan(0, 15, 0, 0, 0),
-                            ScheduleId = 3,
-                            SectionId = 10,
-                            StartTime = new TimeSpan(0, 12, 0, 0, 0)
-                        },
-                        new
-                        {
-                            Id = 11,
-                            EndTime = new TimeSpan(0, 11, 0, 0, 0),
-                            ScheduleId = 5,
-                            SectionId = 11,
-                            StartTime = new TimeSpan(0, 9, 0, 0, 0)
-                        });
+                    b.ToTable("SectionSchedule");
                 });
 
             modelBuilder.Entity("InitialMigration.Entities.Student", b =>
@@ -623,21 +462,6 @@ namespace InitialMigration.Migrations
                             FName = "Samira",
                             LName = "Nabil"
                         });
-                });
-
-            modelBuilder.Entity("InitialMigration.Entities.Enrollment", b =>
-                {
-                    b.HasOne("InitialMigration.Entities.Section", null)
-                        .WithMany()
-                        .HasForeignKey("SectionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("InitialMigration.Entities.Student", null)
-                        .WithMany()
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("InitialMigration.Entities.Instructor", b =>

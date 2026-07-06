@@ -13,6 +13,10 @@ namespace InitialMigration.Data
         public DbSet<Instructor> Instructors { set; get; }
         public DbSet<Office> Offices { set; get; }
         public DbSet<Section> Sections { set; get; }
+        public DbSet<Schedule> Schedules { set; get; }
+        public DbSet<SectionSchedule> SectionSchedules { set; get; }
+        public DbSet<Student> Students { set; get; }
+        public DbSet<Enrollment> Enrollments { set; get; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
