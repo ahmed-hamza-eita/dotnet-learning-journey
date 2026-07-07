@@ -185,18 +185,11 @@ namespace InitialMigration.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("VARCHAR");
 
-                    b.Property<string>("ParticipantType")
-                        .IsRequired()
-                        .HasMaxLength(4)
-                        .HasColumnType("VARCHAR");
-
                     b.HasKey("Id");
 
                     b.ToTable("Participants", (string)null);
 
-                    b.HasDiscriminator<string>("ParticipantType").HasValue("Participant");
-
-                    b.UseTphMappingStrategy();
+                    b.UseTptMappingStrategy();
                 });
 
             modelBuilder.Entity("InitialMigration.Entities.Schedule", b =>
@@ -532,7 +525,7 @@ namespace InitialMigration.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasDiscriminator().HasValue("COPR");
+                    b.ToTable("Coporates");
                 });
 
             modelBuilder.Entity("InitialMigration.Entities.Individual", b =>
@@ -549,7 +542,7 @@ namespace InitialMigration.Migrations
                     b.Property<int>("YearOfGraduation")
                         .HasColumnType("int");
 
-                    b.HasDiscriminator().HasValue("INDV");
+                    b.ToTable("Individuals");
                 });
 
             modelBuilder.Entity("InitialMigration.Entities.Enrollment", b =>
@@ -604,6 +597,24 @@ namespace InitialMigration.Migrations
                     b.HasOne("InitialMigration.Entities.Section", null)
                         .WithMany()
                         .HasForeignKey("SectionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("InitialMigration.Entities.Coporate", b =>
+                {
+                    b.HasOne("InitialMigration.Entities.Participant", null)
+                        .WithOne()
+                        .HasForeignKey("InitialMigration.Entities.Coporate", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("InitialMigration.Entities.Individual", b =>
+                {
+                    b.HasOne("InitialMigration.Entities.Participant", null)
+                        .WithOne()
+                        .HasForeignKey("InitialMigration.Entities.Individual", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

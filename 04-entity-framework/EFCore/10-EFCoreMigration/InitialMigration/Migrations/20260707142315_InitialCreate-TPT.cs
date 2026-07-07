@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace InitialMigration.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialCreateTPT : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -45,13 +45,7 @@ namespace InitialMigration.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
                     FName = table.Column<string>(type: "VARCHAR(50)", maxLength: 50, nullable: false),
-                    LName = table.Column<string>(type: "VARCHAR(50)", maxLength: 50, nullable: false),
-                    Discriminator = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
-                    Company = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    JobTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    University = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    YearOfGraduation = table.Column<int>(type: "int", nullable: true),
-                    IsIntern = table.Column<bool>(type: "bit", nullable: true)
+                    LName = table.Column<string>(type: "VARCHAR(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -93,6 +87,45 @@ namespace InitialMigration.Migrations
                         column: x => x.OfficeId,
                         principalTable: "Offices",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Coporates",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    Company = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    JobTitle = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Coporates", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Coporates_Participants_Id",
+                        column: x => x.Id,
+                        principalTable: "Participants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Individuals",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    University = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    YearOfGraduation = table.Column<int>(type: "int", nullable: false),
+                    IsIntern = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Individuals", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Individuals_Participants_Id",
+                        column: x => x.Id,
+                        principalTable: "Participants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -289,7 +322,13 @@ namespace InitialMigration.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Coporates");
+
+            migrationBuilder.DropTable(
                 name: "Enrollments");
+
+            migrationBuilder.DropTable(
+                name: "Individuals");
 
             migrationBuilder.DropTable(
                 name: "SectionSchedules");
