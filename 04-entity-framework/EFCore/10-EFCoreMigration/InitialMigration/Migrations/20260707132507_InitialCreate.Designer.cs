@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InitialMigration.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260706101209_many-to-many-section-students")]
-    partial class manytomanysectionstudents
+    [Migration("20260707132507_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -69,66 +69,14 @@ namespace InitialMigration.Migrations
                     b.Property<int>("SectionId")
                         .HasColumnType("int");
 
-                    b.Property<int>("StudentId")
+                    b.Property<int>("ParticipantId")
                         .HasColumnType("int");
 
-                    b.HasKey("SectionId", "StudentId");
+                    b.HasKey("SectionId", "ParticipantId");
 
-                    b.HasIndex("StudentId");
+                    b.HasIndex("ParticipantId");
 
                     b.ToTable("Enrollments", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            SectionId = 6,
-                            StudentId = 1
-                        },
-                        new
-                        {
-                            SectionId = 6,
-                            StudentId = 2
-                        },
-                        new
-                        {
-                            SectionId = 7,
-                            StudentId = 3
-                        },
-                        new
-                        {
-                            SectionId = 7,
-                            StudentId = 4
-                        },
-                        new
-                        {
-                            SectionId = 8,
-                            StudentId = 5
-                        },
-                        new
-                        {
-                            SectionId = 8,
-                            StudentId = 6
-                        },
-                        new
-                        {
-                            SectionId = 9,
-                            StudentId = 7
-                        },
-                        new
-                        {
-                            SectionId = 9,
-                            StudentId = 8
-                        },
-                        new
-                        {
-                            SectionId = 10,
-                            StudentId = 9
-                        },
-                        new
-                        {
-                            SectionId = 10,
-                            StudentId = 10
-                        });
                 });
 
             modelBuilder.Entity("InitialMigration.Entities.Instructor", b =>
@@ -223,6 +171,35 @@ namespace InitialMigration.Migrations
                             OfficeLocation = "IT Department",
                             OfficeName = "Off_43"
                         });
+                });
+
+            modelBuilder.Entity("InitialMigration.Entities.Participant", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
+
+                    b.Property<string>("FName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("VARCHAR");
+
+                    b.Property<string>("LName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("VARCHAR");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Participants", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Participant");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("InitialMigration.Entities.Schedule", b =>
@@ -546,99 +523,49 @@ namespace InitialMigration.Migrations
                         });
                 });
 
-            modelBuilder.Entity("InitialMigration.Entities.Student", b =>
+            modelBuilder.Entity("InitialMigration.Entities.Coporate", b =>
                 {
-                    b.Property<int>("Id")
+                    b.HasBaseType("InitialMigration.Entities.Participant");
+
+                    b.Property<string>("Company")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("JobTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("Coporate");
+                });
+
+            modelBuilder.Entity("InitialMigration.Entities.Individual", b =>
+                {
+                    b.HasBaseType("InitialMigration.Entities.Participant");
+
+                    b.Property<bool>("IsIntern")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("University")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("YearOfGraduation")
                         .HasColumnType("int");
 
-                    b.Property<string>("FName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("VARCHAR");
-
-                    b.Property<string>("LName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("VARCHAR");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Students", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            FName = "Fatima",
-                            LName = "Ali"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            FName = "Noor",
-                            LName = "Saleh"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            FName = "Omar",
-                            LName = "Youssef"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            FName = "Huda",
-                            LName = "Ahmed"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            FName = "Amira",
-                            LName = "Tariq"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            FName = "Zainab",
-                            LName = "Ismail"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            FName = "Yousef",
-                            LName = "Farid"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            FName = "Layla",
-                            LName = "Mustafa"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            FName = "Mohammed",
-                            LName = "Adel"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            FName = "Samira",
-                            LName = "Nabil"
-                        });
+                    b.HasDiscriminator().HasValue("Individual");
                 });
 
             modelBuilder.Entity("InitialMigration.Entities.Enrollment", b =>
                 {
-                    b.HasOne("InitialMigration.Entities.Section", null)
+                    b.HasOne("InitialMigration.Entities.Participant", null)
                         .WithMany()
-                        .HasForeignKey("SectionId")
+                        .HasForeignKey("ParticipantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("InitialMigration.Entities.Student", null)
+                    b.HasOne("InitialMigration.Entities.Section", null)
                         .WithMany()
-                        .HasForeignKey("StudentId")
+                        .HasForeignKey("SectionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -15,7 +15,9 @@ namespace InitialMigration.Data
         public DbSet<Section> Sections { set; get; }
         public DbSet<Schedule> Schedules { set; get; }
         public DbSet<SectionSchedule> SectionSchedules { set; get; }
-        public DbSet<Student> Students { set; get; }
+        public DbSet<Participant> Participants { set; get; }
+        public DbSet<Individual> Individuals { set; get; }
+        public DbSet<Coporate> Coporates { set; get; }
         public DbSet<Enrollment> Enrollments { set; get; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -35,7 +37,7 @@ namespace InitialMigration.Data
                 .SetBasePath(basePath)
                 .AddJsonFile("Data/appsettings.json", optional: true, reloadOnChange: true).Build();
 
-          
+
             var connectionStr = configuration.GetConnectionString("DefaultConnection");
 
             optionsBuilder.UseSqlServer(connectionStr);

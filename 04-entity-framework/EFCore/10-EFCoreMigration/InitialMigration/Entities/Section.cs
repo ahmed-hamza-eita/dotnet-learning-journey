@@ -18,6 +18,6 @@ namespace InitialMigration.Entities
         public ICollection<SectionSchedule> SectionSchedules = new List<SectionSchedule>();
         public ICollection<Schedule> Schedules = new List<Schedule>();
 
-        public ICollection<Student> Students = new List<Student>();
+        public ICollection<Participant> Participants = new List<Participant>();
     }
 }

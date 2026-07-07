@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using InitialMigration.Data;
+using InitialMigration.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace InitialMigration
 {
@@ -6,13 +8,31 @@ namespace InitialMigration
     {
         static void Main(string[] args)
         {
-            using (var context = new Data.AppDbContext())
+            var participant1 = new Individual
             {
-                foreach (var item in context.Sections.Include(x => x.Course))
-                {
-                    Console.WriteLine($"Section: {item.SectionName}, " +
-                        $"Course {item.Course.CourseName}");
-                }
+                Id = 1,
+                FName = "Ahmad",
+                LName = "Ali",
+                University = "JUST",
+                YearOfGraduation = 2024,
+                IsIntern = false
+            };
+
+            var participant2 = new Coporate
+            {
+                Id = 2,
+                FName = "Ahmad",
+                LName = "Ali",
+                Company = "Metigator",
+                JobTitle = "Developer"
+            };
+
+            using (var context = new AppDbContext())
+            {
+
+                context.Participants.Add(participant1);
+                context.Participants.Add(participant2);
+                context.SaveChanges();
             }
         }
     }
