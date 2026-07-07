@@ -31,8 +31,10 @@ namespace InitialMigration.Data.Configuration
             builder.Property("ParticipantType").HasColumnType("VARCHAR").HasMaxLength(4);
             */
 
-            //TPT
-            builder.UseTptMappingStrategy();
+            //TPT way1
+            //builder.UseTptMappingStrategy();
+
+
             builder.ToTable("Participants");
 
 

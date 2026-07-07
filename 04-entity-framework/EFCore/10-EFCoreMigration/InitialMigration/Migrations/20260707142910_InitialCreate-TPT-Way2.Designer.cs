@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InitialMigration.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260707142315_InitialCreate-TPT")]
-    partial class InitialCreateTPT
+    [Migration("20260707142910_InitialCreate-TPT-Way2")]
+    partial class InitialCreateTPTWay2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -528,7 +528,7 @@ namespace InitialMigration.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("Coporates");
+                    b.ToTable("Coporates", (string)null);
                 });
 
             modelBuilder.Entity("InitialMigration.Entities.Individual", b =>
@@ -545,7 +545,7 @@ namespace InitialMigration.Migrations
                     b.Property<int>("YearOfGraduation")
                         .HasColumnType("int");
 
-                    b.ToTable("Individuals");
+                    b.ToTable("Individuals", (string)null);
                 });
 
             modelBuilder.Entity("InitialMigration.Entities.Enrollment", b =>

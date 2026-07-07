@@ -525,7 +525,7 @@ namespace InitialMigration.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("Coporates");
+                    b.ToTable("Coporates", (string)null);
                 });
 
             modelBuilder.Entity("InitialMigration.Entities.Individual", b =>
@@ -542,7 +542,7 @@ namespace InitialMigration.Migrations
                     b.Property<int>("YearOfGraduation")
                         .HasColumnType("int");
 
-                    b.ToTable("Individuals");
+                    b.ToTable("Individuals", (string)null);
                 });
 
             modelBuilder.Entity("InitialMigration.Entities.Enrollment", b =>
