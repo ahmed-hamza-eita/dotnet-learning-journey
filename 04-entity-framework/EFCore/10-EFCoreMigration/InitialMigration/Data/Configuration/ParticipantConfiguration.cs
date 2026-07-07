@@ -22,14 +22,19 @@ namespace InitialMigration.Data.Configuration
             .HasColumnType("VARCHAR")
             .HasMaxLength(50).IsRequired();
 
+            //TPH
+            builder.HasDiscriminator<string>("ParticipantType")
+                .HasValue<Individual>("INDV")
+                .HasValue<Coporate>("COPR");
+            builder.Property("ParticipantType").HasColumnType("VARCHAR").HasMaxLength(4);
 
 
             builder.ToTable("Participants");
 
-            
+
 
         }
 
-       
+
     }
 }

@@ -10,7 +10,7 @@ namespace InitialMigration
         {
             var participant1 = new Individual
             {
-                Id = 1,
+                Id = 3,
                 FName = "Ahmad",
                 LName = "Ali",
                 University = "JUST",
@@ -20,7 +20,7 @@ namespace InitialMigration
 
             var participant2 = new Coporate
             {
-                Id = 2,
+                Id = 4,
                 FName = "Ahmad",
                 LName = "Ali",
                 Company = "Metigator",

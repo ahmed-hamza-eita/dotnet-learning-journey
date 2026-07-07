@@ -16,8 +16,7 @@ namespace InitialMigration.Data
         public DbSet<Schedule> Schedules { set; get; }
         public DbSet<SectionSchedule> SectionSchedules { set; get; }
         public DbSet<Participant> Participants { set; get; }
-        public DbSet<Individual> Individuals { set; get; }
-        public DbSet<Coporate> Coporates { set; get; }
+        
         public DbSet<Enrollment> Enrollments { set; get; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
