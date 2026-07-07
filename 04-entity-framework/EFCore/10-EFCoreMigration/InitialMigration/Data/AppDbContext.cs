@@ -19,6 +19,10 @@ namespace InitialMigration.Data
         public DbSet<Individual> Individuals { set; get; }
         public DbSet<Coporate> Coporates { set; get; }
         public DbSet<Enrollment> Enrollments { set; get; }
+
+        public DbSet<Quiz> Quizzes { set; get; }
+        public DbSet<MultipleChoiceQuiz> MultipleChoiceQuizzes { set; get; }
+        public DbSet<TrueAndFalseQuiz> TrueAndFalseQuizzes { set; get; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
