@@ -1,0 +1,18 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using QueryData.Entities;
+
+namespace QueryData.Data.Configuration
+{
+    class CoporateConfiguration : IEntityTypeConfiguration<Coporate>
+    {
+        public void Configure(EntityTypeBuilder<Coporate> builder)
+        {
+
+            builder.ToTable("Coporates");
+
+            
+        }
+
+    }
+}
