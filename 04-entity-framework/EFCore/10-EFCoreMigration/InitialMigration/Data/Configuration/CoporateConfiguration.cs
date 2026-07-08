@@ -11,6 +11,8 @@ namespace InitialMigration.Data.Configuration
         {
 
             builder.ToTable("Coporates");
+
+            builder.HasData(SeedData.LoadCorporates());
         }
 
     }

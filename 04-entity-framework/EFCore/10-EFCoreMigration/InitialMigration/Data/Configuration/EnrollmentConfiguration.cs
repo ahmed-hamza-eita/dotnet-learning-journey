@@ -15,7 +15,7 @@ namespace InitialMigration.Data.Configuration
             builder.ToTable("Enrollments");
 
 
-
+            builder.HasData(SeedData.LoadEnrollments());
         }
 
     }

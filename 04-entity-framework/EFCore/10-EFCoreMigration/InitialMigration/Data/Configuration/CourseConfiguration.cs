@@ -26,18 +26,10 @@ namespace InitialMigration.Data.Configuration
 
             builder.ToTable("Courses");
 
-            builder.HasData(LoadCourses());
+            builder.HasData(SeedData.LoadCourses());
 
         }
 
-        private List<Course> LoadCourses()
-        {
-            return new List<Course>
-            {
-                new Course { Id =1,CourseName="Mathmatics" ,Price=100m},
-                new Course { Id =2,CourseName="Physics" ,Price=200m},
-                new Course { Id =3,CourseName="Chemistry" ,Price=150m},
-            };
-        }
+       
     }
 }

@@ -28,18 +28,10 @@ namespace InitialMigration.Data.Configuration
 
             builder.ToTable("Instructors");
 
-            builder.HasData(LoadInstructors());
+            builder.HasData(SeedData.LoadInstructors());
         }
 
-        private List<Instructor> LoadInstructors()
-        {
-            return new List<Instructor> {
-
-            new Instructor{Id=1,Name="Ahmed Abdullah",OfficeId=1 },
-            new Instructor{Id=2,Name="Yasmeen Mohammed",OfficeId=2 },
-            new Instructor{Id=3,Name="Khalid Hassan" ,OfficeId=3},
-
-            };
-        }
+        
+    
     }
 }

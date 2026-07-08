@@ -10,6 +10,7 @@ namespace InitialMigration.Data.Configuration
         {
 
             builder.ToTable("Individuals");
+            builder.HasData(SeedData.LoadIndividuals());
         }
 
     }
