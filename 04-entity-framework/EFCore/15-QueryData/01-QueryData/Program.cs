@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using QueryData.Data;
+using QueryData.Entities;
 
 
 namespace QueryData
@@ -21,11 +22,47 @@ namespace QueryData
                 //ExplicitLoading(context);
                 //LazyLoading(context);
 
-                ServerEvaluation(context);
-                ClientEvaluation(context);
+                //ServerEvaluation(context);
+                //ClientEvaluation(context);
 
+                Projection(context);
+                SplitQuries(context);
             }
         }
+        #region SplitQuries
+        private static void SplitQuries(AppDbContext context)
+        {
+            var courseProjection = context.Courses.AsNoTracking()
+                .Include(x => x.Sections)
+                .Include(x => x.Reviews)
+                .AsSplitQuery();
+        }
+
+        private static void Projection(AppDbContext context)
+        {
+            var courseProjection = context.Courses.AsNoTracking().
+                Select(c => new
+                {
+                    CourseId = c.Id,
+                    CourseName = c.CourseName,
+                    Hours = c.Price,
+                    Section = c.Sections.Select(s => new
+                    {
+                        SectionName = s.SectionName,
+                        SectionId = s.Id,
+                        Date = s.DateRange.ToString(),
+                        TimeSlots = s.TimeSlot.ToString()
+                    }),
+                    Reviews = c.Reviews.Select(r => new
+                    {
+                        Feedback = r.Feedback,
+                        CreatedAt = r.CreatedAt
+                    })
+                });
+
+        }
+        #endregion
+
         #region Client vs Server side Evaluation
         private static void ServerEvaluation(AppDbContext context)
         {
@@ -37,7 +74,7 @@ namespace QueryData
                 SectionName = s.SectionName,
                 CourseName = s.Course.CourseName,
                 // This will be translated entirely into SQL Query by DATEDIFF Function in SQL Server.
-                 TotalDays = s.DateRange.EndDate.DayNumber - s.DateRange.StartDate.DayNumber
+                TotalDays = s.DateRange.EndDate.DayNumber - s.DateRange.StartDate.DayNumber
             }).Take(3);
 
             foreach (var item in getSections)

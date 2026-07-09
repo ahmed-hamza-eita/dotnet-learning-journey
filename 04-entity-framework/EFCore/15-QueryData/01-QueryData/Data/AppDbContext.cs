@@ -23,6 +23,7 @@ namespace QueryData.Data
         public DbSet<Quiz> Quizzes { set; get; }
         public DbSet<MultipleChoiceQuiz> MultipleChoiceQuizzes { set; get; }
         public DbSet<TrueAndFalseQuiz> TrueAndFalseQuizzes { set; get; }
+        public DbSet<Review> Reviews { set; get; }
 
         protected override void ConfigureConventions(ModelConfigurationBuilder builder)
         {
