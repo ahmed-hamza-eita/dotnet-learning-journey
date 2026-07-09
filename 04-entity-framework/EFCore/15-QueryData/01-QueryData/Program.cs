@@ -2,6 +2,7 @@
 using QueryData.Data;
 using QueryData.Entities;
 using System.Net.WebSockets;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace QueryData
 {
@@ -18,12 +19,22 @@ namespace QueryData
                 //tracking(context);
                 //nonTracking(context);
 
-                 EagerLoading(context);
+                //EagerLoading(context);
+                ExplicitLoading(context);
 
             }
         }
 
-        private static void  EagerLoading(AppDbContext context)
+        private static void ExplicitLoading(AppDbContext context)
+        {
+            var section = context.Sections.FirstOrDefault(x => x.Id == 1);
+            var queryParticipants = context.Entry(section).Collection(x => x.Participants).Query();
+
+            foreach (var participant in queryParticipants)
+                Console.WriteLine($"[{participant.Id}] {participant.FName} {participant.LName}");
+        }
+
+        private static void EagerLoading(AppDbContext context)
         {
             var secttionParticipants = context.Sections
                 .Include(x => x.Participants)
