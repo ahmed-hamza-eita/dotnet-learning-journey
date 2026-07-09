@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using QueryData.Data;
+using QueryData.Entities;
+using System.Net.WebSockets;
 
 namespace QueryData
 {
@@ -13,13 +15,25 @@ namespace QueryData
 
                 // GetSections(context);
 
-                tracking(context);
-                nonTracking(context);
+                //tracking(context);
+                //nonTracking(context);
 
+                 EagerLoading(context);
 
             }
         }
 
+        private static void  EagerLoading(AppDbContext context)
+        {
+            var secttionParticipants = context.Sections
+                .Include(x => x.Participants)
+                .FirstOrDefault(x => x.Id == 9);
+
+            foreach (var participant in secttionParticipants.Participants)
+            {
+                Console.WriteLine($"[{participant}] {participant.FName} {participant.LName}");
+            }
+        }
         private static void nonTracking(AppDbContext context)
         {
             //context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
