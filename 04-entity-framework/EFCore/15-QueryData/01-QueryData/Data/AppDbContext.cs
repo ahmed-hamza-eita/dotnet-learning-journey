@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using QueryData.Data.Configuration;
 using QueryData.Entities;
 using System.Reflection;
 
@@ -22,6 +23,14 @@ namespace QueryData.Data
         public DbSet<Quiz> Quizzes { set; get; }
         public DbSet<MultipleChoiceQuiz> MultipleChoiceQuizzes { set; get; }
         public DbSet<TrueAndFalseQuiz> TrueAndFalseQuizzes { set; get; }
+
+        protected override void ConfigureConventions(ModelConfigurationBuilder builder)
+        {
+            base.ConfigureConventions(builder);
+            builder.Properties<DateOnly>()
+                .HaveConversion<DateOnlyConverter>()
+                .HaveColumnType("date");
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -44,7 +53,7 @@ namespace QueryData.Data
             var connectionStr = configuration.GetConnectionString("DefaultConnection");
 
             optionsBuilder
-                .UseLazyLoadingProxies()
+                //.UseLazyLoadingProxies()
                 .UseSqlServer(connectionStr);
         }
     }

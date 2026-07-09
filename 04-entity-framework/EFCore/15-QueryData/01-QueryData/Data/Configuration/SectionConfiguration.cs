@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using QueryData.Entities;
 
@@ -12,7 +13,7 @@ namespace QueryData.Data.Configuration
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).ValueGeneratedNever();
 
-            //Course Name
+            //Section Name
             builder.Property(x => x.SectionName)
                 .HasColumnType("VARCHAR")
                 .HasMaxLength(255).IsRequired();
@@ -28,38 +29,36 @@ namespace QueryData.Data.Configuration
                   .HasForeignKey(x => x.InstructorId)
                   .IsRequired(false);
 
-            
+            /*
             //relation m:m
             builder.HasMany(x => x.Schedules)
                 .WithMany(x => x.Sections)
                 .UsingEntity<SectionSchedule>();
-             
+             */
             builder.HasMany(x => x.Participants)
                 .WithMany(x => x.Sections)
                 .UsingEntity<Enrollment>();
 
+            builder.HasOne(c => c.Schedule)
+                .WithMany(x => x.Sections)
+                .HasForeignKey(x => x.ScheduleId)
+                .IsRequired();
+
+
+            builder.OwnsOne(x => x.TimeSlot, ts =>
+            {
+                ts.Property(p => p.StartTime).HasColumnType("time(0)").HasColumnName("StartTime").IsRequired();
+                ts.Property(p => p.EndTime).HasColumnType("time(0)").HasColumnName("EndTime").IsRequired();
+            });
+
+            builder.OwnsOne(x => x.DateRange, ts =>
+            {
+                ts.Property(p => p.StartDate).HasColumnType("date").HasColumnName("StartDate").IsRequired();
+                ts.Property(p => p.EndDate).HasColumnType("date").HasColumnName("EndDate").IsRequired();
+            });
+
             builder.ToTable("Sections");
 
-            builder.HasData(LoadSections());
-
-        }
-
-        private List<Section> LoadSections()
-        {
-            return new List<Section>
-            {
-                new Section { Id = 1, SectionName = "S_MA1", CourseId = 1, InstructorId = 1},
-                new Section { Id = 2, SectionName = "S_MA2", CourseId = 1, InstructorId = 2},
-                new Section { Id = 3, SectionName = "S_PH1", CourseId = 2, InstructorId = 1},
-                new Section { Id = 4, SectionName = "S_PH2", CourseId = 2, InstructorId = 3},
-                new Section { Id = 5, SectionName = "S_CH1", CourseId = 3, InstructorId =2},
-                new Section { Id = 6, SectionName = "S_CH2", CourseId = 3, InstructorId = 3},
-                new Section { Id = 7, SectionName = "S_BI1", CourseId = 2, InstructorId = 3},
-                new Section { Id = 8, SectionName = "S_BI2", CourseId = 2, InstructorId = 2},
-                new Section { Id = 9, SectionName = "S_CS1", CourseId = 1, InstructorId = 1},
-                new Section { Id = 10, SectionName = "S_CS2", CourseId = 1, InstructorId = 3},
-                new Section { Id = 11, SectionName = "S_Xc1", CourseId = 1, InstructorId = 1 },
-            };
         }
     }
 }

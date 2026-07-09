@@ -21,9 +21,60 @@ namespace QueryData
                 //ExplicitLoading(context);
                 //LazyLoading(context);
 
+                ServerEvaluation(context);
+                ClientEvaluation(context);
 
             }
         }
+        #region Client vs Server side Evaluation
+        private static void ServerEvaluation(AppDbContext context)
+        {
+            Console.WriteLine("Server Evaluation");
+            var getSections = context.Sections.Where(s => s.CourseId == 6).Select(s => new
+            {
+                CourseId = s.Course.Id,
+                Id = s.Id,
+                SectionName = s.SectionName,
+                CourseName = s.Course.CourseName,
+                // This will be translated entirely into SQL Query by DATEDIFF Function in SQL Server.
+                 TotalDays = s.DateRange.EndDate.DayNumber - s.DateRange.StartDate.DayNumber
+            }).Take(3);
+
+            foreach (var item in getSections)
+            {
+                Console.WriteLine($"{item.Id} {item.SectionName} Total Days: ({item.TotalDays})");
+            }
+        }
+
+        private static void ClientEvaluation(AppDbContext context)
+        {
+            Console.WriteLine("Client Evaluation");
+            //A custom C# method that the database doesn't understand  (CalculateTotalDays)
+            var getSections = context.Sections.Where(s => s.CourseId == 6).Select(s => new
+            {
+                CourseId = s.Course.Id,
+                Id = s.Id,
+                SectionName = s.SectionName,
+                CourseName = s.Course.CourseName,
+                // Client evaluation: EF Core fetches Dates, 
+                // then runs the custom C# method in memory.
+                TotalDays = s.DateRange != null
+                         ? CalculateTotalDays(s.DateRange.StartDate, s.DateRange.EndDate)
+                         : 0
+
+            }).Take(3);
+
+            foreach (var item in getSections)
+            {
+                Console.WriteLine($"{item.Id} {item.SectionName}  Total Days: ({item.TotalDays})");
+            }
+        }
+        private static int CalculateTotalDays(DateOnly startDate, DateOnly endDate)
+        {
+            return endDate.DayNumber - startDate.DayNumber;
+        }
+
+        #endregion
 
         #region Loading Related Data
         private static void LazyLoading(AppDbContext context)
@@ -78,7 +129,7 @@ namespace QueryData
 
         #endregion
 
-         
+
         private static void GetSections(AppDbContext context)
         {
             var getSections = context.Sections.AsNoTracking().Where(s => s.CourseId == 6).Select(s => new
