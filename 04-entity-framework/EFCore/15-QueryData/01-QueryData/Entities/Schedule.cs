@@ -15,9 +15,9 @@ namespace QueryData.Entities
         public bool FRI { get; set; }
         public bool SAT { get; set; }
 
-        //m:m
-        public ICollection<SectionSchedule> SectionSchedules = new List<SectionSchedule>();
-        public ICollection<Section> Sections = new List<Section>();
+        // m:m
+        public virtual ICollection<SectionSchedule> SectionSchedules { get; set; } = new List<SectionSchedule>();
+        public virtual ICollection<Section> Sections { get; set; } = new List<Section>();
 
 
     }

@@ -10,7 +10,7 @@ namespace QueryData.Entities
 
 
 
-        public ICollection<Section> Sections = new List<Section>();
+        public virtual ICollection<Section> Sections { get; set; } = new List<Section>();
     }
 
     public class Individual : Participant

@@ -9,17 +9,17 @@ namespace QueryData.Entities
 
             //1:M (required)
             public int CourseId { set; get; }
-            public Course Course { set; get; }
+            public virtual Course Course { set; get; }
 
             //1:M (optional)
             public int? InstructorId { set; get; }
-            public Instructor? Instructor { set; get; }
+            public virtual Instructor? Instructor { set; get; }
 
-            //m:m
-            public ICollection<SectionSchedule> SectionSchedules = new List<SectionSchedule>();
-            public ICollection<Schedule> Schedules = new List<Schedule>();
+            // m:m
+            public virtual ICollection<SectionSchedule> SectionSchedules { get; set; } = new List<SectionSchedule>();
+            public virtual ICollection<Schedule> Schedules { get; set; } = new List<Schedule>();
 
-            public ICollection<Participant> Participants = new List<Participant>();
+            public virtual ICollection<Participant> Participants { get; set; } = new List<Participant>();
 
         public override string ToString()
         {

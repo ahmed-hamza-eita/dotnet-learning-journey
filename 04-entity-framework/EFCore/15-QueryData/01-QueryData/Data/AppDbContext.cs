@@ -43,7 +43,9 @@ namespace QueryData.Data
 
             var connectionStr = configuration.GetConnectionString("DefaultConnection");
 
-            optionsBuilder.UseSqlServer(connectionStr);
+            optionsBuilder
+                .UseLazyLoadingProxies()
+                .UseSqlServer(connectionStr);
         }
     }
 }

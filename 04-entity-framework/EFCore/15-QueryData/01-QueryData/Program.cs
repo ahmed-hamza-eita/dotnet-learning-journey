@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using QueryData.Data;
 using QueryData.Entities;
 using System.Net.WebSockets;
@@ -20,9 +21,17 @@ namespace QueryData
                 //nonTracking(context);
 
                 //EagerLoading(context);
-                ExplicitLoading(context);
+                //ExplicitLoading(context);
+                LazyLoading(context);
 
             }
+        }
+
+        private static void LazyLoading(AppDbContext context)
+        {
+            var section = context.Sections.FirstOrDefault(x => x.Id == 1);
+            foreach (var participant in section.Participants)
+                Console.WriteLine($"[{participant.Id}] {participant.FName} {participant.LName}");
         }
 
         private static void ExplicitLoading(AppDbContext context)
