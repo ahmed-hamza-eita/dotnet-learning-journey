@@ -27,6 +27,7 @@ namespace QueryData
 
                 Projection(context);
                 SplitQuries(context);
+                SplitQuriesByConfiguration(context);
             }
         }
         #region SplitQuries
