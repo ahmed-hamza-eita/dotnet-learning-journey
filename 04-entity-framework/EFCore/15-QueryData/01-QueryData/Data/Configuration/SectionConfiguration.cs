@@ -28,12 +28,12 @@ namespace QueryData.Data.Configuration
                   .HasForeignKey(x => x.InstructorId)
                   .IsRequired(false);
 
-
+            
             //relation m:m
             builder.HasMany(x => x.Schedules)
                 .WithMany(x => x.Sections)
                 .UsingEntity<SectionSchedule>();
-
+             
             builder.HasMany(x => x.Participants)
                 .WithMany(x => x.Sections)
                 .UsingEntity<Enrollment>();

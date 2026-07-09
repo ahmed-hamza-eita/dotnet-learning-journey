@@ -11,8 +11,33 @@ namespace QueryData
             {
                 //GetAllCourses(context);
 
-                GetSections(context);
+                // GetSections(context);
+
+                tracking(context);
+                nonTracking(context);
+
+
             }
+        }
+
+        private static void nonTracking(AppDbContext context)
+        {
+            //context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+
+            var course = context.Courses.AsNoTracking().SingleOrDefault(x => x.Id == 6);
+            Console.WriteLine($"Before non track {course.CourseName}");
+            course.CourseName = "English";
+            Console.WriteLine($"After non track {course.CourseName}");
+            context.SaveChanges(); //not applied on db server
+        }
+
+        private static void tracking(AppDbContext context)
+        {
+            var course = context.Courses.SingleOrDefault(x => x.Id == 6);
+            Console.WriteLine($"Before track {course.CourseName}");
+            course.CourseName = "Math";
+            Console.WriteLine($"After track {course.CourseName}");
+            context.SaveChanges(); //applied on db server
         }
 
         private static void GetSections(AppDbContext context)
@@ -23,7 +48,7 @@ namespace QueryData
                 Id = s.Id,
                 SectionName = s.SectionName,
                 CourseName = s.Course.CourseName,
-                TotalDays = CalcTotalDays(s.DateRange.StartDate, s.DateRange.EndDate)
+
             }).Take(3);
 
             foreach (var item in getSections)
@@ -32,10 +57,7 @@ namespace QueryData
             }
         }
 
-        private static int CalcTotalDays(DateOnly startDate, DateOnly endDate)
-        {
-            return endDate.DayNumber - startDate.DayNumber;
-        }
+
 
         private static void GetAllCourses(AppDbContext context)
         {

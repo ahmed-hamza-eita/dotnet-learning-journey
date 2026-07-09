@@ -1,40 +1,32 @@
 ﻿
 namespace QueryData.Entities
 {
-    public class Section
-    {
-        public int Id { set; get; }
-        public string? SectionName { get; set; }
-        public int? CourseId { get; set; }
-        public Course? Course { get; set; }
-        public int InstructorId { get; set; }
-        public Instructor? Instructor { get; set; }
-        public int ScheduleId { get; set; }
-        public Schedule? Schedule { get; set; }
-        public DateRange DateRange { get; set; } = new();
-        public TimeSlot TimeSlot { get; set; } = new();
-        public List<Participant> Participants { get; set; } = new List<Participant>();
-    }
+     
+        public class Section
+        {
+            public int Id { set; get; }
+            public string? SectionName { set; get; }
 
-    public class TimeSlot
-    {
-        public TimeSpan StartTime { get; set; }
-        public TimeSpan EndTime { get; set; }
+            //1:M (required)
+            public int CourseId { set; get; }
+            public Course Course { set; get; }
+
+            //1:M (optional)
+            public int? InstructorId { set; get; }
+            public Instructor? Instructor { set; get; }
+
+            //m:m
+            public ICollection<SectionSchedule> SectionSchedules = new List<SectionSchedule>();
+            public ICollection<Schedule> Schedules = new List<Schedule>();
+
+            public ICollection<Participant> Participants = new List<Participant>();
 
         public override string ToString()
         {
-            return $"{StartTime.ToString("hh\\:mm")} - {EndTime.ToString("hh\\:mm")}";
+            return $"Id: {Id}, Name: {SectionName} ";
         }
     }
-
-    public class DateRange
-    {
-        public DateOnly StartDate { get; set; }
-        public DateOnly EndDate { get; set; }
-
-        public override string ToString()
-        {
-            return $"{StartDate.ToString("yyyy-MM-dd")} - {EndDate.ToString("yyyy-MM-dd")}";
-        }
     }
-}
+ 
+
+     
