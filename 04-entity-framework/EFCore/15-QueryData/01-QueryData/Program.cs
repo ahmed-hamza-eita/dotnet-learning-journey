@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using QueryData.Data;
-using QueryData.Entities;
-using System.Net.WebSockets;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+
 
 namespace QueryData
 {
@@ -22,11 +19,13 @@ namespace QueryData
 
                 //EagerLoading(context);
                 //ExplicitLoading(context);
-                LazyLoading(context);
+                //LazyLoading(context);
+
 
             }
         }
 
+        #region Loading Related Data
         private static void LazyLoading(AppDbContext context)
         {
             var section = context.Sections.FirstOrDefault(x => x.Id == 1);
@@ -54,6 +53,9 @@ namespace QueryData
                 Console.WriteLine($"[{participant}] {participant.FName} {participant.LName}");
             }
         }
+        #endregion
+
+        #region Tracking vs non-Tracking
         private static void nonTracking(AppDbContext context)
         {
             //context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
@@ -74,6 +76,9 @@ namespace QueryData
             context.SaveChanges(); //applied on db server
         }
 
+        #endregion
+
+         
         private static void GetSections(AppDbContext context)
         {
             var getSections = context.Sections.AsNoTracking().Where(s => s.CourseId == 6).Select(s => new
@@ -92,7 +97,7 @@ namespace QueryData
         }
 
 
-
+        #region Query Data
         private static void GetAllCourses(AppDbContext context)
         {
             var allCourses = context.Courses;
@@ -102,5 +107,6 @@ namespace QueryData
                 Console.WriteLine($"Id: {item.Id}, Name: {item.CourseName}, Price: {item.Price:C}");
             }
         }
+        #endregion
     }
 }
