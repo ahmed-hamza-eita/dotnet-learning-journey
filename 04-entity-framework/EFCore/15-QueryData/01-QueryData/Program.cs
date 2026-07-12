@@ -35,13 +35,49 @@ namespace QueryData
                 //GroupJoins(context); //left outer join
                 //CrossJoin(context);
 
-                SelectMany(context);
+                //SelectMany(context);
+
+                GroupBy(context);
             }
         }
 
+        #region GroupBy
+        private static void GroupBy(AppDbContext context)
+        {
+            //Qurey syntax
+            var instructorSections = (from s in context.Sections
+                                      group s by s.Instructor
+                                      into g
+                                      select new
+                                      {
+                                          key = g.Key,
+                                          Sections = g.ToList()
+                                      });
+
+
+            //method syntax
+            var instructorSectionsMethod = context.Sections.GroupBy(x => x.Instructor)
+                .Select(x => new
+                {
+                    key = x.Key,
+                    Sections = x.ToList(),
+                     
+                });
+
+            foreach (var item in instructorSectionsMethod)
+            {
+                Console.WriteLine(item.key.FullName);
+                foreach (var section in item.Sections)
+                {
+                    Console.WriteLine(section.SectionName);
+                }
+            }
+        }
+        #endregion
+
         #region SelectMany => flatten a collection of lists into a single list.
         private static void SelectMany(AppDbContext context)
-        { 
+        {
             //Query Syntax
             var selectStdNames = (from c in context.Courses
                                   where c.CourseName.Contains("frontend")
