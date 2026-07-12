@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using QueryData.Data;
 using QueryData.Entities;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 
 namespace QueryData
@@ -31,7 +32,8 @@ namespace QueryData
 
                 //Joins
                 // InnerJoins(context);
-                GroupJoins(context); //left outer join
+                //GroupJoins(context); //left outer join
+                CrossJoin(context);
             }
         }
 
@@ -70,6 +72,7 @@ namespace QueryData
                 Console.WriteLine($"{i.officeName} -> {i.instructorName}");
             }
 
+
             //Method Syntax
             var groupJoinMethodSyntax = context.Offices.GroupJoin(context.Instructors,
                 o => o.Id,
@@ -90,6 +93,28 @@ namespace QueryData
             {
                 Console.WriteLine($"{i.officeName} -> {i.instructorName}");
             }
+        }
+        private static void CrossJoin(AppDbContext context)
+        {
+            // Query Syntax
+            var crossJoinQuerySyntax = (from s in context.Sections
+                                        from i in context.Instructors
+                                        select new
+                                        {
+                                            s.SectionName,
+                                            i.FullName
+                                        }).ToList();
+            Console.WriteLine(crossJoinQuerySyntax.Count());
+
+            var crossJoinMethodSyntax = context.Sections.SelectMany(
+                i => context.Instructors,
+                (s, i) => new
+                {
+                    s.SectionName,
+                    i.FullName
+                }).ToList();
+            Console.WriteLine(crossJoinMethodSyntax.Count());
+
         }
         #endregion
         private static void SplitQuriesByConfiguration(AppDbContext context)
