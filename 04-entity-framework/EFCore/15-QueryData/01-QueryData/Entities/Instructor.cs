@@ -7,7 +7,9 @@ namespace QueryData.Entities
     {
         public int Id { get; set; }
 
-        public string?  Name { get; set; }
+        public string? FName { get; set; }
+        public string? LName { get; set; }
+        public string FullName => $"{FName} {LName}";
         public int? OfficeId { get; set; }
         public virtual Office? Office { get; set; }
 

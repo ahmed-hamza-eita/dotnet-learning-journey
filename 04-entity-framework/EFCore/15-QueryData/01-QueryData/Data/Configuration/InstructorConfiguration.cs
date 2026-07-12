@@ -13,7 +13,10 @@ namespace QueryData.Data.Configuration
             builder.Property(x => x.Id).ValueGeneratedNever();
 
             //name
-            builder.Property(x => x.Name)
+            builder.Property(x => x.FName)
+                .HasColumnType("VARCHAR")
+                .HasMaxLength(255).IsRequired();
+            builder.Property(x => x.LName)
                 .HasColumnType("VARCHAR")
                 .HasMaxLength(255).IsRequired();
 

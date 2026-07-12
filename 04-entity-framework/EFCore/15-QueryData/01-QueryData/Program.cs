@@ -30,9 +30,11 @@ namespace QueryData
                 //SplitQuriesByConfiguration(context);
 
                 //Joins
-                InnerJoins(context);
+                // InnerJoins(context);
+                GroupJoins(context); //left outer join
             }
         }
+
 
         #region Joins
         private static void InnerJoins(AppDbContext context)
@@ -41,11 +43,53 @@ namespace QueryData
                    Join(context.Sections.AsNoTracking(),
                    c => c.Id,
                    s => s.CourseId,
-                   (c, s) => new {
+                   (c, s) => new
+                   {
                        courseName = c.CourseName,
                        dateRange = s.DateRange.ToString(),
-                       timeSlot=s.TimeSlot.ToString()
+                       timeSlot = s.TimeSlot.ToString()
                    }).ToList();
+        }
+        private static void GroupJoins(AppDbContext context)
+        {
+            //Query Syntax
+            var groupJoinQuerySyntax = (from o in context.Offices
+                                        join i in context.Instructors
+                                        on o.Id equals i.OfficeId into officeVacancy
+                                        from ov in officeVacancy.DefaultIfEmpty()
+                                        select new
+                                        {
+                                            officeId = o.Id,
+                                            officeName = o.OfficeName,
+                                            location = o.OfficeLocation,
+                                            instructorName = ov != null ? ov.FullName : "<<Empty>>"
+                                        }).ToList();
+
+            foreach (var i in groupJoinQuerySyntax)
+            {
+                Console.WriteLine($"{i.officeName} -> {i.instructorName}");
+            }
+
+            //Method Syntax
+            var groupJoinMethodSyntax = context.Offices.GroupJoin(context.Instructors,
+                o => o.Id,
+                i => i.OfficeId,
+                (office, instructorGroup) => new { office, instructorGroup }
+                )
+                .SelectMany(
+                officeWithGroup => officeWithGroup.instructorGroup.DefaultIfEmpty(),
+                (officeWithGroup, instructor) => new
+                {
+                    OfficeId = officeWithGroup.office.Id,
+                    officeName = officeWithGroup.office.OfficeName,
+                    Location = officeWithGroup.office.OfficeLocation,
+                    instructorName = instructor != null ? instructor.FullName : "<<EMPTY>>"
+                }
+                ).ToList();
+            foreach (var i in groupJoinMethodSyntax)
+            {
+                Console.WriteLine($"{i.officeName} -> {i.instructorName}");
+            }
         }
         #endregion
         private static void SplitQuriesByConfiguration(AppDbContext context)
