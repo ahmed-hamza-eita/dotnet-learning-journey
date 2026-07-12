@@ -25,10 +25,34 @@ namespace QueryData
                 //ServerEvaluation(context);
                 //ClientEvaluation(context);
 
-                Projection(context);
-                SplitQuries(context);
-                SplitQuriesByConfiguration(context);
+                //Projection(context);
+                //SplitQuries(context);
+                //SplitQuriesByConfiguration(context);
+
+                //Joins
+                InnerJoins(context);
             }
+        }
+
+        #region Joins
+        private static void InnerJoins(AppDbContext context)
+        {
+            var innerJoins = context.Courses.AsNoTracking().
+                   Join(context.Sections.AsNoTracking(),
+                   c => c.Id,
+                   s => s.CourseId,
+                   (c, s) => new {
+                       courseName = c.CourseName,
+                       dateRange = s.DateRange.ToString(),
+                       timeSlot=s.TimeSlot.ToString()
+                   }).ToList();
+        }
+        #endregion
+        private static void SplitQuriesByConfiguration(AppDbContext context)
+        {
+            var courseProjection = context.Courses.AsNoTracking()
+               .Include(x => x.Sections)
+               .Include(x => x.Reviews);
         }
         #region SplitQuries
         private static void SplitQuries(AppDbContext context)
