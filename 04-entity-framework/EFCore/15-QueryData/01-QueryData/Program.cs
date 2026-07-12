@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using QueryData.Data;
 using QueryData.Entities;
+using QueryData.Utils;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 
@@ -37,9 +38,43 @@ namespace QueryData
 
                 //SelectMany(context);
 
-                GroupBy(context);
+                //GroupBy(context);
+
+                Paginate(context);
             }
         }
+
+        #region Pagination
+        private static void Paginate(AppDbContext context)
+        {
+            int page = 1, size = 10;
+            Console.WriteLine("Result per page... ");
+            if (int.TryParse(Console.ReadLine(), out int resultPerPage))
+            {
+                size = resultPerPage;
+            }
+            Console.WriteLine("Page NO... ");
+            if (int.TryParse(Console.ReadLine(), out int pageNo))
+            {
+                page = pageNo;
+            }
+            var query = context.Sections.AsNoTracking()
+                    .Select(x =>
+                    new
+                    {
+                        Course = x.Course.CourseName,
+                        Instructor = x.Instructor.FullName,
+                        DateRange = x.DateRange.ToString(),
+                        TimeSlot = x.TimeSlot.ToString(),
+                    });
+            var paginate = query.Paginate(page,size);
+            foreach (var section in paginate.Data)
+            {
+                Console.WriteLine($"| {section.Course} | {section.Instructor} | {section.DateRange} | {section.TimeSlot} |");
+            }
+
+        }
+        #endregion
 
         #region GroupBy
         private static void GroupBy(AppDbContext context)
@@ -61,7 +96,6 @@ namespace QueryData
                 {
                     key = x.Key,
                     Sections = x.ToList(),
-                     
                 });
 
             foreach (var item in instructorSectionsMethod)
