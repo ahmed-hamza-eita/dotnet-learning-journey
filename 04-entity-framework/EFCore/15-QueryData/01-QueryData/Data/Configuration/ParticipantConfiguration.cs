@@ -34,7 +34,7 @@ namespace QueryData.Data.Configuration
             //builder.UseTptMappingStrategy();
 
 
-            builder.ToTable("Participants");
+            builder.ToTable("Particpants");
 
 
 

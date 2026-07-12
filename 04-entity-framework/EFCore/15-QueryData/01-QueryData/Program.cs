@@ -33,11 +33,34 @@ namespace QueryData
                 //Joins
                 // InnerJoins(context);
                 //GroupJoins(context); //left outer join
-                CrossJoin(context);
+                //CrossJoin(context);
+
+                SelectMany(context);
             }
         }
 
+        #region SelectMany => flatten a collection of lists into a single list.
+        private static void SelectMany(AppDbContext context)
+        { 
+            //Query Syntax
+            var selectStdNames = (from c in context.Courses
+                                  where c.CourseName.Contains("frontend")
+                                  from s in context.Sections
+                                  from p in context.Participants
+                                  select new
+                                  {
+                                      ParticipantName = $"{p.FName} {p.LName}"
+                                  });
+            //Method Syntax
+            var selectStdNamesMethodSyntax =
+                context.Courses.Where(c => c.CourseName.Contains("frontend"))
+                .SelectMany(s => s.Sections)
+                .SelectMany(p => p.Participants)
+                .Select(p => new { ParticipantName = $"{p.FName} {p.LName}" }).ToList();
 
+
+        }
+        #endregion
         #region Joins
         private static void InnerJoins(AppDbContext context)
         {
