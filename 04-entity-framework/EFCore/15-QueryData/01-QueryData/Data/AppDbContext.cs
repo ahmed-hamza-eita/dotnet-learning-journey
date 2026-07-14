@@ -25,7 +25,7 @@ namespace QueryData.Data
         public DbSet<TrueAndFalseQuiz> TrueAndFalseQuizzes { set; get; }
         public DbSet<Review> Reviews { set; get; }
         public DbSet<SectionDetails> SectionDetails { set; get; }
-
+        public DbSet<CourseOverview> CourseOverview { set; get; }
         protected override void ConfigureConventions(ModelConfigurationBuilder builder)
         {
             base.ConfigureConventions(builder);

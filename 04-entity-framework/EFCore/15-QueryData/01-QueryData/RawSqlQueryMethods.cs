@@ -55,7 +55,16 @@ namespace QueryData
                 Console.WriteLine(i);
             }
         }
+        internal static void CallingDbView(AppDbContext context)
+        {
 
+            var getCoursesOverviews = context.CourseOverview.ToList();
+            foreach (var i in getCoursesOverviews)
+            {
+
+                Console.WriteLine(i);
+            }
+        }
 
     }
 }

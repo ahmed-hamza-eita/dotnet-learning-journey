@@ -45,7 +45,8 @@ namespace QueryData
                 Console.WriteLine("------------ Raw SQL Query ------------");
 
                 //RawSqlQueryMethods.FromSqlRaw(context);
-                RawSqlQueryMethods.CallingStoredProcedure(context);
+                //RawSqlQueryMethods.CallingStoredProcedure(context);
+                RawSqlQueryMethods.CallingDbView(context);
             }
         }
 
@@ -72,7 +73,7 @@ namespace QueryData
                         DateRange = x.DateRange.ToString(),
                         TimeSlot = x.TimeSlot.ToString(),
                     });
-            var paginate = query.Paginate(page,size);
+            var paginate = query.Paginate(page, size);
             foreach (var section in paginate.Data)
             {
                 Console.WriteLine($"| {section.Course} | {section.Instructor} | {section.DateRange} | {section.TimeSlot} |");
