@@ -55,7 +55,8 @@ namespace QueryData.Data
 
             optionsBuilder
                 //.UseLazyLoadingProxies()
-                .UseSqlServer(connectionStr,sp=>sp.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery));
+                .UseSqlServer(connectionStr,sp=>sp.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery))
+                .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
         }
     }
 }
