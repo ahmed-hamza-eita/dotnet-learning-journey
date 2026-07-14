@@ -94,5 +94,15 @@ namespace QueryData
                 Console.WriteLine($"{section.Id}\t{section.SectionName}\t{section.DateRange}");
             }
         }
+
+        internal static void HasQueryFilter(AppDbContext context)
+        {
+            var latestSections = context.Sections;
+
+            foreach (var section in latestSections)
+            {
+                Console.WriteLine($"{section.Id}\t{section.SectionName}\t{section.DateRange}");
+            }
+        }
     }
 }

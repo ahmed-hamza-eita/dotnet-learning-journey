@@ -57,6 +57,11 @@ namespace QueryData.Data.Configuration
                 ts.Property(p => p.EndDate).HasColumnType("date").HasColumnName("EndDate").IsRequired();
             });
 
+            //Has query filter
+            var twoYearsAgo = DateOnly.FromDateTime(DateTime.Now.AddYears(-4));
+            builder.HasQueryFilter(x => x.DateRange.StartDate >= twoYearsAgo);
+
+
             builder.ToTable("Sections");
 
         }
