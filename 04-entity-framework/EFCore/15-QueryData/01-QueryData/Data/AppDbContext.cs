@@ -40,6 +40,14 @@ namespace QueryData.Data
             modelBuilder.ApplyConfigurationsFromAssembly(
                 Assembly.GetExecutingAssembly()
                 );
+
+
+            //table value function
+            modelBuilder.HasDbFunction(
+                typeof(AppDbContext).
+                    GetMethod(nameof(GetSectionsExceedingParticipantCount),
+                    new[] { typeof(int) })!
+                                      );
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -62,11 +70,15 @@ namespace QueryData.Data
 
         [DbFunction("fn_InstructorAvailability", Schema = "dbo")]
         public static string GetInstructorAvailability(
-            int instrcutorId, 
+            int instrcutorId,
             DateTime satrtDate, DateTime endDate,
             TimeSpan startTime, TimeSpan endTime)
         {
             throw new NotImplementedException();
         }
+
+        //table value function
+        public IQueryable<Section> GetSectionsExceedingParticipantCount(int participantsNum)
+            => FromExpression(() => GetSectionsExceedingParticipantCount(participantsNum));
     }
 }

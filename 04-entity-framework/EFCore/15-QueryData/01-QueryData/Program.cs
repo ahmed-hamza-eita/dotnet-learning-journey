@@ -47,7 +47,8 @@ namespace QueryData
                 //RawSqlQueryMethods.FromSqlRaw(context);
                 //RawSqlQueryMethods.CallingStoredProcedure(context);
                 //RawSqlQueryMethods.CallingDbView(context);
-                RawSqlQueryMethods.CallingUserDefiendFunction(context);
+                //RawSqlQueryMethods.CallingUserDefiendFunction(context);
+                RawSqlQueryMethods.CallingTableValuedFunction(context);
             }
         }
 

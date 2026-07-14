@@ -84,5 +84,15 @@ namespace QueryData
                 Console.WriteLine(i);
             }
         }
+
+        internal static void CallingTableValuedFunction(AppDbContext context)
+        {
+            var sectionsExceeding = context.GetSectionsExceedingParticipantCount(15);
+
+            foreach (var section in sectionsExceeding)
+            {
+                Console.WriteLine($"{section.Id}\t{section.SectionName}\t{section.DateRange}");
+            }
+        }
     }
 }
