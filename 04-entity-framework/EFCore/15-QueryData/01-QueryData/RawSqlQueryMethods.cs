@@ -66,5 +66,23 @@ namespace QueryData
             }
         }
 
+        internal static void CallingUserDefiendFunction(AppDbContext context)
+        {
+            var instrcutors = context.Instructors.Select(x => new
+            {
+                Id = x.Id,
+                FullName = x.FullName,
+                Status = AppDbContext.GetInstructorAvailability(
+                    x.Id,
+                    new DateTime(2023,01,01),
+                    new DateTime(2023, 07,09),
+                    new TimeSpan(02,00,00),
+                    new TimeSpan(06, 00, 00))
+            }).ToList();
+
+            foreach (var i in instrcutors) {
+                Console.WriteLine(i);
+            }
+        }
     }
 }

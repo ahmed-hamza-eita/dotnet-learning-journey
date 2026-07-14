@@ -59,5 +59,14 @@ namespace QueryData.Data
                 .UseSqlServer(connectionStr, sp => sp.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery))
                 .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
         }
+
+        [DbFunction("fn_InstructorAvailability", Schema = "dbo")]
+        public static string GetInstructorAvailability(
+            int instrcutorId, 
+            DateTime satrtDate, DateTime endDate,
+            TimeSpan startTime, TimeSpan endTime)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
