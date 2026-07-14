@@ -40,7 +40,11 @@ namespace QueryData
 
                 //GroupBy(context);
 
-                Paginate(context);
+                //Paginate(context);
+
+                Console.WriteLine("------------ Raw SQL Query ------------");
+
+                RawSqlQueryMethods.FromSqlRaw(context);
             }
         }
 
