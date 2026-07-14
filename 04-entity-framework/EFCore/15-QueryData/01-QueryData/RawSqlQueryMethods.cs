@@ -35,7 +35,26 @@ namespace QueryData
         }
 
 
-        //pass parameter
+        internal static void CallingStoredProcedure(AppDbContext context)
+        {
+            var startDateParam = new SqlParameter("@startDate", System.Data.SqlDbType.Date)
+            {
+                Value = new DateTime(2023, 01, 01)
+            };
+            var endDateParam = new SqlParameter("@endtDate", System.Data.SqlDbType.Date)
+            {
+                Value = new DateTime(2025, 01, 01)
+            };
+
+            var getSectionDetails = context.SectionDetails
+                .FromSql($"Exec dbo.sp_GetSectionWithinDateRange {startDateParam},{endDateParam}")
+                .ToList();
+
+            foreach (var i in getSectionDetails)
+            {
+                Console.WriteLine(i);
+            }
+        }
 
 
     }

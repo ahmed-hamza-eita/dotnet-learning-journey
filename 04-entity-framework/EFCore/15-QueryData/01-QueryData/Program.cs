@@ -44,7 +44,8 @@ namespace QueryData
 
                 Console.WriteLine("------------ Raw SQL Query ------------");
 
-                RawSqlQueryMethods.FromSqlRaw(context);
+                //RawSqlQueryMethods.FromSqlRaw(context);
+                RawSqlQueryMethods.CallingStoredProcedure(context);
             }
         }
 

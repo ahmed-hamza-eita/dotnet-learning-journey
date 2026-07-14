@@ -24,6 +24,7 @@ namespace QueryData.Data
         public DbSet<MultipleChoiceQuiz> MultipleChoiceQuizzes { set; get; }
         public DbSet<TrueAndFalseQuiz> TrueAndFalseQuizzes { set; get; }
         public DbSet<Review> Reviews { set; get; }
+        public DbSet<SectionDetails> SectionDetails { set; get; }
 
         protected override void ConfigureConventions(ModelConfigurationBuilder builder)
         {
@@ -55,7 +56,7 @@ namespace QueryData.Data
 
             optionsBuilder
                 //.UseLazyLoadingProxies()
-                .UseSqlServer(connectionStr,sp=>sp.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery))
+                .UseSqlServer(connectionStr, sp => sp.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery))
                 .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
         }
     }
