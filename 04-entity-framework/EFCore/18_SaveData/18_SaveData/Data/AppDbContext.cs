@@ -2,6 +2,7 @@
 using _18_SaveData.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.Reflection;
 
 namespace _18_SaveData.Data
 {
@@ -13,7 +14,9 @@ namespace _18_SaveData.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
+            modelBuilder.ApplyConfigurationsFromAssembly(
+               Assembly.GetExecutingAssembly()
+               );
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
