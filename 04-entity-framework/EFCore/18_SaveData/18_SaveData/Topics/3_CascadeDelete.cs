@@ -18,5 +18,23 @@ namespace _18_SaveData.Topics
             context.Remove(author);
             context.SaveChanges();
         }
+
+
+        //For Optional Relations
+        public static void SetNullDelete(AppDbContext context)
+        {
+            DbHelper.RecreateCleanDB();
+            DbHelper.PopulateDatabase();
+
+            //remove parent only
+            var author = context.AuthorsV2.First();
+            context.AuthorsV2.Remove(author);
+
+            //remove child
+            var book = context.BooksV2.First();
+           // context.BooksV2.Remove(book);
+
+            context.SaveChanges();
+        }
     }
 }

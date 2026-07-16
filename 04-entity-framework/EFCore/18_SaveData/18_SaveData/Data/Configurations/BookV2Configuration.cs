@@ -20,7 +20,8 @@ namespace _18_SaveData.Data.Configurations
             builder.HasOne(x => x.AuthorV2)
                 .WithMany(x => x.BooksV2)
                 .HasForeignKey(x => x.AuthorV2Id)
-                .IsRequired();
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.SetNull);
 
             builder.ToTable("BooksV2");
         }
