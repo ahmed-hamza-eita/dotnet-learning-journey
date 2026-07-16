@@ -10,7 +10,8 @@ namespace _18_SaveData.Data
     {
         public DbSet<Book> Books { set; get; }
         public DbSet<Author> Authors { set; get; }
-
+        public DbSet<BookV2> BooksV2 { set; get; }
+        public DbSet<AuthorV2> AuthorsV2 { set; get; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

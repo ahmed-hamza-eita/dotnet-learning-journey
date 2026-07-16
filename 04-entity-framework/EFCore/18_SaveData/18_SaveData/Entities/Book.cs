@@ -7,6 +7,7 @@ namespace _18_SaveData.Entities
         public int Id { get; set; }
         public string Title { get; set; }
 
+        //Requried
         public int AuthorId { set; get; }
         public Author Author { set; get; }
     }

@@ -8,8 +8,10 @@ namespace _18_SaveData.Utils
 {
     public static class DbHelper
     {
-        public static void RecreateCleanDB() {
-            using (var context = new AppDbContext()) {
+        public static void RecreateCleanDB()
+        {
+            using (var context = new AppDbContext())
+            {
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
             }
@@ -52,32 +54,30 @@ namespace _18_SaveData.Utils
                     });
 
                 context.Add(
-                   new Author
-                   {
-                       Id = 2,
-                       FName = "John",
-                       LName = "Skeet",
-                       Books = new List<Book>
-                       {
-                          new Book
+                 new AuthorV2
+                 {
+                     Id = 1,
+                     FName = "Eric",
+                     LName = "Evans",
+                     BookV2s = new List<BookV2>
+                     {
+                          new BookV2
                           {
-                              Id = 3,
-                              Title = "C# In Depth"
+                              Id = 1,
+                              Title = "Domain-Driven Design: Tackling Complexity in the Heart of Software"
                           },
-                          new Book
+                          new BookV2
                           {
-                              Id = 4,
-                              Title = "Real world functional programming"
+                              Id = 2,
+                              Title = "Domain-Driven Design Reference: Definitions and Pattern Summaries"
                           }
-                       }
-                   });
-
-                context.Add(new Author { Id = 3, FName = "Aditya", LName = "Bhargava" });
-
+                     }
+                 });
 
                 context.SaveChanges();
             }
         }
-
     }
+
 }
+
