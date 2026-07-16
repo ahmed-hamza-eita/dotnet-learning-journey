@@ -32,9 +32,21 @@ namespace _18_SaveData.Topics
 
             //remove child
             var book = context.BooksV2.First();
-           // context.BooksV2.Remove(book);
+            // context.BooksV2.Remove(book);
 
             context.SaveChanges();
+        }
+
+        public static void ClearRelationships(AppDbContext context)
+        {
+            DbHelper.RecreateCleanDB();
+            DbHelper.PopulateDatabase();
+
+            var author = context.AuthorsV2.Include(x => x.BooksV2).First();
+
+            author.BooksV2.Clear();
+            context.SaveChanges();
+
         }
     }
 }

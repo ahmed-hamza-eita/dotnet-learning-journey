@@ -27,7 +27,8 @@ namespace _18_SaveData
 
                 #region Cascade Delete
                 //CascadeDelete.CascadeDeleteScenario(context);
-                CascadeDelete.SetNullDelete(context); 
+                //CascadeDelete.SetNullDelete(context);
+                CascadeDelete.ClearRelationships(context);
                 #endregion
             }
         }
