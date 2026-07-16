@@ -32,7 +32,8 @@ namespace _18_SaveData.Data
 
             var connectionString = configuration.GetConnectionString("DefaultConnection");
 
-            optionsBuilder.UseSqlServer(connectionString);
+            optionsBuilder.UseSqlServer(connectionString)
+                .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information); ;
         }
     }
 }

@@ -32,6 +32,8 @@ namespace _18_SaveData
                 #endregion
 
                 #region Efficient Updating
+                //EfficientUpdating.IncreasePriceWithBadScenario(context);
+                EfficientUpdating.IncreasePriceWithBestScenario(context);
 
                 #endregion
             }
