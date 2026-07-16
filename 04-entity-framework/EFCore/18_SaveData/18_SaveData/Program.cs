@@ -12,17 +12,21 @@ namespace _18_SaveData
             using (var context = new AppDbContext())
             {
                 #region Basic Save
-                BasicSave.RunBasicSave(context);
-                BasicSave.RunBasicUpdate(context);
-                BasicSave.RunBasicDelete(context);
-                BasicSave.RunMultipleOperationsWithSingleSave(context);
-                BasicSave.RunAddRelatedEntities(context);
+                //BasicSave.RunBasicSave(context);
+                //BasicSave.RunBasicUpdate(context);
+                //BasicSave.RunBasicDelete(context);
+                //BasicSave.RunMultipleOperationsWithSingleSave(context);
+                //BasicSave.RunAddRelatedEntities(context);
                 #endregion
 
-
+                #region Change Tracking
+                // ChangeTracking.AddState(context);
+                //ChangeTracking.ModifyState(context);
+                //ChangeTracking.DeleteState(context);
+                #endregion
             }
         }
 
-        
+
     }
 }
