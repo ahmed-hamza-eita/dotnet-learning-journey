@@ -59,7 +59,7 @@ namespace _18_SaveData.Utils
                      Id = 1,
                      FName = "Eric",
                      LName = "Evans",
-                     BookV2s = new List<BookV2>
+                     BooksV2 = new List<BookV2>
                      {
                           new BookV2
                           {

@@ -24,6 +24,10 @@ namespace _18_SaveData
                 //ChangeTracking.ModifyState(context);
                 //ChangeTracking.DeleteState(context);
                 #endregion
+
+                #region Cascade Delete
+                CascadeDelete.CascadeDeleteScenario(context);
+                #endregion
             }
         }
 
