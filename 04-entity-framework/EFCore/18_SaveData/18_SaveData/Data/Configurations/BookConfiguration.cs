@@ -16,6 +16,12 @@ namespace _18_SaveData.Data.Configurations
                 .HasColumnType("VARCHAR")
                 .HasMaxLength(255).IsRequired();
 
+            builder.Property(x => x.Price)
+                .HasColumnType("decimal(18, 2)")
+                .IsRequired();
+
+
+
             builder.HasOne(x => x.Author)
                 .WithMany(x => x.Books)
                 .HasForeignKey(x => x.AuthorId)

@@ -43,12 +43,14 @@ namespace _18_SaveData.Utils
                           new Book
                           {
                               Id = 1,
-                              Title = "Domain-Driven Design: Tackling Complexity in the Heart of Software"
+                              Title = "Domain-Driven Design: Tackling Complexity in the Heart of Software",
+                              Price=50
                           },
                           new Book
                           {
                               Id = 2,
-                              Title = "Domain-Driven Design Reference: Definitions and Pattern Summaries"
+                              Title = "Domain-Driven Design Reference: Definitions and Pattern Summaries",
+                              Price=50
                           }
                         }
                     });
