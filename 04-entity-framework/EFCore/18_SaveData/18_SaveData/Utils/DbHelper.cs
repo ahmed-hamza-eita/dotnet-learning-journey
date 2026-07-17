@@ -38,6 +38,7 @@ namespace _18_SaveData.Utils
                         Id = 1,
                         FName = "Eric",
                         LName = "Evans",
+                        NationalId = "29001011234567",
                         Books = new List<Book>
                         {
                           new Book

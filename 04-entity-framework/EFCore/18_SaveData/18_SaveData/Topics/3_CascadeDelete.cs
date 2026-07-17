@@ -71,5 +71,39 @@ namespace _18_SaveData.Topics
 
             Console.WriteLine($"Still exists in DB: {stillExists}");   
         }
+
+        public static void RestoreAuthorScenario(AppDbContext context)
+        {
+            //Must IgnoreQueryFilters 
+            var author = context.Authors
+                .IgnoreQueryFilters()
+                .Include(x => x.Books)
+                .First();
+
+            if (author == null)
+            {
+                Console.WriteLine("Author Not Found");
+                return;
+            }
+
+            if (!author.IsDeleted)
+            {
+                Console.WriteLine("Author already not deleted");
+                return;
+            }
+
+            author.IsDeleted = false;
+            author.DeletedAt = null;
+
+            foreach (var book in author.Books)
+            {
+                book.IsDeleted = false;
+                book.DeletedAt = null;
+            }
+
+            context.SaveChanges();
+
+            Console.WriteLine($"Restored: {author.FName} {author.LName}  {author.Books.Count} ");
+        }
     }
 }

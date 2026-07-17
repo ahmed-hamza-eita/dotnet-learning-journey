@@ -37,7 +37,15 @@ namespace _18_SaveData
 
                 #endregion
 
-                CascadeDelete.SoftDeleteScenario(context);
+                #region Interceptors
+                //Soft Delete
+                //CascadeDelete.SoftDeleteScenario(context);
+                //CascadeDelete.RestoreAuthorScenario(context);
+
+                // // Encryption 
+                DbHelper.RecreateCleanDB();
+                DbHelper.PopulateDatabase();
+                #endregion
             }
         }
 
