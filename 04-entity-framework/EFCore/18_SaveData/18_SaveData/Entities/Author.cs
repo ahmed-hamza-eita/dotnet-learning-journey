@@ -1,7 +1,7 @@
 ﻿
 namespace _18_SaveData.Entities
 {
-    public class Author
+    public class Author :ISoftDeletable
     {
         public int Id { set; get; }
         public string FName { set; get; }
@@ -9,6 +9,9 @@ namespace _18_SaveData.Entities
         public string FullName => FName + LName;
         //Requried
         public List<Book> Books { get; set; } = new();
+
+        public bool IsDeleted { get; set; }
+        public DateTime? DeletedAt { get; set; }
 
     }
 }

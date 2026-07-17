@@ -28,6 +28,9 @@ namespace _18_SaveData.Data.Configurations
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
 
+            //Interceptor
+            builder.HasQueryFilter(del => !del.IsDeleted);
+
             builder.ToTable("Books");
         }
     }

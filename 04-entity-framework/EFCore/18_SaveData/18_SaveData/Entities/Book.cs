@@ -2,7 +2,7 @@
 
 namespace _18_SaveData.Entities
 {
-    public class Book
+    public class Book : AduitableEntity ,ISoftDeletable 
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -11,5 +11,9 @@ namespace _18_SaveData.Entities
         //Requried
         public int AuthorId { set; get; }
         public Author Author { set; get; }
+
+
+        public bool IsDeleted { get; set; }
+        public DateTime? DeletedAt { get; set; }
     }
 }

@@ -33,9 +33,11 @@ namespace _18_SaveData
 
                 #region Efficient Updating
                 //EfficientUpdating.IncreasePriceWithBadScenario(context);
-                EfficientUpdating.IncreasePriceWithBestScenario(context);
+                // EfficientUpdating.IncreasePriceWithBestScenario(context);
 
                 #endregion
+
+                CascadeDelete.SoftDeleteScenario(context);
             }
         }
 

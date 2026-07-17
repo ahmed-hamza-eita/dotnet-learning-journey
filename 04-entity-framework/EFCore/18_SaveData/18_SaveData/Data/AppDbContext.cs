@@ -1,5 +1,6 @@
 ﻿
 using _18_SaveData.Entities;
+using _18_SaveData.Interceptors;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Reflection;
@@ -33,7 +34,8 @@ namespace _18_SaveData.Data
             var connectionString = configuration.GetConnectionString("DefaultConnection");
 
             optionsBuilder.UseSqlServer(connectionString)
-                .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information); ;
+                .AddInterceptors(new SoftDeleteInterceptor());
+              //  .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information); ;
         }
     }
 }

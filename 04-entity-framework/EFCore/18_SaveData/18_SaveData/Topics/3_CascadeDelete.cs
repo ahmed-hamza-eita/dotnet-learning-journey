@@ -48,5 +48,28 @@ namespace _18_SaveData.Topics
             context.SaveChanges();
 
         }
+
+        public static void SoftDeleteScenario(AppDbContext context)
+        {
+            DbHelper.RecreateCleanDB();
+            DbHelper.PopulateDatabase();
+
+            var author = context.Authors.Include(x => x.Books).First();
+
+            context.Remove(author);   
+            context.SaveChanges();     
+
+        
+            Console.WriteLine($"Author IsDeleted: {author.IsDeleted}");      
+            Console.WriteLine($"Author DeletedAt: {author.DeletedAt}");      
+
+           
+            
+            var stillExists = context.Authors
+                .IgnoreQueryFilters()    
+                .Any(a => a.Id == author.Id);
+
+            Console.WriteLine($"Still exists in DB: {stillExists}");   
+        }
     }
 }
