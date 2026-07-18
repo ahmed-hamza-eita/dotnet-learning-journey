@@ -1,6 +1,5 @@
 ﻿using DapperCourse.Models;
 using DapperCourse.Repositories;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DapperCourse.Controllers
@@ -39,6 +38,13 @@ namespace DapperCourse.Controllers
         public async Task<ActionResult> AddNewVideoGame(VideoGame videoGame)
         {
             await _videoGameRepository.AddVideoGame(videoGame);
+            return Ok();
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> UpdateVideoGame(VideoGame videoGame)
+        {
+            await _videoGameRepository.UpdateVideoGame(videoGame);
             return Ok();
         }
 

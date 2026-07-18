@@ -37,16 +37,20 @@ namespace DapperCourse.Repositories
                   .ExecuteAsync("Insert Into VideoGames (Title, Publisher, Developer, ReleaseDate) Values (@Title, @Publisher, @Developer, @ReleaseDate)", videoGame);
             }
         }
-
+        public async Task UpdateVideoGame(VideoGame videoGame)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                await connection.
+                    ExecuteAsync("Update VideoGames Set Title = @Title, Publisher = @Publisher, Developer = @Developer, ReleaseDate = @ReleaseDate Where Id = @Id", videoGame);
+            }
+        }
         public Task DeleteVideoGame(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateVideoGame(VideoGame videoGame)
-        {
-            throw new NotImplementedException();
-        }
 
         private SqlConnection GetConnection()
         {
