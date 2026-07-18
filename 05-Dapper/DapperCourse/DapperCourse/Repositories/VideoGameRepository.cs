@@ -46,11 +46,14 @@ namespace DapperCourse.Repositories
                     ExecuteAsync("Update VideoGames Set Title = @Title, Publisher = @Publisher, Developer = @Developer, ReleaseDate = @ReleaseDate Where Id = @Id", videoGame);
             }
         }
-        public Task DeleteVideoGame(int id)
+        public async Task DeleteVideoGame(int Id)
         {
-            throw new NotImplementedException();
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                await connection.ExecuteAsync("Delete From VideoGames Where Id = @Id", new { Id = Id });
+            }
         }
-
 
         private SqlConnection GetConnection()
         {

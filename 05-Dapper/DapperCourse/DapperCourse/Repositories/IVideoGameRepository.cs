@@ -9,6 +9,6 @@ namespace DapperCourse.Repositories
 
         Task UpdateVideoGame(VideoGame videoGame);
         Task AddVideoGame(VideoGame videoGame);
-        Task DeleteVideoGame(int id);
+        Task DeleteVideoGame(int Id);
     }
 }
