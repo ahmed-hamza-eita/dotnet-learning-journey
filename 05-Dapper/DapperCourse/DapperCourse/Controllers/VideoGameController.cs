@@ -35,5 +35,12 @@ namespace DapperCourse.Controllers
             return Ok(getVideoGameById);
         }
 
+        [HttpPost]
+        public async Task<ActionResult> AddNewVideoGame(VideoGame videoGame)
+        {
+            await _videoGameRepository.AddVideoGame(videoGame);
+            return Ok();
+        }
+
     }
 }

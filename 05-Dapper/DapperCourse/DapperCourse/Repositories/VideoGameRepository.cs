@@ -28,9 +28,14 @@ namespace DapperCourse.Repositories
                 return getVideoGameById;
             }
         }
-        public Task AddVideoGame(VideoGame videoGame)
+        public async Task AddVideoGame(VideoGame videoGame)
         {
-            throw new NotImplementedException();
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                await connection
+                  .ExecuteAsync("Insert Into VideoGames (Title, Publisher, Developer, ReleaseDate) Values (@Title, @Publisher, @Developer, @ReleaseDate)", videoGame);
+            }
         }
 
         public Task DeleteVideoGame(int id)
