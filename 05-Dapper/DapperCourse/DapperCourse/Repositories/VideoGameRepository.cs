@@ -34,7 +34,8 @@ namespace DapperCourse.Repositories
             {
                 connection.Open();
                 await connection
-                  .ExecuteAsync("Insert Into VideoGames (Title, Publisher, Developer, ReleaseDate) Values (@Title, @Publisher, @Developer, @ReleaseDate)", videoGame);
+                    .ExecuteAsync("INSERT INTO VideoGames (Title, Publisher, Developer, ReleaseDate) VALUES (@Title, @Publisher, @Developer, @ReleaseDate)", videoGame);
+
             }
         }
         public async Task UpdateVideoGame(VideoGame videoGame)

@@ -23,7 +23,7 @@ namespace DapperCourse.Controllers
 
         }
 
-        [HttpGet("{Id}")]
+        [HttpGet("{id}", Name = "GetById")]
         public async Task<ActionResult<VideoGame>> GetVideoGameById(int Id)
         {
             var getVideoGameById = await _videoGameRepository.GetVideoGameByIdAsync(Id);
@@ -38,14 +38,19 @@ namespace DapperCourse.Controllers
         public async Task<ActionResult> AddNewVideoGame(VideoGame videoGame)
         {
             await _videoGameRepository.AddVideoGame(videoGame);
-            return Ok();
+            return CreatedAtAction("GetById", new { Id = videoGame.Id }, videoGame);
         }
 
         [HttpPut]
-        public async Task<ActionResult> UpdateVideoGame(VideoGame videoGame)
+        public async Task<ActionResult> UpdateVideoGame(int Id, VideoGame videoGame)
         {
+            var checkExisting = _videoGameRepository.GetVideoGameByIdAsync(Id);
+            if (checkExisting == null)
+                return NotFound("Video Game NotFound");
+
+            videoGame.Id = Id;
             await _videoGameRepository.UpdateVideoGame(videoGame);
-            return Ok();
+            return NoContent();
         }
 
 
