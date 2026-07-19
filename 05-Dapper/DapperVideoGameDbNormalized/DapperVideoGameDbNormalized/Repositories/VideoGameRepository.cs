@@ -14,9 +14,63 @@ namespace DapperVideoGameDbNormalized.Repositories
             _configuration = configuration;
         }
 
-        public Task<VideoGame> CreateVideoGameAsync(VideoGame videoGame)
+        public async Task<int> CreateVideoGameAsync(VideoGame videoGame)
         {
-            throw new NotImplementedException();
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                using (var transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        int publisherId = await GetOrCreatePublisherAsync(connection, transaction, videoGame.Publisher.Name);
+                        int developerId = await GetOrCreateDeveloperAsync(connection, transaction, videoGame.Developer.Name);
+                        var sql = @"Inser Into VideoGames (Title, PublisherId, DeveloperId, ReleaseDate)
+                                   Values(@Title, @PublisherId, @DeveloperId, @ReleaseDate);
+                                   Select Cast(Scope_Identity() as int;)";
+
+                        var Id = await connection.QuerySingleAsync<int>(sql, new
+                        {
+                            videoGame.Title,
+                            publisherId = publisherId,
+                            DeveloperId = developerId,
+                            videoGame.ReleaseDate
+                        }, transaction);
+                        videoGame.Id = Id;
+                        if (videoGame.GameDetail != null)
+                        {
+                            videoGame.GameDetail.VideoGameId = Id;
+                            await CraeteGameDetailsAsync(connection, videoGame.GameDetail, transaction);
+                        }
+                        if (videoGame.Reviews != null)
+                        {
+                            foreach (var review in videoGame.Reviews)
+                            {
+                                review.VideoGameId = Id;
+                                await CraeteReviewAsync(connection, review, transaction);
+                            }
+                        }
+
+                        if (videoGame.Platforms != null)
+                        {
+                            foreach (var platform in videoGame.Platforms)
+                            {
+                                await CraeteVideoGamePlatformAsync(connection, new VideoGamesPlatform
+                                {
+                                    VideoGameId = Id,
+                                    PlatformId = platform.Id
+                                }, transaction);
+                            }
+                        }
+                        return Id;
+                    }
+                    catch (Exception)
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
         }
 
         public Task DeleteVideoGameAsync(int Id)
@@ -96,6 +150,60 @@ namespace DapperVideoGameDbNormalized.Repositories
                 return videoGameDict.Values;
             }
 
+        }
+
+        private async Task<int> GetOrCreatePublisherAsync(SqlConnection connection, SqlTransaction transaction, string piblisherName)
+        {
+            var checkSql = "Select Id From Publishers Where Name = @Name";
+            var existingPublisherId = await connection.QueryFirstOrDefaultAsync<int?>
+                (checkSql, new { Name = piblisherName }, transaction);
+
+            if (existingPublisherId.HasValue)
+                return existingPublisherId.Value;
+
+            var insertSql = @"Insert Into Publishers (Name) Values (@Name);
+                              Select Cast(Scope_Identity() as int;)";
+
+            var newPublisherId = await connection.QuerySingleAsync<int>
+                (insertSql, new { Name = piblisherName }, transaction);
+
+            return newPublisherId;
+        }
+        private async Task<int> GetOrCreateDeveloperAsync(SqlConnection connection, SqlTransaction transaction, string developerName)
+        {
+            var checkSql = "Select Id From Developers Where Name = @Name";
+            var existingDevelopersId = await connection.QueryFirstOrDefaultAsync<int?>
+                (checkSql, new { Name = developerName }, transaction);
+
+            if (existingDevelopersId.HasValue)
+                return existingDevelopersId.Value;
+
+            var insertSql = @"Insert Into Developers (Name) Values (@Name);
+                              Select Cast(Scope_Identity) as int;";
+
+            var newDevelopersId = await connection.QuerySingleAsync<int>
+                (insertSql, new { Name = developerName }, transaction);
+
+            return newDevelopersId;
+        }
+        private async Task CraeteGameDetailsAsync(SqlConnection connection, GameDetail gameDetail, SqlTransaction transaction)
+        {
+            var sql = @"Insert Into GameDetails(VideoGameId,Description,Rating)
+                       Values(@VideoGameId, @Description, @Rating);";
+            await connection.ExecuteAsync(sql, gameDetail, transaction);
+        }
+
+        private async Task CraeteReviewAsync(SqlConnection connection, Review review, SqlTransaction transaction)
+        {
+            var sql = @"Insert Into Reviews(VideoGameId, ReviewerName, Content, Rating)
+                       Values(@VideoGameId, @ReviewerName, @Content, @Rating);";
+            await connection.ExecuteAsync(sql, review, transaction);
+        }
+        private async Task CraeteVideoGamePlatformAsync(SqlConnection connection, VideoGamesPlatform videoGamesPlatform, SqlTransaction transaction)
+        {
+            var sql = @"Insert Into Platforms(VideoGameId, PlatformId)
+                       Values(@VideoGameId, @PlatformId);";
+            await connection.ExecuteAsync(sql, videoGamesPlatform, transaction);
         }
         private SqlConnection GetConnection()
         {

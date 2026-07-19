@@ -6,7 +6,7 @@ namespace DapperVideoGameDbNormalized.Repositories
     {
         Task<IEnumerable<VideoGame>> GetAllVideoGamesAsync();
         Task<VideoGame> GetVideoGamesAsync(int Id);
-        Task<VideoGame> CreateVideoGameAsync(VideoGame videoGame);
+        Task<int> CreateVideoGameAsync(VideoGame videoGame);
         Task UpdateVideoGameAsync(VideoGame videoGame);
         Task DeleteVideoGameAsync(int Id);
     }
