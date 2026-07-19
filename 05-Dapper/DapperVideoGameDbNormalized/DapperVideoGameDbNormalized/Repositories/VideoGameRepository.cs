@@ -62,6 +62,7 @@ namespace DapperVideoGameDbNormalized.Repositories
                                 }, transaction);
                             }
                         }
+                        transaction.Commit();
                         return Id;
                     }
                     catch (Exception)
@@ -94,11 +95,67 @@ namespace DapperVideoGameDbNormalized.Repositories
             return videoGame.FirstOrDefault();
         }
 
-        public Task UpdateVideoGameAsync(VideoGame videoGame)
+        public async Task UpdateVideoGameAsync(VideoGame videoGame)
         {
-            throw new NotImplementedException();
-        }
 
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                using (var transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        string sql = @"
+                        UPDATE VideoGames
+                        SET Title = @Title, PublisherId = @PublisherId,
+                            DeveloperId = @DeveloperId, ReleaseDate = @ReleaseDate
+                        WHERE Id = @Id;";
+
+                        await connection.ExecuteAsync(sql, new
+                        {
+                            videoGame.Title,
+                            videoGame.PublisherId,
+                            videoGame.DeveloperId,
+                            videoGame.ReleaseDate,
+                            videoGame.Id
+                        }, transaction);
+
+                        if (videoGame.GameDetail != null)
+                        {
+                            await UpdateGameDetailsAsync(connection, videoGame.GameDetail, transaction);
+                        }
+
+                        if (videoGame.Reviews != null)
+                        {
+                            foreach (var review in videoGame.Reviews)
+                            {
+                                await UpdateReviewAsync(connection, review, transaction);
+                            }
+                        }
+
+                        await DeleteVideoGamePlatformAsync(connection, videoGame.Id, transaction);
+                        if (videoGame.Platforms != null)
+                        {
+                            foreach (var platform in videoGame.Platforms)
+                            {
+                                await CraeteVideoGamePlatformAsync(connection, new VideoGamesPlatform
+                                {
+                                    VideoGameId = videoGame.Id,
+                                    PlatformId = platform.Id
+                                }, transaction);
+                            }
+                        }
+
+                        transaction.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+        }
         private string GetVideoGameSql(bool withWhereClause)
         {
             var sql = @"
@@ -204,6 +261,27 @@ namespace DapperVideoGameDbNormalized.Repositories
             var sql = @"Insert Into Platforms(VideoGameId, PlatformId)
                        Values(@VideoGameId, @PlatformId);";
             await connection.ExecuteAsync(sql, videoGamesPlatform, transaction);
+        }
+
+        private async Task UpdateGameDetailsAsync(SqlConnection connection, GameDetail gameDetail, SqlTransaction transaction)
+        {
+            var sql = @"Update GameDetails Set Description = @Description , Rating = @Rating
+                        Where VideoGameId = @VideoGameId;";
+
+            await connection.ExecuteAsync(sql, gameDetail, transaction);
+        }
+        private async Task UpdateReviewAsync(SqlConnection connection, Review review, SqlTransaction transaction)
+        {
+            var sql = @"Update Reviews Set ReviewerName = @ReviewerName,Content = @Content , Rating = @Rating
+                        Where Id = @Id;";
+
+            await connection.ExecuteAsync(sql, review, transaction);
+        }
+        private async Task DeleteVideoGamePlatformAsync(SqlConnection connection, int videoGameID, SqlTransaction transaction)
+        {
+            var sql = @"Delete From VideoGamesPlatforms where VideGameId = @VideGameId;";
+
+            await connection.ExecuteAsync(sql, new { VideoGameId = videoGameID }, transaction);
         }
         private SqlConnection GetConnection()
         {
