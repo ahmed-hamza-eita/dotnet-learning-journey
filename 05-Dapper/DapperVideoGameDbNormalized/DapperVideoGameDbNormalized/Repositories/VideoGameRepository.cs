@@ -74,9 +74,31 @@ namespace DapperVideoGameDbNormalized.Repositories
             }
         }
 
-        public Task DeleteVideoGameAsync(int Id)
+        public async Task DeleteVideoGameAsync(int id)
         {
-            throw new NotImplementedException();
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                using (var transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        await DeleteVideoGamePlatformAsync(connection, id, transaction);
+                        await DeleteGameDetailAsync(connection, id, transaction);
+                        await DeleteReviewsAsync(connection, id, transaction);
+
+                        string sql = "DELETE FROM VideoGames WHERE Id = @Id;";
+                        await connection.ExecuteAsync(sql, new { Id = id }, transaction);
+
+                        transaction.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        transaction.Rollback();
+                    }
+                }
+            }
+        }
         }
 
         public async Task<IEnumerable<VideoGame>> GetAllVideoGamesAsync()
@@ -282,6 +304,23 @@ namespace DapperVideoGameDbNormalized.Repositories
             var sql = @"Delete From VideoGamesPlatforms where VideGameId = @VideGameId;";
 
             await connection.ExecuteAsync(sql, new { VideoGameId = videoGameID }, transaction);
+        }
+        private async Task DeleteGameDetailAsync(SqlConnection connection,
+           int videoGameId, SqlTransaction transaction)
+        {
+            string sql = @"
+                   DELETE FROM GameDetails WHERE VideoGameId = @VideoGameId;";
+
+            await connection.ExecuteAsync(sql, new { VideoGameId = videoGameId }, transaction);
+        }
+
+        private async Task DeleteReviewsAsync(SqlConnection connection,
+            int videoGameId, SqlTransaction transaction)
+        {
+            string sql = @"
+                   DELETE FROM Reviews WHERE VideoGameId = @VideoGameId;";
+
+            await connection.ExecuteAsync(sql, new { VideoGameId = videoGameId }, transaction);
         }
         private SqlConnection GetConnection()
         {
