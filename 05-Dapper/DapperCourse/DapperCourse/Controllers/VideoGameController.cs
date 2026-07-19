@@ -37,14 +37,16 @@ namespace DapperCourse.Controllers
         [HttpPost]
         public async Task<ActionResult> AddNewVideoGame(VideoGame videoGame)
         {
-            await _videoGameRepository.AddVideoGame(videoGame);
-            return CreatedAtAction("GetById", new { Id = videoGame.Id }, videoGame);
+            var newVideoGame = await _videoGameRepository.AddVideoGame(videoGame);
+            videoGame.Id = newVideoGame;
+
+            return CreatedAtAction(nameof(GetVideoGameById), new { Id = videoGame.Id }, videoGame);
         }
 
         [HttpPut]
         public async Task<ActionResult> UpdateVideoGame(int Id, VideoGame videoGame)
         {
-            var checkExisting = _videoGameRepository.GetVideoGameByIdAsync(Id);
+            var checkExisting = await _videoGameRepository.GetVideoGameByIdAsync(Id);
             if (checkExisting == null)
                 return NotFound("Video Game NotFound");
 
@@ -57,7 +59,7 @@ namespace DapperCourse.Controllers
         [HttpDelete("{Id}")]
         public async Task<ActionResult> DeleteVideoGame(int Id)
         {
-            var checkExisting = _videoGameRepository.GetVideoGameByIdAsync(Id);
+            var checkExisting = await _videoGameRepository.GetVideoGameByIdAsync(Id);
             if (checkExisting == null)
                 return NotFound("Video Game NotFound");
 

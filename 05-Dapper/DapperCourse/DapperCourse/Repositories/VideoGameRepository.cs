@@ -28,14 +28,18 @@ namespace DapperCourse.Repositories
                 return getVideoGameById;
             }
         }
-        public async Task AddVideoGame(VideoGame videoGame)
+        public async Task<int> AddVideoGame(VideoGame videoGame)
         {
             using (var connection = GetConnection())
             {
                 connection.Open();
-                await connection
-                    .ExecuteAsync("INSERT INTO VideoGames (Title, Publisher, Developer, ReleaseDate) VALUES (@Title, @Publisher, @Developer, @ReleaseDate)", videoGame);
+                var newVideoGame = await connection.ExecuteScalarAsync<int>(
+                    @"INSERT INTO VideoGames (Title, Publisher, Developer,   ReleaseDate) 
+                      VALUES (@Title, @Publisher, @Developer, @ReleaseDate);
+                      SELECT CAST(SCOPE_IDENTITY() as int)",
+                    videoGame);
 
+                return newVideoGame;
             }
         }
         public async Task UpdateVideoGame(VideoGame videoGame)
@@ -43,8 +47,11 @@ namespace DapperCourse.Repositories
             using (var connection = GetConnection())
             {
                 connection.Open();
-                await connection.
-                    ExecuteAsync("Update VideoGames Set Title = @Title, Publisher = @Publisher, Developer = @Developer, ReleaseDate = @ReleaseDate Where Id = @Id", videoGame);
+                await connection.ExecuteAsync(
+                   @"Update VideoGames 
+                      Set Title = @Title, Publisher = @Publisher, Developer = @Developer, 
+                          ReleaseDate = @ReleaseDate 
+                      Where Id = @Id", videoGame);
             }
         }
         public async Task DeleteVideoGame(int Id)

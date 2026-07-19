@@ -8,7 +8,7 @@ namespace DapperCourse.Repositories
         Task<VideoGame> GetVideoGameByIdAsync(int Id);
 
         Task UpdateVideoGame(VideoGame videoGame);
-        Task AddVideoGame(VideoGame videoGame);
+        Task<int> AddVideoGame(VideoGame videoGame);
         Task DeleteVideoGame(int Id);
     }
 }
