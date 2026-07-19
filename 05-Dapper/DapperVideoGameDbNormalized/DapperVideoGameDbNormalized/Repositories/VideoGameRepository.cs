@@ -40,39 +40,81 @@ namespace DapperVideoGameDbNormalized.Repositories
 
                 var videoGameDict = new Dictionary<int, VideoGame>();
 
-                 await connection.QueryAsync<VideoGame, Publisher, Developer, GameDetail, Review, Platform, VideoGame>
-                    (sql, (videoGame, publisher, developer, gameDetail, review, platform) =>
-                    {
-                        if (!videoGameDict.TryGetValue(videoGame.Id, out var currentGame))
-                        {
-                            currentGame = videoGame;
-                            currentGame.Publisher = publisher;
-                            currentGame.Developer = developer;
-                            currentGame.GameDetail = gameDetail;
-                            currentGame.Reviews = [];
-                            currentGame.Platforms = [];
-                            videoGameDict.Add(currentGame.Id, currentGame);
+                await connection.QueryAsync<VideoGame, Publisher, Developer, GameDetail, Review, Platform, VideoGame>
+                   (sql, (videoGame, publisher, developer, gameDetail, review, platform) =>
+                   {
+                       if (!videoGameDict.TryGetValue(videoGame.Id, out var currentGame))
+                       {
+                           currentGame = videoGame;
+                           currentGame.Publisher = publisher;
+                           currentGame.Developer = developer;
+                           currentGame.GameDetail = gameDetail;
+                           currentGame.Reviews = [];
+                           currentGame.Platforms = [];
+                           videoGameDict.Add(currentGame.Id, currentGame);
 
-                        }
-                        if (review is not null && !currentGame.Reviews.Any(r => r.Id == review.Id))
-                        {
-                            currentGame.Reviews.Add(review);
-                        }
-                        if (platform is not null && !currentGame.Platforms.Any(r => r.Id == platform.Id))
-                        {
-                            currentGame.Platforms.Add(platform);
-                        }
-                        return currentGame;
-                    }, splitOn: "Id ,Id,VideoGameId,Id,Id");
+                       }
+                       if (review is not null && !currentGame.Reviews.Any(r => r.Id == review.Id))
+                       {
+                           currentGame.Reviews.Add(review);
+                       }
+                       if (platform is not null && !currentGame.Platforms.Any(r => r.Id == platform.Id))
+                       {
+                           currentGame.Platforms.Add(platform);
+                       }
+                       return currentGame;
+                   }, splitOn: "Id ,Id,VideoGameId,Id,Id");
                 return videoGameDict.Values;
             }
 
         }
 
 
-        public Task<VideoGame> GetVideoGamesAsync(int Id)
+        public async Task<VideoGame> GetVideoGamesAsync(int Id)
         {
-            throw new NotImplementedException();
+            using (var connection = GetConnection())
+            {
+                var sql = @"
+                    SELECT vg.*, p.*, d.*, gd.*, r.*, pf.*
+                    FROM VideoGames vg
+                    LEFT JOIN Publishers p ON vg.PublisherId = p.Id
+                    LEFT JOIN Developers d ON vg.DeveloperId = d.Id
+                    LEFT JOIN GameDetails gd ON vg.Id = gd.VideoGameId
+                    LEFT JOIN Reviews r ON vg.Id = r.VideoGameId
+                    LEFT JOIN VideoGamesPlatforms vgp ON vg.Id = vgp.VideoGameId
+                    LEFT JOIN Platforms pf ON pf.Id = vgp.PlatformId
+                    Where vg.Id = @Id";
+
+                var videoGameDict = new Dictionary<int, VideoGame>();
+
+                await connection.QueryAsync<VideoGame, Publisher, Developer, GameDetail, Review, Platform, VideoGame>
+                   (sql, (videoGame, publisher, developer, gameDetail, review, platform) =>
+                   {
+                       if (!videoGameDict.TryGetValue(videoGame.Id, out var currentGame))
+                       {
+                           currentGame = videoGame;
+                           currentGame.Publisher = publisher;
+                           currentGame.Developer = developer;
+                           currentGame.GameDetail = gameDetail;
+                           currentGame.Reviews = [];
+                           currentGame.Platforms = [];
+                           videoGameDict.Add(currentGame.Id, currentGame);
+
+                       }
+                       if (review is not null && !currentGame.Reviews.Any(r => r.Id == review.Id))
+                       {
+                           currentGame.Reviews.Add(review);
+                       }
+                       if (platform is not null && !currentGame.Platforms.Any(r => r.Id == platform.Id))
+                       {
+                           currentGame.Platforms.Add(platform);
+                       }
+                       return currentGame;
+                   }
+                   , new { Id = Id }
+                   , splitOn: "Id ,Id,VideoGameId,Id,Id");
+                return videoGameDict.Values.FirstOrDefault();
+            }
         }
 
         public Task UpdateVideoGameAsync(VideoGame videoGame)
