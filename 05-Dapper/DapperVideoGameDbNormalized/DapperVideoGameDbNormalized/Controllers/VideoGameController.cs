@@ -1,4 +1,5 @@
-﻿using DapperVideoGameDbNormalized.Repositories;
+﻿using DapperVideoGameDbNormalized.Models;
+using DapperVideoGameDbNormalized.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DapperVideoGameDbNormalized.Controllers
@@ -12,6 +13,13 @@ namespace DapperVideoGameDbNormalized.Controllers
         public VideoGameController(IVideoGameRepository videoGameRepository)
         {
             _videoGameRepository = videoGameRepository;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<VideoGame>>> GetAllVideoGamesAsync()
+        {
+            var getAllVideoGamesAsync = await _videoGameRepository.GetAllVideoGamesAsync();
+            return Ok(getAllVideoGamesAsync);
         }
     }
 }
