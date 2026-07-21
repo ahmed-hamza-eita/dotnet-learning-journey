@@ -82,6 +82,24 @@ namespace DapperAspNetCore.Repository
             }
         }
 
+        public async Task<Company> GetCompanyWithItsEmployees(int Id)
+        {
+            var query = @"Select * From Companies Where Id = @Id
+                          Select * From Employees Where CompanyId = @Id";
+
+            using (var connection = _context.CreateConnection())
+            {
+                using (var multi = await connection.QueryMultipleAsync(query, new { Id }))
+                {
+                    var company = await multi.ReadSingleOrDefaultAsync<Company>();
+                    if (company is not null)
+                        company.Employees = (await multi.ReadAsync<Employee>()).ToList();
+
+                    return company; 
+                }
+            }
+        }
+
         public async Task UpdateCompany(int Id, CompanyForUpdateDto updateCompanyDto)
         {
             var query = @"Update Companies Set Name = @Name, Address = @Address, Country = @Country 

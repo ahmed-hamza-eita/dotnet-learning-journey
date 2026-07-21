@@ -72,5 +72,15 @@ namespace DapperAspNetCore.Controllers
 
             return Ok(company);
         }
+
+        [HttpGet("CompanyWithItsEmployees/{Id}")]
+        public async Task<ActionResult> GetCompanyWithItsEmployees(int Id)
+        {
+            var company = await _companyRepository.GetCompanyWithItsEmployees(Id);
+            if (company is null)
+                return NotFound();
+
+            return Ok(company);
+        }
     }
 }
