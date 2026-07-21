@@ -5,5 +5,6 @@ namespace DapperAspNetCore.Contract
     public interface ICompanyRepository
     {
         public Task<IEnumerable<Company>> GetCompanies();
+        public Task<Company> GetCompany(int Id);
     }
 }
