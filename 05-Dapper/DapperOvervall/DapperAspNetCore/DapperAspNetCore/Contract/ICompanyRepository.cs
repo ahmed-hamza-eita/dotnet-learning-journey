@@ -12,5 +12,7 @@ namespace DapperAspNetCore.Contract
         public Task DeleteCompany(int Id);
         public Task<Company> GetCompanyByEmployeeId(int Id);
         public Task<Company> GetCompanyWithItsEmployees(int Id);
+
+        public Task<List<Company>> MultiMapping();
     }
 }

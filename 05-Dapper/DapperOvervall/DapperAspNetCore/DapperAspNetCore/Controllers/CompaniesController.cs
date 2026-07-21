@@ -82,5 +82,15 @@ namespace DapperAspNetCore.Controllers
 
             return Ok(company);
         }
+
+        [HttpGet("MultiMapping")]
+        public async Task<ActionResult> MultiMapping()
+        {
+            var companies = await _companyRepository.MultiMapping();
+            if (companies is null)
+                return NotFound();
+
+            return Ok(companies);
+        }
     }
 }

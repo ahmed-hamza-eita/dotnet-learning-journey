@@ -95,8 +95,31 @@ namespace DapperAspNetCore.Repository
                     if (company is not null)
                         company.Employees = (await multi.ReadAsync<Employee>()).ToList();
 
-                    return company; 
+                    return company;
                 }
+            }
+        }
+
+        public async Task<List<Company>> MultiMapping()
+        {
+            var query = @"Select * From Companies c JOIN Employees e ON c.Id = e.CompanyId";
+            using (var connection = _context.CreateConnection())
+            {
+                var companyDict = new Dictionary<int, Company>();
+                var companies = await connection.QueryAsync<Company, Employee, Company>(
+                    query, (company, employee) =>
+                    {
+                        if (!companyDict.TryGetValue(company.Id, out var currentCompany))
+                        {
+                            currentCompany = company;
+                            companyDict.Add(currentCompany.Id, currentCompany);
+                        }
+                        currentCompany.Employees.Add(employee);
+                        return currentCompany;
+                    }
+
+                    );
+                return companyDict.Values.ToList();
             }
         }
 
