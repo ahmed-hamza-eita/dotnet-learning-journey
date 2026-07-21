@@ -3,6 +3,7 @@ using DapperAspNetCore.Context;
 using DapperAspNetCore.Contract;
 using DapperAspNetCore.DTO;
 using DapperAspNetCore.Entities;
+using System.Data;
 
 namespace DapperAspNetCore.Repository
 {
@@ -62,6 +63,21 @@ namespace DapperAspNetCore.Repository
             using (var connection = _context.CreateConnection())
             {
                 var company = await connection.QuerySingleOrDefaultAsync<Company>(query, new { Id });
+                return company;
+            }
+        }
+
+        public async Task<Company> GetCompanyByEmployeeId(int Id)
+        {
+            string storedProcedureName = "ShowCompanyByEmployeeId";
+            var parametres = new DynamicParameters();
+            parametres.Add("Id", Id, DbType.Int32, ParameterDirection.Input);
+
+            using (var connection = _context.CreateConnection())
+            {
+                var company = await connection.QuerySingleOrDefaultAsync<Company>(
+                    storedProcedureName, parametres, commandType: CommandType.StoredProcedure);
+
                 return company;
             }
         }

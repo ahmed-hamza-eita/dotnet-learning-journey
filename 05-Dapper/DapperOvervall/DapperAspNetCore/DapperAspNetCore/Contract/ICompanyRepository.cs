@@ -10,5 +10,6 @@ namespace DapperAspNetCore.Contract
         public Task<Company> CreateCompany(CompanyForCreationDto compantDto);
         public Task UpdateCompany(int Id, CompanyForUpdateDto updateCompanyDto);
         public Task DeleteCompany(int Id);
+        public Task<Company> GetCompanyByEmployeeId(int Id);
     }
 }
