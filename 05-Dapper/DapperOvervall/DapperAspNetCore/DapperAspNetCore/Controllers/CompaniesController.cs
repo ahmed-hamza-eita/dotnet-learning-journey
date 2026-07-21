@@ -1,4 +1,5 @@
 ﻿using DapperAspNetCore.Contract;
+using DapperAspNetCore.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +27,18 @@ namespace DapperAspNetCore.Controllers
                 return NotFound();
 
             return Ok(company);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> CreateCompany([FromBody] CompanyForCreationDto companyDto)
+        {
+            var createdCompany = await _companyRepository.CreateCompany(companyDto);
+
+            return CreatedAtRoute(
+                "CompanyById"
+                , new { Id = createdCompany.Id }
+                , createdCompany);
+
         }
     }
 }

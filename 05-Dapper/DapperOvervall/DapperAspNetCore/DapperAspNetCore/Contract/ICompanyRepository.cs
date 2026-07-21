@@ -1,4 +1,5 @@
-﻿using DapperAspNetCore.Entities;
+﻿using DapperAspNetCore.DTO;
+using DapperAspNetCore.Entities;
 
 namespace DapperAspNetCore.Contract
 {
@@ -6,5 +7,6 @@ namespace DapperAspNetCore.Contract
     {
         public Task<IEnumerable<Company>> GetCompanies();
         public Task<Company> GetCompany(int Id);
+        public Task<Company> CreateCompany(CompanyForCreationDto compantDto);
     }
 }
