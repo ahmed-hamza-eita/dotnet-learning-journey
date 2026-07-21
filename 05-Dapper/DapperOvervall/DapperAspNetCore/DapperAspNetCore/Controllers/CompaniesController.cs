@@ -40,5 +40,27 @@ namespace DapperAspNetCore.Controllers
                 , createdCompany);
 
         }
+
+        [HttpPut("{Id}")]
+        public async Task<ActionResult> UpdateCompany(int Id, [FromBody] CompanyForUpdateDto updateCompanyDto)
+        {
+            var checkCompanyExisting = await _companyRepository.GetCompany(Id);
+            if (checkCompanyExisting is null)
+                return NotFound();
+
+            await _companyRepository.UpdateCompany(Id, updateCompanyDto);
+            return NoContent();
+        }
+
+        [HttpDelete("{Id}")]
+        public async Task<ActionResult> DeleteCompany(int Id)
+        {
+            var checkCompanyExisting = await _companyRepository.GetCompany(Id);
+            if (checkCompanyExisting is null)
+                return NotFound();
+
+            await _companyRepository.DeleteCompany(Id);
+            return NoContent();
+        }
     }
 }

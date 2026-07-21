@@ -37,6 +37,15 @@ namespace DapperAspNetCore.Repository
             }
         }
 
+        public async Task DeleteCompany(int Id)
+        {
+            var query = @"Delete From Companies Where Id = @Id";
+            using (var connection = _context.CreateConnection())
+            {
+                await connection.ExecuteAsync(query, new { Id });
+            }
+        }
+
         public async Task<IEnumerable<Company>> GetCompanies()
         {
             var query = @"Select * from Companies";
@@ -54,6 +63,23 @@ namespace DapperAspNetCore.Repository
             {
                 var company = await connection.QuerySingleOrDefaultAsync<Company>(query, new { Id });
                 return company;
+            }
+        }
+
+        public async Task UpdateCompany(int Id, CompanyForUpdateDto updateCompanyDto)
+        {
+            var query = @"Update Companies Set Name = @Name, Address = @Address, Country = @Country 
+                           Where Id =@Id";
+
+            var parameters = new DynamicParameters();
+            parameters.Add("Id", Id, System.Data.DbType.Int32);
+            parameters.Add("Name", updateCompanyDto.Name, System.Data.DbType.String);
+            parameters.Add("Address", updateCompanyDto.Address, System.Data.DbType.String);
+            parameters.Add("Country", updateCompanyDto.Country, System.Data.DbType.String);
+
+            using (var connection = _context.CreateConnection())
+            {
+                await connection.ExecuteAsync(query, parameters);
             }
         }
     }
