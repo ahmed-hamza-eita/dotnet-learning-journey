@@ -92,5 +92,20 @@ namespace DapperAspNetCore.Controllers
 
             return Ok(companies);
         }
+
+        [HttpPost("multiple")]
+        public async Task<ActionResult> CreateCompany(List<CompanyForCreationDto> companiesDto)
+        {
+            try
+            {
+                await _companyRepository.CreateMultiCompanies(companiesDto);
+                return StatusCode(201);
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

@@ -38,6 +38,30 @@ namespace DapperAspNetCore.Repository
             }
         }
 
+        public async Task CreateMultiCompanies(List<CompanyForCreationDto> companiesDto)
+        {
+            var query = @"INSERT INTO Companies (Name, Address, Country) VALUES (@Name, @Address, @Country)";
+            using (var connection = _context.CreateConnection())
+            {
+                connection.Open();
+                using (var transaction = connection.BeginTransaction())
+                {
+                    foreach (var company in companiesDto)
+                    {
+                        var parameters = new DynamicParameters();
+                        parameters.Add("Name", company.Name, DbType.String);
+                        parameters.Add("Address", company.Address, DbType.String);
+                        parameters.Add("Country", company.Country, DbType.String);
+
+                        await connection.ExecuteAsync(query, parameters, transaction: transaction);
+                         
+                    }
+
+                    transaction.Commit();
+                }
+            }
+        }
+
         public async Task DeleteCompany(int Id)
         {
             var query = @"Delete From Companies Where Id = @Id";

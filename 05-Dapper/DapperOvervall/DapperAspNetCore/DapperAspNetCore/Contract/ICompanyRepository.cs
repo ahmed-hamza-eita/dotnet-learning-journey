@@ -14,5 +14,7 @@ namespace DapperAspNetCore.Contract
         public Task<Company> GetCompanyWithItsEmployees(int Id);
 
         public Task<List<Company>> MultiMapping();
+
+        public Task CreateMultiCompanies(List<CompanyForCreationDto> companiesDto);
     }
 }
