@@ -4,7 +4,7 @@ using System.Text.Json;
 var builder = WebApplication.CreateBuilder(args);
 
 //Register custom middleware that created.
-builder.Services.AddTransient<HeaderValidatorMiddleware>();
+//builder.Services.AddTransient<HeaderValidatorMiddleware>(); //Create Instance to each Request
 
 var app = builder.Build();
 
@@ -141,8 +141,8 @@ app.Run(async (httpContext) =>
 
 // --custom middleware--
 //app.UseMiddleware<HeaderValidatorMiddleware>(); === app.UseHeaderValidator(); (By extension method)
-app.UseHeaderValidator();
-
+//app.UseHeaderValidator(); //Factory -> //Create Instance to each Request
+app.UseHeaderValidatorConventional(); //Conventional -> //Create one Instance to all Requests
 
 
 app.Run();
