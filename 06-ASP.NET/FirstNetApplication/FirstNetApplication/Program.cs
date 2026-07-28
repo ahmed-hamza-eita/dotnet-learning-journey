@@ -142,8 +142,14 @@ app.Run(async (httpContext) =>
 // --custom middleware--
 //app.UseMiddleware<HeaderValidatorMiddleware>(); === app.UseHeaderValidator(); (By extension method)
 //app.UseHeaderValidator(); //Factory -> //Create Instance to each Request
-app.UseHeaderValidatorConventional(); //Conventional -> //Create one Instance to all Requests
+//app.UseHeaderValidatorConventional(); //Conventional -> //Create one Instance to all Requests
 
+//useWhen 
+app.UseWhen(context => context.Request.Headers.ContainsKey("X-Token"),
+    app =>
+    {
+        app.UseHeaderValidatorConventional();
+    });
 
 app.Run();
 
