@@ -1,6 +1,11 @@
+using FirstNetApplication.Middlewares;
 using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//Register custom middleware that created.
+builder.Services.AddTransient<HeaderValidatorMiddleware>();
+
 var app = builder.Build();
 
 /*
@@ -73,7 +78,7 @@ app.Use(async (HttpContext httpContext, RequestDelegate next) =>
     await httpContext.Response.WriteAsync("\n After Mid 3");
 });
 */
-
+/*
 app.Use(async (httpContext, next) =>
 {
 
@@ -87,7 +92,7 @@ app.Use(async (httpContext, next) =>
 {
     if (!httpContext.Request.Headers.ContainsKey("X-Auth-Token"))
     {
-       httpContext.Response.StatusCode = 400;
+        //httpContext.Response.StatusCode = 400;
         return;
     }
     await next(httpContext);
@@ -132,6 +137,14 @@ app.Run(async (httpContext) =>
     httpContext.Response.WriteAsync("Request completed successfully");
 
 });
+*/
+
+// --custom middleware--
+//app.UseMiddleware<HeaderValidatorMiddleware>(); === app.UseHeaderValidator(); (By extension method)
+app.UseHeaderValidator();
+
+
+
 app.Run();
 
 public class Employee
