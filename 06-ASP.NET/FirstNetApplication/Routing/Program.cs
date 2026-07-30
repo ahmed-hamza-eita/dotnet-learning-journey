@@ -25,7 +25,7 @@ app.UseEndpoints(endpoints =>
     });
 
     //// How to access parameters.
-    endpoints.MapGet("products/{id}", async context =>
+    endpoints.MapGet("products/{id=5}", async context =>
     {
         // way 1
         //var routeData = context.GetRouteData();
