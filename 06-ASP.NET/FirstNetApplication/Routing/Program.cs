@@ -1,4 +1,10 @@
+using Routing.CustomConstraint;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddRouting(options => {
+    options.ConstraintMap.Add("userNameConstarint",typeof(AlphaNumericConstraint));
+});
 var app = builder.Build();
 
 //app.MapGet("/", () => "Hello World!");
@@ -59,7 +65,7 @@ app.UseEndpoints(endpoints =>
     });
 
     //constraint parameters
-    endpoints.MapGet("users/{userId:int?}/userName/{userName:length(3,12)}", async context =>
+    endpoints.MapGet("users/{userId:int?}/userName/{userName:userNameConstarint}", async context =>
     {
         var id = Convert.ToInt32(context.Request.RouteValues["userId"]);
         var userName = Convert.ToString(context.Request.RouteValues["userName"]);
