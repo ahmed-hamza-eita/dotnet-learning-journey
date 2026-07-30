@@ -37,6 +37,14 @@ app.UseEndpoints(endpoints =>
 
         await context.Response.WriteAsync($"get products with id {id}");
     });
+
+    endpoints.MapGet("users/{userId}/posts/{postName=hamza}", async context =>
+    {
+        var id = Convert.ToInt32(context.Request.RouteValues["userId"]);
+        var postName = Convert.ToString(context.Request.RouteValues["postName"]);
+
+        await context.Response.WriteAsync($"user Id: {id} \t Post Name: {postName}");
+    });
 });
 
 app.Run(async context =>
