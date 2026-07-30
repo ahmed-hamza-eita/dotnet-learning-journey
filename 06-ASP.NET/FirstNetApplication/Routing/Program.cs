@@ -38,8 +38,15 @@ app.UseEndpoints(endpoints =>
         await context.Response.WriteAsync($"get products with id {id}");
     });
 
-     
+    endpoints.MapGet("users/{userId}/posts/{postName=hamza}", async context =>
+    {
+        var id = Convert.ToInt32(context.Request.RouteValues["userId"]);
+        var postName = Convert.ToString(context.Request.RouteValues["postName"]);
 
+        await context.Response.WriteAsync($"user Id: {id} \t Post Name: {postName}");
+    });
+
+    //optional parameters
     endpoints.MapGet("users/{userId}/posts/{postName?}", async context =>
     {
         var id = Convert.ToInt32(context.Request.RouteValues["userId"]);
@@ -49,6 +56,23 @@ app.UseEndpoints(endpoints =>
             postName = "no post name passed";
         }
         await context.Response.WriteAsync($"user Id: {id} \t Post Name: {postName}");
+    });
+
+    //constraint parameters
+    endpoints.MapGet("users/{userId:int?}/userName/{userName:length(3,12)}", async context =>
+    {
+        var id = Convert.ToInt32(context.Request.RouteValues["userId"]);
+        var userName = Convert.ToString(context.Request.RouteValues["userName"]);
+
+        await context.Response.WriteAsync($"user Id: {id} \t Username: {userName}");
+    });
+
+    endpoints.MapGet("users/{userId:minlength(2)=33}", async context =>
+    {
+        var id = Convert.ToInt32(context.Request.RouteValues["userId"]);
+
+
+        await context.Response.WriteAsync($"user Id: {id}  ");
     });
 });
 
