@@ -23,6 +23,20 @@ app.UseEndpoints(endpoints =>
         var endPoint = context.GetEndpoint();
         await context.Response.WriteAsync($"Selected end point is: {endPoint.DisplayName}");
     });
+
+    //// How to access parameters.
+    endpoints.MapGet("products/{id}", async context =>
+    {
+        // way 1
+        //var routeData = context.GetRouteData();
+        //var id = Convert.ToInt32(routeData.Values["id"]);
+
+        //way 2
+        var id = Convert.ToInt32(context.Request.RouteValues["id"]);
+
+
+        await context.Response.WriteAsync($"get products with id {id}");
+    });
 });
 
 app.Run(async context =>
