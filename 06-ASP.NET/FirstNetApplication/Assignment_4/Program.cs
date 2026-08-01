@@ -62,8 +62,9 @@ app.UseEndpoints(endPoint =>
     endPoint.MapGet("courses/course-fee/{courseId:Int}", async (HttpContext context) =>
     {
         var id = int.Parse(context.Request.RouteValues["courseId"].ToString());
-        var checkCourseExistence = loadCourses.FirstOrDefault(c => c.Id == id);
 
+        //if course not found
+        var checkCourseExistence = loadCourses.FirstOrDefault(c => c.Id == id);
         if (checkCourseExistence is null)
         {
             return Results.NotFound($"Course with id {id} not found");
