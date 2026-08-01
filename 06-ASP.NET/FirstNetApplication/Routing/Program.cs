@@ -2,12 +2,16 @@ using Routing.CustomConstraint;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddRouting(options => {
-    options.ConstraintMap.Add("userNameConstarint",typeof(AlphaNumericConstraint));
+builder.Services.AddRouting(options =>
+{
+    options.ConstraintMap.Add("userNameConstarint", typeof(AlphaNumericConstraint));
 });
 var app = builder.Build();
 
 //app.MapGet("/", () => "Hello World!");
+
+//Static files
+app.UseStaticFiles();
 
 app.UseRouting(); //enable routing (select match endpoint)
 
@@ -86,5 +90,6 @@ app.Run(async context =>
 {
     await context.Response.WriteAsync("Default Routing");
 });
+
 
 app.Run();
