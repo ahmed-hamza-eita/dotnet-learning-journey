@@ -10,5 +10,11 @@ namespace Controller.Controllers
         {
             return "Hello world!";
         }
+
+        [Route("home/about")]
+        public string About()
+        {
+            return "About page..";
+        }
     }
 }
