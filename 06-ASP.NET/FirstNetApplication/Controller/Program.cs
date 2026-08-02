@@ -3,6 +3,8 @@ var builder = WebApplication.CreateBuilder(args);
 //register all controller
 builder.Services.AddControllers();
 
+//Active DI
+builder.Services.AddHttpContextAccessor();
 var app = builder.Build();
 
 /*

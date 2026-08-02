@@ -2,19 +2,21 @@
 
 namespace Controller.Controllers
 {
-    public class HomeController
+    public class HomeController(IHttpContextAccessor httpContextAccessor)
     {
         [Route("home/index")]
         [Route("/")] //default route
         public string Index()
         {
+
             return "Hello world!";
         }
 
-        [Route("home/about")]
+        [Route("home/about/{id:int}")]
         public string About()
         {
-            return "About page..";
+            var id = httpContextAccessor.HttpContext!.Request.RouteValues["id"]?.ToString();
+            return $"About page for id: {id}";
         }
     }
 }
