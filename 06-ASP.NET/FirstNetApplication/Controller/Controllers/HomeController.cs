@@ -13,10 +13,14 @@ namespace Controller.Controllers
         }
 
         [Route("home/about/{id:int}")]
-        public string About()
+        public ContentResult About()
         {
             var id = httpContextAccessor.HttpContext!.Request.RouteValues["id"]?.ToString();
-            return $"About page for id: {id}";
+            return new ContentResult
+            {
+                Content = $"About page for id: {id}",
+                ContentType = "text/html"
+            };
         }
     }
 }
