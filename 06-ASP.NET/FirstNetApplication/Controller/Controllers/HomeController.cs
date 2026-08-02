@@ -22,5 +22,13 @@ public class HomeController(IHttpContextAccessor httpContextAccessor) : Controll
         //};
         return Content($"About page for id: {id}", "text/html");
     }
+
+    [Route("person-info")]
+    public JsonResult GetPersonInfo()
+    {
+        var student = new Person { Id = 101, Name = "Ahmed Hamza" };
+
+        return Json(student);
+    }
 }
 
