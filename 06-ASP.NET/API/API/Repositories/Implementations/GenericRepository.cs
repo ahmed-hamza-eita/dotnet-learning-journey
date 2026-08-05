@@ -25,7 +25,6 @@ namespace API.Repositories.Implementations
         public void Delete(T entity) => _dbSet.Remove(entity);
 
         public async Task<bool> SaveChangesAsync() => await _context.SaveChangesAsync() > 0;
-
-
+ 
     }
 }

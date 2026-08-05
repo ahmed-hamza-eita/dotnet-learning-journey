@@ -24,5 +24,26 @@ namespace API.Controllers
             var categories = await _repository.GetAllAsync();
             return Ok(categories);
         }
+
+        [HttpGet("{Id}", Name = "GetByIdAsync")]
+        public async Task<ActionResult<Category>> GetByIdAsync(int Id)
+        {
+            var category = await _repository.GetByIdAsync(Id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+            return Ok(category);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AddAsync(CreateCategoryDto dto)
+        {
+            var category = new Category { Name = dto.Name };
+
+            await _repository.AddAsync(category);
+            await _repository.SaveChangesAsync();
+            return CreatedAtRoute(nameof(GetByIdAsync), new { Id = category.Id }, category);
+        }
     }
 }
