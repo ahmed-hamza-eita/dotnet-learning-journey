@@ -43,7 +43,24 @@ namespace API.Controllers
 
             await _repository.AddAsync(category);
             await _repository.SaveChangesAsync();
+
             return CreatedAtRoute(nameof(GetByIdAsync), new { Id = category.Id }, category);
+        }
+
+        [HttpPut("{Id}")]
+        public async Task<ActionResult> UpdateAsync(int Id, CreateCategoryDto dto)
+        {
+            var category = await _repository.GetByIdAsync(Id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            category.Name = dto.Name;
+            _repository.Update(category);
+            await _repository.SaveChangesAsync();
+
+            return NoContent();
         }
     }
 }
