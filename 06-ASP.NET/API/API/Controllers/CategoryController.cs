@@ -62,5 +62,21 @@ namespace API.Controllers
 
             return NoContent();
         }
+
+
+        [HttpDelete("{Id}")]
+        public async Task<ActionResult> DeleteAsync(int Id)
+        {
+            var category = await _repository.GetByIdAsync(Id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+            _repository.Delete(category);
+            await _repository.SaveChangesAsync();
+            return NoContent();
+        }
     }
+
+
 }
