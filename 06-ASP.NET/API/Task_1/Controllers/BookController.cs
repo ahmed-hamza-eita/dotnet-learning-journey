@@ -66,7 +66,7 @@ namespace Task_1.Controllers
                 return NotFound($"Not Found any books with Id:{Id}");
             }
 
-          
+
             book.Title = dto.Title;
             book.Author = dto.Author;
             book.PublishedDate = dto.PublishedDate;
@@ -76,6 +76,19 @@ namespace Task_1.Controllers
 
             return NoContent();
 
+        }
+
+        [HttpDelete("{Id}")]
+        public async Task<ActionResult> Delete(int Id)
+        {
+            var book = await _repository.GetByIdAsyns(Id);
+            if (book == null)
+            {
+                return NotFound($"Not Found any books with Id:{Id}");
+            }
+            _repository.Delete(book);
+            await _repository.SaveChangesAsync();
+            return NoContent();
         }
     }
 }
