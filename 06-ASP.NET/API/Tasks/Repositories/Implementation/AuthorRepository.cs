@@ -1,4 +1,5 @@
-﻿using Task_1.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Task_1.Data;
 using Task_1.Repositories.Implementation;
 using Tasks.Models;
 using Tasks.Repositories.Interfaces;

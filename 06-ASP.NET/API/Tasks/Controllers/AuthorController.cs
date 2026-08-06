@@ -24,7 +24,7 @@ namespace Tasks.Controllers
         }
 
         [HttpGet("{Id}", Name = ("GetAuthorById"))]
-        public async Task<ActionResult<Author>> GetById(int Id)
+        public async Task<ActionResult<Author>> GetAuthorById(int Id)
         {
             var author = await _repository.GetByIdAsyns(Id);
             if (author == null)
@@ -32,6 +32,20 @@ namespace Tasks.Controllers
                 return NotFound($"Not Found any Autors with Id:{Id}");
             }
             return Ok(author);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Author>> CreateAuthor([FromBody] CreateAuthorDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var author = new Author { Name = dto.Name };
+            await _repository.AddAsync(author);
+            await _repository.SaveChangesAsync();
+            return CreatedAtRoute(nameof(GetAuthorById), new { Id = author.Id }, author);
         }
     }
 }
