@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Task_1.Models;
+using Tasks.Models;
 
 namespace Task_1.Data
 {
@@ -10,6 +11,7 @@ namespace Task_1.Data
         }
 
         public DbSet<Book> Books { set; get; }
+        public DbSet<Author> Authors { set; get; }
 
         //DateOnly Converter
         protected override void ConfigureConventions(ModelConfigurationBuilder builder)
