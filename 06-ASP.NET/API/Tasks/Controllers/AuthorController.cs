@@ -47,5 +47,18 @@ namespace Tasks.Controllers
             await _repository.SaveChangesAsync();
             return CreatedAtRoute(nameof(GetAuthorById), new { Id = author.Id }, author);
         }
+
+        [HttpDelete("{Id}")]
+        public async Task<ActionResult> DeleteAuthor(int Id)
+        {
+            var author = await _repository.GetByIdAsyns(Id);
+            if (author == null)
+            {
+                return NotFound($"Not Found any Autors with Id:{Id}");
+            }
+            _repository.Delete(author);
+            await _repository.SaveChangesAsync();
+            return NoContent();
+        }
     }
 }
