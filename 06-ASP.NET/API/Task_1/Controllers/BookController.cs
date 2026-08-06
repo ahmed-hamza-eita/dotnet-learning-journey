@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Task_1.Models;
 using Task_1.Repositories.Interfaces;
 
 namespace Task_1.Controllers
@@ -13,5 +14,11 @@ namespace Task_1.Controllers
             _repository = repository;
         }
 
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Book>>> GetAllAsync()
+        {
+            var books = await _repository.GetAllAsync();
+            return Ok(books);
+        }
     }
 }
