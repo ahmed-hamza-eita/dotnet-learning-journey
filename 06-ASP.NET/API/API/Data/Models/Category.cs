@@ -11,5 +11,8 @@ namespace API.Data.Models
         [MaxLength(50)]
         public string Name { set; get; }
 
+        [MaxLength(50)]
+        public string Note { set; get; }
+
     }
 }

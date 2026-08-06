@@ -2,6 +2,7 @@
 using API.Data.Models;
 using API.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -75,6 +76,25 @@ namespace API.Controllers
             _repository.Delete(category);
             await _repository.SaveChangesAsync();
             return NoContent();
+        }
+
+
+
+        [HttpPatch("{Id}")]
+        public async Task<ActionResult<Category>> PatchAsync
+            ([FromBody] JsonPatchDocument<Category> category, int Id)
+        {
+            var categoryPatch = await _repository.GetByIdAsync(Id);
+
+            if (categoryPatch == null)
+            {
+                return NotFound();
+            }
+
+            category.ApplyTo(categoryPatch);
+            await _repository.SaveChangesAsync();
+
+            return Ok(categoryPatch);
         }
     }
 
