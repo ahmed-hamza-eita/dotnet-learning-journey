@@ -1,6 +1,8 @@
-﻿namespace Task_1.Repositories.Interfaces
+﻿using Task_1.Models;
+
+namespace Task_1.Repositories.Interfaces
 {
-    public interface IBookRepository
+    public interface IBookRepository : IGenericRepository<Book>
     {
     }
 }
