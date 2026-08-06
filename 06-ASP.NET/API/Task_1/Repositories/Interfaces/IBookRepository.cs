@@ -4,5 +4,6 @@ namespace Task_1.Repositories.Interfaces
 {
     public interface IBookRepository : IGenericRepository<Book>
     {
+        Task<bool> ExistsAsync(string title,string author,DateOnly publishedDate);
     }
 }

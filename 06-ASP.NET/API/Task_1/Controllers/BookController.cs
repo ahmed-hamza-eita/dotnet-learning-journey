@@ -29,5 +29,27 @@ namespace Task_1.Controllers
                 return NotFound($"Not Found any books with Id:{Id}");
             return Ok(book);
         }
+
+        [HttpPost]
+        public async Task<ActionResult<Book>> CreateBook([FromBody] CreateBookDto dto)
+        {
+            //Ensure Data Annotations ([Required], [MaxLength])
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            bool alreadyExists = await _repository.ExistsAsync(dto.Title, dto.Author, dto.PublishedDate);
+            if (alreadyExists)
+            {
+                return Conflict($"A book with Title '{dto.Title}', Author '{dto.Author}', and PublishedDate '{dto.PublishedDate}' already exists.");
+            }
+
+            var book = new Book { Title = dto.Title, Author = dto.Author, PublishedDate = dto.PublishedDate };
+            await _repository.AddAsync(book);
+            await _repository.SaveChangesAsync();
+
+            return CreatedAtRoute(nameof(GetById), new { Id = book.Id }, book);
+        }
     }
 }
