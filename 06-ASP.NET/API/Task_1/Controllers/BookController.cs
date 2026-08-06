@@ -20,5 +20,14 @@ namespace Task_1.Controllers
             var books = await _repository.GetAllAsync();
             return Ok(books);
         }
+
+        [HttpGet("{Id}", Name = "GetById")]
+        public async Task<ActionResult> GetById(int Id)
+        {
+            var book = await _repository.GetByIdAsyns(Id);
+            if (book == null)
+                return NotFound($"Not Found any books with Id:{Id}");
+            return Ok(book);
+        }
     }
 }
