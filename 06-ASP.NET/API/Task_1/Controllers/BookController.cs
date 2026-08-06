@@ -51,5 +51,31 @@ namespace Task_1.Controllers
 
             return CreatedAtRoute(nameof(GetById), new { Id = book.Id }, book);
         }
+
+        [HttpPut("{Id}")]
+        public async Task<ActionResult> UpdateAsync(int Id, CreateBookDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var book = await _repository.GetByIdAsyns(Id);
+            if (book == null)
+            {
+                return NotFound($"Not Found any books with Id:{Id}");
+            }
+
+          
+            book.Title = dto.Title;
+            book.Author = dto.Author;
+            book.PublishedDate = dto.PublishedDate;
+
+            _repository.Update(book);
+            await _repository.SaveChangesAsync();
+
+            return NoContent();
+
+        }
     }
 }
