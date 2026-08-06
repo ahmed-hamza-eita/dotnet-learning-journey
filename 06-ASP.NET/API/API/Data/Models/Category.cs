@@ -14,5 +14,6 @@ namespace API.Data.Models
         [MaxLength(50)]
         public string Note { set; get; }
 
+        public List<Item> Items { set; get; }
     }
 }
