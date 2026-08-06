@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Task_1.Data;
+using Task_1.Repositories.Implementation;
+using Task_1.Repositories.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")));
 
+//register repository
+builder.Services.AddTransient<IBookRepository, BookRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
