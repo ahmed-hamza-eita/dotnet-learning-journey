@@ -60,5 +60,26 @@ namespace Tasks.Controllers
             await _repository.SaveChangesAsync();
             return NoContent();
         }
+
+        [HttpPut("{Id}")]
+        public async Task<ActionResult> UpdateAuthor(int Id, [FromBody] CreateAuthorDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var author = await _repository.GetByIdAsyns(Id);
+            if (author == null)
+            {
+                return NotFound($"Not Found any Autors with Id:{Id}");
+            }
+
+            author.Name = dto.Name;
+            _repository.Update(author);
+            await _repository.SaveChangesAsync();
+            return NoContent();
+
+        }
     }
 }
