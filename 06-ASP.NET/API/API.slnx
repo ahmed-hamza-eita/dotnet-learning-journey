@@ -1,4 +1,4 @@
 <Solution>
   <Project Path="API/API.csproj" />
-  <Project Path="Task_1/Task_1.csproj" Id="a7644752-933c-4b2f-bcb9-c66a0e6fdf69" />
+  <Project Path="Tasks/Tasks.csproj" />
 </Solution>
