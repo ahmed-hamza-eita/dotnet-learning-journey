@@ -35,7 +35,7 @@ namespace Task_1.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<DateOnly>("PublishedDate")
+                    b.Property<DateTime>("PublishedDate")
                         .HasColumnType("date");
 
                     b.Property<string>("Title")

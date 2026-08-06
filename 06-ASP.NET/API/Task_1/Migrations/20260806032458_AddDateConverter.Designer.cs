@@ -12,8 +12,8 @@ using Task_1.Data;
 namespace Task_1.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260806030803_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20260806032458_AddDateConverter")]
+    partial class AddDateConverter
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,7 +38,7 @@ namespace Task_1.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<DateOnly>("PublishedDate")
+                    b.Property<DateTime>("PublishedDate")
                         .HasColumnType("date");
 
                     b.Property<string>("Title")
