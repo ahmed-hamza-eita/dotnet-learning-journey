@@ -42,7 +42,7 @@ namespace Tasks.Controllers
                 return BadRequest();
             }
 
-            var author = new Author { Name = dto.Name };
+            var author = new Author { Name = dto.Name, Books = dto.Books };
             await _repository.AddAsync(author);
             await _repository.SaveChangesAsync();
             return CreatedAtRoute(nameof(GetAuthorById), new { Id = author.Id }, author);

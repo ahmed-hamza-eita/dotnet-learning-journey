@@ -2,6 +2,7 @@
 using Task_1.Data;
 using Task_1.Models;
 using Task_1.Repositories.Interfaces;
+using Tasks.Models;
 
 namespace Task_1.Repositories.Implementation
 {
@@ -13,10 +14,10 @@ namespace Task_1.Repositories.Implementation
             _context = context;
         }
 
-        public async Task<bool> ExistsAsync(string title, string author, DateOnly publishedDate)
+        public async Task<bool> ExistsAsync(string title, int authorId, DateOnly publishedDate)
             => await _context.Books.AnyAsync(book =>
             book.Title == title &&
-            book.Author == author &&
+            book.AuthorId == authorId &&
             book.PublishedDate == publishedDate
             );
 

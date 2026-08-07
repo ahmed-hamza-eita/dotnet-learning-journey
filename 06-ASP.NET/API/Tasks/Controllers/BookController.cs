@@ -39,13 +39,13 @@ namespace Task_1.Controllers
                 return BadRequest();
             }
 
-            bool alreadyExists = await _repository.ExistsAsync(dto.Title, dto.Author, dto.PublishedDate);
+            bool alreadyExists = await _repository.ExistsAsync(dto.Title, dto.AuthorId, dto.PublishedDate);
             if (alreadyExists)
             {
-                return Conflict($"A book with Title '{dto.Title}', Author '{dto.Author}', and PublishedDate '{dto.PublishedDate}' already exists.");
+                return Conflict($"A book with Title '{dto.Title}', Author '{dto.AuthorId}', and PublishedDate '{dto.PublishedDate}' already exists.");
             }
 
-            var book = new Book { Title = dto.Title, Author = dto.Author, PublishedDate = dto.PublishedDate };
+            var book = new Book { Title = dto.Title, AuthorId = dto.AuthorId, PublishedDate = dto.PublishedDate };
             await _repository.AddAsync(book);
             await _repository.SaveChangesAsync();
 
@@ -68,7 +68,7 @@ namespace Task_1.Controllers
 
 
             book.Title = dto.Title;
-            book.Author = dto.Author;
+            book.AuthorId = dto.AuthorId;
             book.PublishedDate = dto.PublishedDate;
 
             _repository.Update(book);
