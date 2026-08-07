@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Task_1.Models;
 
-namespace Tasks.Models
+namespace Tasks.Models.DTOs
 {
     public class CreateAuthorDto
     {

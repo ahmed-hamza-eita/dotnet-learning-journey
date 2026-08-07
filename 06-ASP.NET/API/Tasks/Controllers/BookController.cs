@@ -2,6 +2,7 @@
 using Task_1.Models;
 using Task_1.Repositories.Interfaces;
 using Tasks.Models.DTOs;
+using Tasks.Repositories.Interfaces;
 
 namespace Task_1.Controllers
 {
@@ -10,9 +11,11 @@ namespace Task_1.Controllers
     public class BookController : ControllerBase
     {
         private readonly IBookRepository _repository;
-        public BookController(IBookRepository repository)
+        private readonly IAuthorRepository _authorRepository;
+        public BookController(IBookRepository repository, IAuthorRepository authorRepository)
         {
             _repository = repository;
+            _authorRepository = authorRepository;
         }
 
         [HttpGet]
@@ -90,6 +93,36 @@ namespace Task_1.Controllers
             _repository.Delete(book);
             await _repository.SaveChangesAsync();
             return NoContent();
+        }
+
+        [HttpPost]
+        [Route("/api/author/{authorId}/book")]
+        public async Task<ActionResult<Book>> CreateBookForAuthor(int authorId, [FromBody] CreateBookForAuthorDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var author = await _authorRepository.GetByIdAsyns(authorId);
+            if (author == null)
+            {
+                return NotFound($"Not Found any Author with Id:{authorId}");
+            }
+
+            var alreadyExist = await _repository.ExistsAsync(dto.Title, authorId, dto.PublishedDate);
+            if (alreadyExist)
+            {
+                return Conflict($"A book with Title '{dto.Title}' already exists for this author.");
+
+            }
+
+            var book = new Book { Title = dto.Title, AuthorId = authorId, PublishedDate = dto.PublishedDate };
+            await _repository.AddAsync(book);
+            await _repository.SaveChangesAsync();
+
+            return CreatedAtRoute(nameof(GetById), new { Id = book.Id }, book);
+
         }
     }
 }
