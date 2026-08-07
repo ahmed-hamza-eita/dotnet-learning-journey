@@ -34,7 +34,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Item>> AddItem([FromBody] CreateItemDto dto)
+        public async Task<ActionResult<Item>> AddItem([FromForm] CreateItemDto dto)
         {
             if (!ModelState.IsValid)
             {
