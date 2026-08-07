@@ -15,5 +15,23 @@ namespace API.Controllers
             _repository = repository;
         }
 
+        [HttpGet]
+        public async Task<ActionResult<Item>> GetAllItems()
+        {
+            var items = await _repository.GetAllAsync();
+            return Ok(items);
+        }
+
+        [HttpGet("{Id}", Name = "GetItemById")]
+        public async Task<ActionResult<Item>> GetItemById(int Id)
+        {
+            var item = await _repository.GetByIdAsync(Id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            return Ok(item);
+        }
+
     }
 }
