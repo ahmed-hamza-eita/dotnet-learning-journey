@@ -1,6 +1,7 @@
 ﻿using API.Data;
 using API.Data.Models;
 using API.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Repositories.Implementations
 {
@@ -11,5 +12,8 @@ namespace API.Repositories.Implementations
         {
             _context = context;
         }
+
+        public async Task<bool> ExistsAsync(string name, decimal price, string note, byte[] image, int categoryId)
+         => await _context.Items.AnyAsync(i => i.Name == name && i.Price == price && i.Note == note && i.Image == image && i.categoryId == categoryId);
     }
 }
