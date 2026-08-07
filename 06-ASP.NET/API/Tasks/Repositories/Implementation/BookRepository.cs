@@ -21,5 +21,8 @@ namespace Task_1.Repositories.Implementation
             book.PublishedDate == publishedDate
             );
 
+        public async Task<IEnumerable<Book>> GetAllWithAuthorAsync() =>
+            await _context.Books.Include(b => b.Author).ToListAsync();
+
     }
 }

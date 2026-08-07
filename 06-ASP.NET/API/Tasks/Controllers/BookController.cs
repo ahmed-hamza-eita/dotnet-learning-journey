@@ -124,5 +124,29 @@ namespace Task_1.Controllers
             return CreatedAtRoute(nameof(GetById), new { Id = book.Id }, book);
 
         }
+
+        [HttpGet]
+        [Route("/api/author/{authorId}/book")]
+        public async Task<ActionResult<IEnumerable<Book>>> GetBooksByAuthor(int authorId)
+        {
+            var author =await _authorRepository.GetByIdAsyns(authorId);
+            if (author == null)
+            {
+                return NotFound($"Not Found any Author with Id:{authorId}");
+            }
+
+            var books = await _repository.GetAllWithAuthorAsync();
+            var authorBook = books
+                .Where(b => b.AuthorId == authorId)
+                .Select(book => new
+                {
+                    Id = book.Id,
+                    Title = book.Title,
+                    PublishedDate = book.PublishedDate,
+                    AuthorId = book.AuthorId,
+                    AuthorName = book.Author?.Name ?? string.Empty
+                });
+            return Ok(authorBook);
+        }
     }
 }
