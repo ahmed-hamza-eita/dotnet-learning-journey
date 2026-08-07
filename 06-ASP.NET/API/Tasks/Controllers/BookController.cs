@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Task_1.Models;
 using Task_1.Repositories.Interfaces;
+using Tasks.Models.DTOs;
 
 namespace Task_1.Controllers
 {

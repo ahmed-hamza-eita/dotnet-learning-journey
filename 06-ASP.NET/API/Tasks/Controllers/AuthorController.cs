@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Tasks.Models;
+using Tasks.Models.DTOs;
 using Tasks.Repositories.Implementation;
 using Tasks.Repositories.Interfaces;
 
