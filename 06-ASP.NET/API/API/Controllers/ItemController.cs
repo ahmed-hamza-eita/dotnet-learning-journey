@@ -61,5 +61,17 @@ namespace API.Controllers
             return CreatedAtRoute(nameof(GetItemById), new { Id = item.Id }, item);
         }
 
+        //Extension route
+        [HttpGet("ItemsWithCategory/{categoryId}")]
+        public async Task<ActionResult<IEnumerable<Item>>> GetItemsWithCategory(int categoryId)
+        {
+            var item = await _repository.GetItemsWithCategory(categoryId);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            return Ok(item);
+        }
+
     }
 }

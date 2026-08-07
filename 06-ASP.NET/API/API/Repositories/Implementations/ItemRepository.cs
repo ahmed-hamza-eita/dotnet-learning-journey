@@ -15,5 +15,9 @@ namespace API.Repositories.Implementations
 
         public async Task<bool> ExistsAsync(string name, decimal price, string note, byte[] image, int categoryId)
          => await _context.Items.AnyAsync(i => i.Name == name && i.Price == price && i.Note == note && i.Image == image && i.categoryId == categoryId);
+
+        public async Task<IEnumerable<Item?>> GetItemsWithCategory(int categoryId)
+           => await _context.Items.Where(i => i.categoryId == categoryId).ToListAsync();
+
     }
 }
