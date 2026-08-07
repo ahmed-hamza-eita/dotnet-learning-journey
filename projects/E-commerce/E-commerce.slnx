@@ -1,1 +1,7 @@
-<Solution />
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="ECommerce.API/ECommerce.API.csproj" Id="aa3dbb20-9d9e-4e30-8b4a-2e4843945f13" />
+    <Project Path="ECommerce.Core/ECommerce.Core.csproj" />
+    <Project Path="ECommerce.Infrastructure/ECommerce.Infrastructure.csproj" />
+  </Folder>
+</Solution>
