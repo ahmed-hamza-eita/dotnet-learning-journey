@@ -6,6 +6,7 @@ namespace Task_1.Repositories.Interfaces
     {
         Task<bool> ExistsAsync(string title, int authorId, DateOnly publishedDate);
         Task<IEnumerable<Book>> GetAllWithAuthorAsync();
+        Task<Book?> GetByIdWithAuthorAsync(int id);
 
     }
 }

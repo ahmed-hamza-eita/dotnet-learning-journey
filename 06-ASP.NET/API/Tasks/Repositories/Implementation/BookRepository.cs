@@ -24,5 +24,8 @@ namespace Task_1.Repositories.Implementation
         public async Task<IEnumerable<Book>> GetAllWithAuthorAsync() =>
             await _context.Books.Include(b => b.Author).ToListAsync();
 
+        public async Task<Book?> GetByIdWithAuthorAsync(int id) =>
+            await _context.Books.Include(b => b.Author).FirstOrDefaultAsync(b => b.Id == id);
+
     }
 }

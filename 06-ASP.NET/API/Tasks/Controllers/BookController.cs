@@ -129,7 +129,7 @@ namespace Task_1.Controllers
         [Route("/api/author/{authorId}/book")]
         public async Task<ActionResult<IEnumerable<Book>>> GetBooksByAuthor(int authorId)
         {
-            var author =await _authorRepository.GetByIdAsyns(authorId);
+            var author = await _authorRepository.GetByIdAsyns(authorId);
             if (author == null)
             {
                 return NotFound($"Not Found any Author with Id:{authorId}");
@@ -147,6 +147,30 @@ namespace Task_1.Controllers
                     AuthorName = book.Author?.Name ?? string.Empty
                 });
             return Ok(authorBook);
+        }
+
+        [HttpGet]
+        [Route("/api/author/{authorId}/book/{bookId}")]
+        public async Task<ActionResult<IEnumerable<Book>>> GetBookByIdForAuthor(int authorId, int bookId)
+        {
+            var author = await _authorRepository.GetByIdAsyns(authorId);
+            if (author == null)
+            {
+                return NotFound($"Not Found any Author with Id:{authorId}");
+            }
+
+            var book = await _repository.GetByIdWithAuthorAsync(bookId);
+            if (book == null)
+            {
+                return NotFound($"Not Found any book with Id:{bookId}");
+            }
+            if (book.AuthorId != authorId)
+            {
+                return NotFound($"Book with Id:{bookId} does not belong to Author with Id:{authorId}");
+            }
+
+
+            return Ok(book);
         }
     }
 }
