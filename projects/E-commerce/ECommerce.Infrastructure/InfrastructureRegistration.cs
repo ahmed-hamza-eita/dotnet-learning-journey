@@ -9,9 +9,12 @@ namespace ECommerce.Infrastructure
         public static IServiceCollection InfrastructureConfiguration(this IServiceCollection services)
         {
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            /*
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IPhotoRepository, PhotoRepository>();
+            */
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             return services;
         }
     }
