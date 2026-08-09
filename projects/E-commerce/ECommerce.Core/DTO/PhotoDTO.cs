@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ECommerce.Core.DTO
 {
-    public record class PhotoDTO
-      (int Id, string Name);
+    public record PhotoDTO(int Id, string Name, int ProductId);
 
 }
