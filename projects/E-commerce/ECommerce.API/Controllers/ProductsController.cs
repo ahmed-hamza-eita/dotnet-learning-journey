@@ -31,5 +31,23 @@ namespace ECommerce.API.Controllers
                 return BadRequest(new ResponseAPI(400, ex.Message));
             }
         }
+
+        [HttpGet("get-by-id/{id}", Name = nameof(GetProductById))]
+        public async Task<ActionResult> GetProductById(int id)
+        {
+            try
+            {
+                var Product = await _unitOfWork.ProductRepository.GetByIdAsync(id, P => P.Category);
+                if (Product is null)
+                    return NotFound(new ResponseAPI(404));
+
+                var result = _mapper.Map<ProductDTO>(Product);
+                return Ok(new ResponseAPI(200) { Data = result });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ResponseAPI(400, ex.Message));
+            }
+        }
     }
 }
