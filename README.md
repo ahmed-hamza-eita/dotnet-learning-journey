@@ -13,6 +13,9 @@ cat > README.md << 'README'
 ### [Design Principles](./02-design-principles)
 ### [SQL](./03-SQL)
 ### [Entity Framework Core](./04-entity-framework)
+### [Dapper](./05-Dapper)
+### [ASP.NET](./06-ASP.NET)
+### [Projects](./projects)
 
 ---
 
