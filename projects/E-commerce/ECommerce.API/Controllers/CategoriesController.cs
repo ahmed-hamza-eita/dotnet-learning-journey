@@ -1,4 +1,5 @@
-﻿using ECommerce.Core.DTO;
+﻿using AutoMapper;
+using ECommerce.Core.DTO;
 using ECommerce.Core.Entities.Products;
 using ECommerce.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +10,7 @@ namespace ECommerce.API.Controllers
     [Route("api/[controller]")]
     public class CategoriesController : BaseController
     {
-        public CategoriesController(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public CategoriesController(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
         {
         }
 
@@ -52,7 +53,8 @@ namespace ECommerce.API.Controllers
         {
             try
             {
-                var category = new Category { Name = categoryDto.Name, Description = categoryDto.Description }; await _unitOfWork.CategoryRepository.AddAsync(category);
+                var category = _mapper.Map<Category>(categoryDto);
+                await _unitOfWork.CategoryRepository.AddAsync(category);
                 await _unitOfWork.SaveChangesAsync();
                 return CreatedAtRoute(nameof(GetCategoryById), new { id = category.Id }, category);
             }

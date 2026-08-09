@@ -1,3 +1,4 @@
+using AutoMapper;
 using ECommerce.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.InfrastructureConfiguration(builder.Configuration);
+
+// Configure AutoMapper 
+builder.Services.AddAutoMapper(cfg => { }, typeof(Program).Assembly);
 
 var app = builder.Build();
 
