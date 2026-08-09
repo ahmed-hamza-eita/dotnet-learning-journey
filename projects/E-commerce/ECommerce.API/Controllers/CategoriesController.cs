@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ECommerce.API.Helper;
 using ECommerce.Core.DTO;
 using ECommerce.Core.Entities.Products;
 using ECommerce.Core.Interfaces;
@@ -21,13 +22,14 @@ namespace ECommerce.API.Controllers
             {
                 var categories = await _unitOfWork.CategoryRepository.GetAllAsync();
                 if (!categories.Any())
-                    return NotFound();
-                return Ok(categories);
+                    return NotFound(new ResponseAPI(404, $"No categories found"));
+
+                return Ok(value: new ResponseAPI(200) { Data = categories });
 
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new ResponseAPI(400, ex.Message));
             }
         }
 
@@ -39,12 +41,13 @@ namespace ECommerce.API.Controllers
             {
                 var category = await _unitOfWork.CategoryRepository.GetByIdAsync(id);
                 if (category is null)
-                    return NotFound($"No category found with Id: {id}");
-                return Ok(category);
+                    return NotFound(new ResponseAPI(404, $"No category found with Id: {id}"));
+
+                return Ok(value: new ResponseAPI(200) { Data = category });
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new ResponseAPI(400, ex.Message));
             }
         }
 
@@ -56,11 +59,13 @@ namespace ECommerce.API.Controllers
                 var category = _mapper.Map<Category>(categoryDto);
                 await _unitOfWork.CategoryRepository.AddAsync(category);
                 await _unitOfWork.SaveChangesAsync();
-                return CreatedAtRoute(nameof(GetCategoryById), new { id = category.Id }, category);
+
+                return CreatedAtRoute(nameof(GetCategoryById), new { id = category.Id }
+                                               , new ResponseAPI(201) { Data = category });
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new ResponseAPI(400, ex.Message));
             }
         }
     }
