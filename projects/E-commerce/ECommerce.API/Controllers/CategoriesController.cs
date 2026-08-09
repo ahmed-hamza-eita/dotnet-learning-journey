@@ -1,4 +1,6 @@
-﻿using ECommerce.Core.Interfaces;
+﻿using ECommerce.Core.DTO;
+using ECommerce.Core.Entities.Products;
+using ECommerce.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -29,7 +31,7 @@ namespace ECommerce.API.Controllers
         }
 
 
-        [HttpGet("get-by-id/{id}")]
+        [HttpGet("get-by-id/{id}", Name = nameof(GetCategoryById))]
         public async Task<ActionResult> GetCategoryById(int id)
         {
             try
@@ -38,6 +40,21 @@ namespace ECommerce.API.Controllers
                 if (category is null)
                     return NotFound($"No category found with Id: {id}");
                 return Ok(category);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("add-category")]
+        public async Task<ActionResult> AddCategory(CategoryDTO categoryDto)
+        {
+            try
+            {
+                var category = new Category { Name = categoryDto.Name, Description = categoryDto.Description }; await _unitOfWork.CategoryRepository.AddAsync(category);
+                await _unitOfWork.SaveChangesAsync();
+                return CreatedAtRoute(nameof(GetCategoryById), new { id = category.Id }, category);
             }
             catch (Exception ex)
             {
