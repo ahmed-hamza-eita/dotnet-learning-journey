@@ -17,6 +17,8 @@ builder.Services.AddAutoMapper(cfg => { }, typeof(Program).Assembly);
 
 var app = builder.Build();
 
+app.UseStaticFiles();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

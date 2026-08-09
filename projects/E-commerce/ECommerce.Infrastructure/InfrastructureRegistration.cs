@@ -1,6 +1,8 @@
 ﻿using ECommerce.Core.Interfaces;
+using ECommerce.Core.Services;
 using ECommerce.Infrastructure.Data;
 using ECommerce.Infrastructure.Repositories;
+using ECommerce.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,7 +24,13 @@ namespace ECommerce.Infrastructure
             //Apply DbContext
             services.AddDbContext<AppDbContext>(option => option.UseSqlServer
             (configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped<IImageManagementService, ImageManagementService>();
+
             return services;
+
+
+
         }
     }
 }
