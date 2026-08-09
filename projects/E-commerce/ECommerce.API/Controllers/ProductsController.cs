@@ -37,7 +37,7 @@ namespace ECommerce.API.Controllers
         {
             try
             {
-                var Product = await _unitOfWork.ProductRepository.GetByIdAsync(id, P => P.Category);
+                var Product = await _unitOfWork.ProductRepository.GetByIdAsync(id, P => P.Category,h=>h.Photos);
                 if (Product is null)
                     return NotFound(new ResponseAPI(404));
 
