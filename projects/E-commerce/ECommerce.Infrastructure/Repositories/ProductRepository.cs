@@ -5,6 +5,7 @@ using ECommerce.Core.Entities.Products;
 using ECommerce.Core.Interfaces;
 using ECommerce.Core.Services;
 using ECommerce.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.Infrastructure.Repositories
 {
@@ -27,15 +28,56 @@ namespace ECommerce.Infrastructure.Repositories
             await _context.AddAsync(product);
             await _context.SaveChangesAsync();
 
-            var ImagePath = await _imageManagementService.AddImageAsync(ProductDTO.Photos, "products");
-            var photos = ImagePath.Select(path => new Photo
+            if (ProductDTO.Photos is not null && ProductDTO.Photos.Count > 0)
             {
-                Name = path,
-                ProductId = product.Id
-            });
+                var ImagePath = await _imageManagementService.AddImageAsync(ProductDTO.Photos, "products");
+                var photos = ImagePath.Select(path => new Photo
+                {
+                    Name = path,
+                    ProductId = product.Id
+                });
 
-            await _context.Photos.AddRangeAsync(photos);
-            await _context.SaveChangesAsync();
+                await _context.Photos.AddRangeAsync(photos);
+                await _context.SaveChangesAsync();
+            }
+            return true;
+        }
+
+        public async Task<bool> UpdateAsync(UpdateProductDTO dto)
+        {
+            if (dto is null)
+                return false;
+
+            var FindProduct = await _context.Products
+                .Include(c => c.Category)
+                .Include(p => p.Photos)
+                .FirstOrDefaultAsync(p => p.Id == dto.Id);
+
+            if (FindProduct is null)
+                return false;
+
+            _mapper.Map(dto, FindProduct);
+
+            if (dto.Photos is not null && dto.Photos.Count > 0)
+            {
+                var FindPhotos = await _context.Photos.Where(p => p.ProductId == dto.Id).ToListAsync();
+                foreach (var item in FindPhotos)
+                {
+                    await _imageManagementService.DeleteImageAsync(item.Name);
+                }
+
+                _context.Photos.RemoveRange(FindPhotos);
+
+                var imagePath = await _imageManagementService.AddImageAsync(dto.Photos, "products");
+                var photos = imagePath.Select(path => new Photo
+                {
+                    Name = path,
+                    ProductId = dto.Id
+                }).ToList();
+
+                await _context.Photos.AddRangeAsync(photos);
+                await _context.SaveChangesAsync();
+            }
             return true;
         }
     }

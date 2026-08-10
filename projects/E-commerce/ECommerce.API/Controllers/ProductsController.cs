@@ -64,5 +64,20 @@ namespace ECommerce.API.Controllers
             }
 
         }
+
+        [HttpPut("update-product")]
+        public async Task<ActionResult> UpdateProduct(UpdateProductDTO dto)
+        {
+            try
+            {
+                var product = await _unitOfWork.ProductRepository.UpdateAsync(dto);
+                return Ok(new ResponseAPI(201));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ResponseAPI(400, ex.Message));
+            }
+
+        }
     }
 }

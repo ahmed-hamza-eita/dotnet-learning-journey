@@ -15,6 +15,9 @@ namespace ECommerce.API.Mapping
 
             CreateMap<AddProductDTO, Product>()
              .ForMember(p => p.Photos, opt => opt.Ignore());
+
+            CreateMap<UpdateProductDTO, Product>()
+            .ForMember(p => p.Photos, opt => opt.Ignore());
         }
     }
 }

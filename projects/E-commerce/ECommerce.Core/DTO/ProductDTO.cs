@@ -19,6 +19,11 @@ namespace ECommerce.Core.DTO
         public decimal NewPrice { set; get; }
         public decimal OldPrice { set; get; }
         public int CategoryId { set; get; }
-        public IFormFileCollection Photos { get; set; }
+        public IFormFileCollection? Photos { get; set; }
+    }
+    public record UpdateProductDTO() : AddProductDTO
+    {
+        public int Id { set; get; }
+
     }
 }
