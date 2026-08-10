@@ -6,8 +6,8 @@ namespace ECommerce.Core.Entities.Products
     {
         public string Name { set; get; } = string.Empty;
         public string Description { set; get; } = string.Empty;
-        public decimal Price { set; get; }
-
+        public decimal NewPrice { set; get; }
+        public decimal OldPrice { set; get; }
         public virtual List<Photo> Photos { set; get; } = new List<Photo>();
 
         public int CategoryId { set; get; }

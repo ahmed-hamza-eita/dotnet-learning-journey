@@ -4,10 +4,11 @@
         int Id,
         string Name,
         string Description,
-        decimal Price,
+        decimal NewPrice,
+        decimal OldPrice,
         int CategoryId,
         string CategoryName,
         List<PhotoDTO> Photos
     );
- 
+  
 }
