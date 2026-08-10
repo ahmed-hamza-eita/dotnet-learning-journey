@@ -7,5 +7,6 @@ namespace ECommerce.Core.Interfaces
     {
         Task<bool> AddAsync(AddProductDTO ProductDTO);
         Task<bool> UpdateAsync(UpdateProductDTO dto);
+        Task DeleteAsync(Product product);
     }
 }

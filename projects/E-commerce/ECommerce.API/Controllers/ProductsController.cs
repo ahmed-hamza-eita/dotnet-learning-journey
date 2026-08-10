@@ -18,7 +18,7 @@ namespace ECommerce.API.Controllers
         {
             try
             {
-                var products = await _unitOfWork.ProductRepository.GetAllAsync(p => p.Category);
+                var products = await _unitOfWork.ProductRepository.GetAllAsync(P => P.Category, h => h.Photos);
 
                 if (!products.Any())
                     return NotFound(new ResponseAPI(404));
@@ -78,6 +78,19 @@ namespace ECommerce.API.Controllers
                 return BadRequest(new ResponseAPI(400, ex.Message));
             }
 
+        }
+
+        [HttpDelete("delete-product/{Id}")]
+        public async Task<ActionResult> DeleteProduct(int Id)
+        {
+            var FindProduct = await _unitOfWork.ProductRepository
+                .GetByIdAsync(Id, c => c.Category, propa => propa.Photos);
+
+            if (FindProduct is null)
+                return NotFound(new ResponseAPI(404));
+
+            await _unitOfWork.ProductRepository.DeleteAsync(FindProduct);
+            return Ok(new ResponseAPI(200));
         }
     }
 }
