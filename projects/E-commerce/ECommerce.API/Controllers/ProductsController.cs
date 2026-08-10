@@ -37,7 +37,7 @@ namespace ECommerce.API.Controllers
         {
             try
             {
-                var Product = await _unitOfWork.ProductRepository.GetByIdAsync(id, P => P.Category,h=>h.Photos);
+                var Product = await _unitOfWork.ProductRepository.GetByIdAsync(id, P => P.Category, h => h.Photos);
                 if (Product is null)
                     return NotFound(new ResponseAPI(404));
 
@@ -48,6 +48,21 @@ namespace ECommerce.API.Controllers
             {
                 return BadRequest(new ResponseAPI(400, ex.Message));
             }
+        }
+
+        [HttpPost("add-product")]
+        public async Task<ActionResult> AddProduct(AddProductDTO dto)
+        {
+            try
+            {
+                var product = await _unitOfWork.ProductRepository.AddAsync(dto);
+                return Ok(new ResponseAPI(201) { Data = product });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ResponseAPI(400, ex.Message));
+            }
+
         }
     }
 }

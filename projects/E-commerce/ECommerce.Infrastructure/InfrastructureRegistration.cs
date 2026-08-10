@@ -6,6 +6,7 @@ using ECommerce.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 
 namespace ECommerce.Infrastructure
 {
@@ -26,6 +27,8 @@ namespace ECommerce.Infrastructure
             (configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IImageManagementService, ImageManagementService>();
+            services.AddSingleton<IFileProvider>(
+    new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
 
             return services;
 
