@@ -85,11 +85,41 @@ namespace ECommerce.Infrastructure.Repositories
         {
             var tracked = await _context.Products.Include(p => p.Photos).FirstOrDefaultAsync(p => p.Id == product.Id);
 
-            foreach (var photo in tracked.Photos) 
+            foreach (var photo in tracked.Photos)
                 await _imageManagementService.DeleteImageAsync(photo.Name);
 
             _context.Products.Remove(tracked);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<ProductDTO>> GetAllProductAsync(string? sort, int? categoryId)
+        {
+            var query = _context.Products
+                .Include(c => c.Category)
+                .Include(p => p.Photos)
+                .AsNoTracking();
+            if (categoryId.HasValue)
+            {
+                query = query.Where(p => p.CategoryId == categoryId);
+            }
+            if (!string.IsNullOrEmpty(sort))
+            {
+                switch (sort)
+                {
+                    case "PriceAsc":
+                        query = query.OrderBy(p => p.NewPrice);
+                        break;
+                    case "PriceDESC":
+                        query = query.OrderByDescending(p => p.NewPrice);
+                        break;
+                    default:
+                        query = query.OrderBy(p => p.Name);
+                        break;
+                }
+            }
+
+            var result = _mapper.Map<List<ProductDTO>>(query);
+            return result;
         }
     }
 }

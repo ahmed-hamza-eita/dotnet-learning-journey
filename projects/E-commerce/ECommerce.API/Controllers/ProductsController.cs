@@ -14,22 +14,16 @@ namespace ECommerce.API.Controllers
         }
 
         [HttpGet("get-all")]
-        public async Task<ActionResult> GetAllProducts()
+        public async Task<ActionResult> GetAllProducts(string? sort, int? categoryId)
         {
-            try
-            {
-                var products = await _unitOfWork.ProductRepository.GetAllAsync(P => P.Category, h => h.Photos);
+            var products = await _unitOfWork.ProductRepository.GetAllProductAsync(sort, categoryId);
 
-                if (!products.Any())
-                    return NotFound(new ResponseAPI(404));
+            if (!products.Any())
+                return NotFound(new ResponseAPI(404));
 
-                var result = _mapper.Map<List<ProductDTO>>(products);
-                return Ok(new ResponseAPI(200) { Data = result });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new ResponseAPI(400, ex.Message));
-            }
+            return Ok(new ResponseAPI(200) { Data = products });
+
+
         }
 
         [HttpGet("get-by-id/{id}", Name = nameof(GetProductById))]
