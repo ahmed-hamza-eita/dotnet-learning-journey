@@ -99,6 +99,22 @@ namespace ECommerce.Infrastructure.Repositories
                 .Include(c => c.Category)
                 .Include(p => p.Photos)
                 .AsNoTracking();
+
+            //search
+            if (!string.IsNullOrWhiteSpace(productParams.Search))
+            {
+                var searchWords = productParams.Search
+                    .Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
+                
+                foreach (var word in searchWords)
+                {
+                    var term = word; 
+                    query = query.Where(p => p.Name.Contains(term) || p.Description.Contains(term));
+                }
+            }
+
+
             if (productParams.CategoryId.HasValue)
             {
                 query = query.Where(p => p.CategoryId == productParams.CategoryId);
@@ -118,7 +134,7 @@ namespace ECommerce.Infrastructure.Repositories
                         break;
                 }
             }
-            var pagedEntities = query.Paginate(productParams.Page,productParams.Size);
+            var pagedEntities = query.Paginate(productParams.Page, productParams.Size);
             var mappedData = _mapper.Map<List<ProductDTO>>(pagedEntities.Data);
 
             var result = _mapper.Map<IReadOnlyList<ProductDTO>>(pagedEntities.Data);
@@ -133,6 +149,6 @@ namespace ECommerce.Infrastructure.Repositories
             };
         }
 
-      
+
     }
 }

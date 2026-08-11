@@ -8,7 +8,7 @@ namespace ECommerce.Core.DTO
         public string? Sort { get; set; }
         public int? CategoryId { get; set; }
         public decimal? Price { get; set; }
-
+        public string? Search { get; set; }
         public int Page { get; set; } = 1;
 
         private int _pageSize = 10;
