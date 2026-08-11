@@ -3,6 +3,7 @@ using ECommerce.API.Helper;
 using ECommerce.Core.DTO;
 using ECommerce.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ECommerce.API.Controllers
 {
@@ -14,15 +15,14 @@ namespace ECommerce.API.Controllers
         }
 
         [HttpGet("get-all")]
-        public async Task<ActionResult> GetAllProducts(string? sort, int? categoryId)
+        public async Task<ActionResult> GetAllProducts([FromQuery] ProductParams productParams)
         {
-            var products = await _unitOfWork.ProductRepository.GetAllProductAsync(sort, categoryId);
+            var pagedResult = await _unitOfWork.ProductRepository.GetAllProductAsync(productParams);
 
-            if (!products.Any())
+            if (pagedResult.Data == null || !pagedResult.Data.Any())
                 return NotFound(new ResponseAPI(404));
 
-            return Ok(new ResponseAPI(200) { Data = products });
-
+            return Ok(new ResponseAPI(200) { Data = pagedResult });
 
         }
 

@@ -1,5 +1,6 @@
 ﻿
 using AutoMapper;
+using ECommerce.API.Helper;
 using ECommerce.Core.DTO;
 using ECommerce.Core.Entities.Products;
 using ECommerce.Core.Interfaces;
@@ -92,19 +93,19 @@ namespace ECommerce.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<ProductDTO>> GetAllProductAsync(string? sort, int? categoryId)
+        public async Task<PagedResult<ProductDTO>> GetAllProductAsync(ProductParams productParams)
         {
             var query = _context.Products
                 .Include(c => c.Category)
                 .Include(p => p.Photos)
                 .AsNoTracking();
-            if (categoryId.HasValue)
+            if (productParams.CategoryId.HasValue)
             {
-                query = query.Where(p => p.CategoryId == categoryId);
+                query = query.Where(p => p.CategoryId == productParams.CategoryId);
             }
-            if (!string.IsNullOrEmpty(sort))
+            if (!string.IsNullOrEmpty(productParams.Sort))
             {
-                switch (sort)
+                switch (productParams.Sort)
                 {
                     case "PriceAsc":
                         query = query.OrderBy(p => p.NewPrice);
@@ -117,9 +118,21 @@ namespace ECommerce.Infrastructure.Repositories
                         break;
                 }
             }
+            var pagedEntities = query.Paginate(productParams.Page,productParams.Size);
+            var mappedData = _mapper.Map<List<ProductDTO>>(pagedEntities.Data);
 
-            var result = _mapper.Map<List<ProductDTO>>(query);
-            return result;
+            var result = _mapper.Map<IReadOnlyList<ProductDTO>>(pagedEntities.Data);
+
+            return new PagedResult<ProductDTO>
+            {
+                Data = result,
+                CurrentPage = pagedEntities.CurrentPage,
+                PageSize = pagedEntities.PageSize,
+                TotalItems = pagedEntities.TotalItems,
+                TotalPages = pagedEntities.TotalPages
+            };
         }
+
+      
     }
 }

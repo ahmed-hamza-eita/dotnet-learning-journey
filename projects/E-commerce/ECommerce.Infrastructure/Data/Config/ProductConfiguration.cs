@@ -11,7 +11,7 @@ namespace ECommerce.Infrastructure.Data.Config
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
-            builder.Property(x => x.Name).IsRequired().HasMaxLength(30);
+            builder.Property(x => x.Name).IsRequired().HasMaxLength(150);
             builder.Property(x => x.Description).IsRequired().HasMaxLength(250);
             builder.Property(x => x.NewPrice).HasColumnType("decimal(18,2)").IsRequired();
 
