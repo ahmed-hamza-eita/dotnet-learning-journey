@@ -2,6 +2,14 @@ using ECommerce.API.Middleware;
 using ECommerce.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//Add CORS
+builder.Services.AddCors(op => op.AddPolicy("CORSPolicy", policy
+    => policy
+        .WithOrigins("http://localhost:4200", "https://my-ecommerce-store.com") //.AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader()));
+
 builder.Services.AddMemoryCache();
 
 // Add services to the container.
@@ -27,6 +35,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("CORSPolicy");
 app.UseMiddleware<ExceptionsMiddleware>();
 
 app.UseStatusCodePagesWithReExecute("/errors/{0}");
