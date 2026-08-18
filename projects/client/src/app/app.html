@@ -1,2 +1,7 @@
+<app-nav-bar> </app-nav-bar>
 
-<app-nav-bar>   </app-nav-bar>
+<ul>
+  @for (item of Category; track item.id) {
+    <li>{{ item.name }} - {{ item.description }}</li>
+  }
+</ul>
