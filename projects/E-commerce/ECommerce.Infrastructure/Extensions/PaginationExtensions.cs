@@ -1,8 +1,11 @@
-﻿namespace ECommerce.API.Helper
+﻿using ECommerce.Core.Helper;
+using Microsoft.EntityFrameworkCore;
+
+namespace ECommerce.API.Helper
 {
     public static class PaginationExtensions
     {
-        public static PagedResult<T> Paginate<T>(
+        public static async Task<PagedResult<T>> PaginateAsync<T>(
             this IQueryable<T> source,
             int? page,
             int? size) where T:class
@@ -19,12 +22,12 @@
             */
 
 
-            var totalItems = source.Count();
+            var totalItems = await source.CountAsync();
             var totalPages = (int)(Math.Ceiling((decimal)totalItems / size.Value));
 
-            var data = source
+            var data = await source
                 .Skip((page.Value - 1) * size.Value)
-                .Take(size.Value).ToList();
+                .Take(size.Value).ToListAsync();
 
 
             return new PagedResult<T>

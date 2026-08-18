@@ -1,4 +1,4 @@
-﻿namespace ECommerce.API.Helper
+﻿namespace ECommerce.Core.Helper
 {
     public class PagedResult<T> where T : class
     {

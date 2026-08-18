@@ -3,6 +3,7 @@ using AutoMapper;
 using ECommerce.API.Helper;
 using ECommerce.Core.DTO;
 using ECommerce.Core.Entities.Products;
+using ECommerce.Core.Helper;
 using ECommerce.Core.Interfaces;
 using ECommerce.Core.Services;
 using ECommerce.Infrastructure.Data;
@@ -85,6 +86,8 @@ namespace ECommerce.Infrastructure.Repositories
         public async Task DeleteAsync(Product product)
         {
             var tracked = await _context.Products.Include(p => p.Photos).FirstOrDefaultAsync(p => p.Id == product.Id);
+            if (tracked is null)
+                return;
 
             foreach (var photo in tracked.Photos)
                 await _imageManagementService.DeleteImageAsync(photo.Name);
@@ -106,11 +109,12 @@ namespace ECommerce.Infrastructure.Repositories
                 var searchWords = productParams.Search
                     .Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
 
-                
+
                 foreach (var word in searchWords)
                 {
-                    var term = word; 
-                    query = query.Where(p => p.Name.Contains(term) || p.Description.Contains(term));
+                    var term = word;
+                    query = query.Where(p => searchWords.Any(word =>
+                             p.Name.Contains(word) || p.Description.Contains(word)));
                 }
             }
 
@@ -134,8 +138,8 @@ namespace ECommerce.Infrastructure.Repositories
                         break;
                 }
             }
-            var pagedEntities = query.Paginate(productParams.Page, productParams.Size);
-            var mappedData = _mapper.Map<List<ProductDTO>>(pagedEntities.Data);
+            var pagedEntities =await query.PaginateAsync(productParams.Page, productParams.Size);
+            // var mappedData = _mapper.Map<List<ProductDTO>>(pagedEntities.Data);
 
             var result = _mapper.Map<IReadOnlyList<ProductDTO>>(pagedEntities.Data);
 
