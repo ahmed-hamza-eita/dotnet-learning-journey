@@ -1,0 +1,119 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+$navbar-bg: #4654c6;
+$search-btn-bg: #ff2a70;
+$cart-pill-bg: rgba(255, 255, 255, 0.22);
+$text-color: #ffffff;
+
+.custom-navbar {
+  background-color: $navbar-bg;
+  padding: 10px 0;
+
+  .brand-logo {
+    height: 30px;
+    width: auto;
+  }
+
+  .brand-text {
+    color: $text-color;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1.2rem;
+  }
+
+  .nav-link {
+    color: $text-color;
+    font-size: 0.95rem;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    opacity: 0.95;
+
+    &:hover {
+      opacity: 1;
+      color: $text-color;
+    }
+  }
+
+  /* Custom Search Bar */
+  .search-form {
+    display: flex;
+    align-items: center;
+
+    .search-input {
+      border-radius: 8px 0 0 8px;
+      border: none;
+      padding: 6px 14px;
+      font-size: 0.9rem;
+      height: 38px;
+      min-width: 220px;
+
+      &:focus {
+        box-shadow: none;
+      }
+    }
+
+    .btn-search {
+      background-color: $search-btn-bg;
+      color: $text-color;
+      border: none;
+      border-radius: 0 8px 8px 0;
+      padding: 6px 16px;
+      font-style: italic;
+      font-size: 0.9rem;
+      height: 38px;
+
+      &:hover {
+        background-color: lighten($search-btn-bg, 5%);
+        color: $text-color;
+      }
+    }
+  }
+
+  /* Cart Translucent Pill Box */
+  .cart-btn {
+    background-color: $cart-pill-bg;
+    color: $text-color;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 16px;
+
+    &:hover,
+    &:focus,
+    &.show {
+      background-color: rgba(255, 255, 255, 0.32);
+      color: $text-color;
+      box-shadow: none;
+    }
+
+    .material-icons {
+      font-size: 1.25rem;
+      font-style: italic;
+    }
+  }
+
+  /* Account Dropdown Button */
+  .account-btn {
+    background-color: transparent;
+    color: $text-color;
+    border: none;
+    padding: 6px 8px;
+
+    &:hover,
+    &:focus,
+    &.show {
+      color: rgba(255, 255, 255, 0.8);
+      box-shadow: none;
+    }
+
+    .material-icons {
+      font-size: 1.5rem;
+      font-style: italic;
+    }
+  }
+
+  /* Caret Arrow Color */
+  .dropdown-toggle::after {
+    color: $text-color;
+    vertical-align: middle;
+    margin-left: 6px;
+  }
+}

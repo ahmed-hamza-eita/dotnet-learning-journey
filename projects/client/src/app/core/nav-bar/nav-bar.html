@@ -1,1 +1,79 @@
-<p>nav-bar works!</p>
+<nav class="custom-navbar navbar navbar-expand-lg">
+  <div class="container-fluid px-4">
+    <!-- Brand Logo & Text -->
+    <a class="navbar-brand d-flex align-items-center me-3" routerLink="/">
+      <img src="assets/favicon.ico" alt="Logo" class="brand-logo me-2">
+      <span class="brand-text">E-commerce</span>
+    </a>
+
+    <!-- Mobile Toggler -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <!-- Navigation Links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center">
+        <li class="nav-item"><a class="nav-link" routerLink="/">Home</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/shop">Shopping</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/about">About Us</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/best-sellers">Best Seller</a></li>
+      </ul>
+
+      <!-- Search Input -->
+      <form class="search-form d-flex me-4 my-2 my-lg-0">
+        <input class="form-control search-input" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-search d-flex align-items-center justify-content-center" type="submit">
+          <i class="material-icons">search</i>
+        </button>
+      </form>
+
+      <!-- Right Utility Actions -->
+      <div class="d-flex align-items-center gap-3">
+        <!-- Cart Dropdown -->
+        <div class="dropdown">
+          <button class="btn cart-btn dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown">
+            <i class="material-icons me-1">shopping_cart</i>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li>
+              <a class="dropdown-item d-flex align-items-center" routerLink="/cart">
+                <i class="material-icons me-2">shopping_bag</i> View Cart
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center" routerLink="/checkout">
+                <i class="material-icons me-2">payment</i> Checkout
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Account Dropdown -->
+        <div class="dropdown">
+          <button class="btn account-btn dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown">
+            <i class="material-icons">account_circle</i>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li>
+              <a class="dropdown-item d-flex align-items-center" routerLink="/register">
+                <i class="material-icons me-2">person_add</i> Register
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center" routerLink="/login">
+                <i class="material-icons me-2">login</i> Login
+              </a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center" routerLink="/orders">
+                <i class="material-icons me-2">receipt_long</i> My Orders
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
