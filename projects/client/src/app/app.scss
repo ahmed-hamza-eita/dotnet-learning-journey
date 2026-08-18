@@ -1,0 +1,53 @@
+// Main app container styling
+:host {
+  display: block;
+  height: 100%;
+}
+
+// Ensure navbar stays at top with proper spacing
+.navbar {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+  .navbar-brand {
+    font-size: 1.5rem;
+    transition: opacity 0.3s ease;
+    
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
+
+// Main content area styling
+main {
+  min-height: calc(100vh - 120px); // Adjust based on navbar and footer height
+  
+  router-outlet + * {
+    animation: fadeIn 0.3s ease-in;
+  }
+}
+
+// Footer styling
+footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: auto;
+}
+
+// Fade-in animation for route changes
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 576px) {
+  main {
+    min-height: calc(100vh - 100px);
+  }
+}
