@@ -42,8 +42,10 @@ namespace ECommerce.API.Controllers
         public async Task<IActionResult> DeleteBasket(string Id)
         {
             var result = await _unitOfWork.CustomerBasketRepository.DeleteBasket(Id);
+            if (result is false)
+                return NotFound(new ResponseAPI(404, $"No basket found with Id: {Id}"));
 
-            return Ok(value: new ResponseAPI(200, "Item Deleted") { Data = result });
+            return Ok(value: new ResponseAPI(200, "Item Deleted"));
         }
     }
 }
