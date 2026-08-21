@@ -2,7 +2,9 @@
 using ECommerce.Core.Services;
 using ECommerce.Infrastructure.Data;
 using ECommerce.Infrastructure.Repositories;
+using ECommerce.Infrastructure.Repositories.Services;
 using ECommerce.Infrastructure.Services;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,6 +28,8 @@ namespace ECommerce.Infrastructure
             //Apply DbContext
             services.AddDbContext<AppDbContext>(option => option.UseSqlServer
             (configuration.GetConnectionString("DefaultConnection")));
+            //register email sender
+            services.AddScoped<IEmailService, EmailService>();
 
             //apply redis connection
             services.AddSingleton<IConnectionMultiplexer>(i =>
