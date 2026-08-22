@@ -10,5 +10,7 @@ namespace ECommerce.Core.Interfaces
       
         Task<bool> ForgetPassword(string email);
         Task<AuthResultDTO> ResetPassword(ResetPasswordDTO dto);
+
+        Task<AuthResultDTO> ActiveAccount(ActivateEmailDTO dto);
     }
 }

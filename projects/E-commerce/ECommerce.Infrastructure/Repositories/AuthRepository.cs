@@ -130,5 +130,23 @@ namespace ECommerce.Infrastructure.Repositories
 
             return new AuthResultDTO(true, "Password reset successful");
         }
+
+        public async Task<AuthResultDTO> ActiveAccount(ActivateEmailDTO dto)
+        {
+            var findUser = await _userManager.FindByEmailAsync(dto.Email);
+
+            if (findUser is null)
+                return new AuthResultDTO(false, "Invalid email");
+
+            var result = await _userManager.ConfirmEmailAsync(findUser, dto.Token);
+            if (result.Succeeded)
+                return new AuthResultDTO(true, "Email activated successfully");
+
+            var newCode = await _userManager.GenerateEmailConfirmationTokenAsync(findUser);
+            await SendConfirmationEmail(findUser.Email!, newCode, "active", "Activate your email",
+                "Please activate your email");
+
+            return new AuthResultDTO(false, "Activation link expired or invalid. A new activation email has been sent.");
+        }
     }
 }
