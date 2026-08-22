@@ -1,5 +1,6 @@
 ﻿using ECommerce.Core.DTO.Identity;
 using ECommerce.Core.Services;
+using MailKit.Security;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
 using System;
@@ -19,41 +20,35 @@ namespace ECommerce.Infrastructure.Repositories.Services
 
         public async Task SendEmail(EmailDTO dto)
         {
-            MimeMessage message = new();
-
-            message.From.Add(new MailboxAddress("E-Commerece", _configuration["EmailSettings:From"]!));
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("App", GetRequiredConfig("EmailSettings:From")));
             message.Subject = dto.Subject;
             message.To.Add(new MailboxAddress(dto.To, dto.To));
-            message.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+            message.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = dto.Content };
+
+            using var smtp = new MailKit.Net.Smtp.SmtpClient();
+            smtp.Timeout = 10000;
+
+            try
             {
-                Text = dto.Content
-            };
+                await smtp.ConnectAsync(
+                    GetRequiredConfig("EmailSettings:Smpt"),
+                    int.Parse(GetRequiredConfig("EmailSettings:Port")),
+                    SecureSocketOptions.StartTls);
 
-            using (var smtp = new MailKit.Net.Smtp.SmtpClient())
+                await smtp.AuthenticateAsync(
+                    GetRequiredConfig("EmailSettings:UserName"),
+                    GetRequiredConfig("EmailSettings:Password"));
+
+                await smtp.SendAsync(message);
+            }
+            finally
             {
-                try
-                {
-                    await smtp.ConnectAsync(
-                        _configuration["EmailSettings:Smpt"],
-                        int.Parse(_configuration["EmailSettings:Port"]
-                        ?? throw new InvalidOperationException("EmailSettings:Port is missing")),
-                        true);
-
-                    await smtp.AuthenticateAsync(_configuration["EmailSettings:UserName"],
-                        _configuration["EmailSettings:Password"]);
-
-                    await smtp.SendAsync(message);
-                }
-                catch (Exception ex)
-                {
-                    throw;
-                }
-                finally
-                {
-                    smtp.Disconnect(true);
-                    smtp.Dispose();
-                }
+                smtp.Disconnect(true);
             }
         }
+
+        private string GetRequiredConfig(string key)
+            => _configuration[key] ?? throw new InvalidOperationException($"{key} is missing from configuration");
     }
 }

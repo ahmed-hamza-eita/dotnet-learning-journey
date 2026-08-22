@@ -12,6 +12,7 @@ namespace ECommerce.Infrastructure.Repositories
         private readonly UserManager<AppUser> _userManager;
         private readonly IEmailService _emailService;
         private readonly SignInManager<AppUser> _signInManager;
+
         public AuthRepository(UserManager<AppUser> userManager, IEmailService emailService, SignInManager<AppUser> signInManager)
         {
             _userManager = userManager;
@@ -28,12 +29,12 @@ namespace ECommerce.Infrastructure.Repositories
                 return new AuthResultDTO(false, "Username, email and password are required");
             }
 
-            if (await _userManager.FindByNameAsync(dto.UserName!) is not null)
+            if (await _userManager.FindByNameAsync(dto.UserName) is not null)
             {
                 return new AuthResultDTO(false, "This username is already registered");
             }
 
-            if (await _userManager.FindByEmailAsync(dto.Email!) is not null)
+            if (await _userManager.FindByEmailAsync(dto.Email) is not null)
             {
                 return new AuthResultDTO(false, "This email is already registered");
             }
@@ -49,12 +50,15 @@ namespace ECommerce.Infrastructure.Repositories
             if (!result.Succeeded)
                 return new AuthResultDTO(false, result.Errors.First().Description);
 
+            string code = await _userManager.GenerateEmailConfirmationTokenAsync(newUser);
+            await SendConfirmationEmail(newUser.Email, code, "active", "ActiveEmail", "Please Active your E-mail");
+
             return new AuthResultDTO(true, "Registration successful");
         }
-        public async Task SendEmail(string email, string code, string componenet, string subject, string message)
+        private async Task SendConfirmationEmail(string email, string code, string componenet, string subject, string message)
         {
             var result = new EmailDTO(
-                email,
+                to:email,
                 "aheita4@gmail.com",
                 subject,
                 EmailStringBody.send(email, code, componenet, message)
