@@ -7,6 +7,8 @@ namespace ECommerce.Core.Interfaces
     {
         Task<AuthResultDTO> Register(RegisterDTO dto);
         Task<AuthResultDTO> Login(LoginDTO dto);
-         
+      
+        Task<bool> ForgetPassword(string email);
+        Task<AuthResultDTO> ResetPassword(ResetPasswordDTO dto);
     }
 }

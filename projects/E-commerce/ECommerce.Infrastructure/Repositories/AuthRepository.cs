@@ -102,5 +102,33 @@ namespace ECommerce.Infrastructure.Repositories
             return new AuthResultDTO(true, "Login successful", token);
         }
 
+        public async Task<bool> ForgetPassword(string email)
+        {
+            var findUser = await _userManager.FindByEmailAsync(email);
+
+            if (findUser is null)
+                return false;
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(findUser);
+            await SendConfirmationEmail(findUser.Email!, token, "reset-password", "Reset Password",
+                "Click the link below to reset your password");
+
+            return true;
+        }
+
+        public async Task<AuthResultDTO> ResetPassword(ResetPasswordDTO dto)
+        {
+            var findUser = await _userManager.FindByEmailAsync(dto.Email);
+
+            if (findUser is null)
+                return new AuthResultDTO(false, "Invalid email");
+
+            var result = await _userManager.ResetPasswordAsync(findUser, dto.Token, dto.Password);
+
+            if (!result.Succeeded)
+                return new AuthResultDTO(false, result.Errors.First().Description);
+
+            return new AuthResultDTO(true, "Password reset successful");
+        }
     }
 }
