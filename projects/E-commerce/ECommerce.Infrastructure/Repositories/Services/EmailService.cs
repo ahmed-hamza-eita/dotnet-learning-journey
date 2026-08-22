@@ -32,7 +32,7 @@ namespace ECommerce.Infrastructure.Repositories.Services
             try
             {
                 await smtp.ConnectAsync(
-                    GetRequiredConfig("EmailSettings:Smpt"),
+                    GetRequiredConfig("EmailSettings:Smtp"),
                     int.Parse(GetRequiredConfig("EmailSettings:Port")),
                     SecureSocketOptions.StartTls);
 

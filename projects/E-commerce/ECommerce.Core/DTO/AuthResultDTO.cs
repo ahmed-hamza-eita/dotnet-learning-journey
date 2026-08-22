@@ -1,4 +1,4 @@
 ﻿namespace ECommerce.Core.DTO.Identity
 {
-    public record AuthResultDTO(bool Succeeded, string Message);
+    public record AuthResultDTO(bool Succeeded, string Message, string? Token = null);
 }

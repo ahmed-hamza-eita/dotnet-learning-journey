@@ -30,7 +30,8 @@ namespace ECommerce.Infrastructure
             (configuration.GetConnectionString("DefaultConnection")));
             //register email sender
             services.AddScoped<IEmailService, EmailService>();
-
+            //regitser token 
+            services.AddScoped<IGenerateToken, GenerateToken>();
             //apply redis connection
             services.AddSingleton<IConnectionMultiplexer>(i =>
             {

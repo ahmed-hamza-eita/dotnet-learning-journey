@@ -3,15 +3,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ECommerce.Core.DTO.Identity
 {
-    public class RegisterDTO
+    public class RegisterDTO : LoginDTO
     {
-        [Required, EmailAddress]
-        public string Email { set; get; } = string.Empty;
+
 
         [Required, MinLength(3)]
         public string UserName { set; get; } = string.Empty;
 
-        [Required, MinLength(6)]
-        public string Password { set; get; } = string.Empty;
+
     }
 }
